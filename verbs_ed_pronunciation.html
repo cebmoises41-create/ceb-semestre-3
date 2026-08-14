@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ED Pronunciation - Audio Game</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* FONDO Y DECORACIONES */
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+        }
+
+        .floating-words {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .word {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 900;
+            font-size: 4.5rem;
+            transform: rotate(-15deg);
+            user-select: none;
+        }
+        .w1 { top: 5%; left: 2%; }
+        .w2 { bottom: 10%; left: 5%; font-size: 3.5rem; transform: rotate(5deg); }
+        .w3 { top: 15%; right: 2%; font-size: 3.5rem; transform: rotate(-20deg); }
+        .w4 { bottom: 15%; right: 5%; font-size: 5rem; transform: rotate(10deg); }
+
+        .icon {
+            position: absolute;
+            font-size: 5rem;
+            opacity: 0.2;
+            user-select: none;
+        }
+        .i1 { top: 2%; left: 45%; }
+        .i2 { bottom: 2%; left: 40%; }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 35px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1c3d3b, #2980b9);
+            -webkit-background-clip: text;
+            background-clip: text; /* Línea agregada para quitar el warning */
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .timer-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8f9fa;
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .timer-icon { font-size: 1.8rem; }
+        .timer {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2c3e50;
+            min-width: 70px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .timer.warning {
+            color: #e74c3c;
+            animation: pulse 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .score-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            background: #e9ecef;
+            padding: 6px 18px;
+            border-radius: 30px;
+        }
+        .score-display span {
+            color: #2980b9;
+            font-size: 1.3rem;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #2980b9);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        /* ÁREA DE PREGUNTA (AUDIO DE LA ORACIÓN) */
+        .question-area {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .audio-container {
+            background: #f1f3f5;
+            padding: 25px 20px;
+            border-radius: 20px;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ced4da;
+        }
+
+        .play-sound-btn {
+            background: #2980b9;
+            color: white;
+            border: none;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .play-sound-btn:hover {
+            transform: scale(1.05);
+            background: #1f618d;
+        }
+        .play-sound-btn:active {
+            transform: scale(0.95);
+        }
+        .play-sound-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .audio-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* OPCIONES (3 ORACIONES) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .option-btn {
+            padding: 16px 12px;
+            border: 3px solid #e9ecef;
+            border-radius: 16px;
+            background: white;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            border-color: #2980b9;
+            box-shadow: 0 6px 20px rgba(41, 128, 185, 0.15);
+        }
+        .option-btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .option-btn.correct {
+            border-color: #2ecc71;
+            background: #d5f5e3;
+            color: #1a7a42;
+        }
+        .option-btn.wrong {
+            border-color: #e74c3c;
+            background: #fadbd8;
+            color: #922b21;
+        }
+        .option-btn.show-correct {
+            border-color: #2ecc71;
+            background: #d5f5e3;
+            color: #1a7a42;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feedback.correct {
+            background: #d5f5e3;
+            color: #1a7a42;
+        }
+        .feedback.wrong {
+            background: #fadbd8;
+            color: #922b21;
+        }
+        .feedback.empty {
+            background: transparent;
+            color: #6c757d;
+        }
+
+        /* BOTÓN SIGUIENTE */
+        .next-btn {
+            display: none;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1c3d3b, #2980b9);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+        }
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(41, 128, 185, 0.4);
+        }
+        .next-btn.show {
+            display: block;
+        }
+
+        /* RESULTADOS FINALES */
+        .results {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .results.show {
+            display: block;
+        }
+        .results .emoji-big {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+        .results .final-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #1c3d3b;
+        }
+        .results .final-detail {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin: 8px 0;
+        }
+        .results .stat-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .results .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #2980b9);
+            border-radius: 20px;
+            transition: width 1s ease;
+        }
+        .results .stat-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* BOTONES DE NAVEGACIÓN */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #e9ecef;
+            color: #495057;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+        }
+        .back-button:hover {
+            background: #ced4da;
+        }
+
+        @media (max-width: 650px) {
+            .container { padding: 20px 15px; }
+            .page-title { font-size: 1.6rem; }
+            .header { flex-direction: column; align-items: stretch; gap: 10px; }
+            .timer-section { justify-content: center; }
+            .options-grid { grid-template-columns: 1fr; }
+            .option-btn { font-size: 0.9rem; padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-words">
+        <div class="word w1">LISTEN</div>
+        <div class="word w2">SOUNDS</div>
+        <div class="word w3">PRONUNCIATION</div>
+        <div class="word w4">FUN</div>
+        <div class="icon i1">🎧</div>
+        <div class="icon i2">🔊</div>
+    </div>
+
+    <div class="container" id="app">
+        <!-- HEADER -->
+        <div class="header">
+            <h1 class="page-title">🔊 ED Pronunciation</h1>
+            <div class="timer-section">
+                <span class="timer-icon">⏱️</span>
+                <span class="timer" id="timerDisplay">2:30</span>
+                <span class="score-display">✅ <span id="scoreDisplay">0</span>/20</span>
+            </div>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+
+        <!-- ÁREA DE JUEGO -->
+        <div id="gameArea">
+            <div class="question-area">
+                <div class="question-number" id="questionNumber">Question 1 of 20</div>
+                
+                <div class="audio-container">
+                    <button class="play-sound-btn" id="playBtn">🔊</button>
+                    <div class="audio-label">Listen to the sentence</div>
+                    <div style="font-size:0.9rem; color:#6c757d; margin-top:5px;">Then choose the correct sentence</div>
+                </div>
+            </div>
+
+            <div class="options-grid" id="optionsGrid">
+                <button class="option-btn" data-index="0">Option 1</button>
+                <button class="option-btn" data-index="1">Option 2</button>
+                <button class="option-btn" data-index="2">Option 3</button>
+            </div>
+
+            <div class="feedback empty" id="feedback">🎧 Listen to the audio. Choose the correct sentence.</div>
+
+            <button class="next-btn" id="nextBtn">Next Question →</button>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="results" id="resultsArea">
+            <div class="emoji-big" id="resultEmoji">🎉</div>
+            <div class="final-score" id="finalScore">20/20</div>
+            <div class="final-detail" id="finalDetail">Perfect! Excellent work! 🌟</div>
+            <div class="stat-bar">
+                <div class="stat-fill" id="statFill" style="width: 0%;"></div>
+            </div>
+            <div class="stat-labels">
+                <span>0%</span>
+                <span id="statLabel">100%</span>
+                <span>100%</span>
+            </div>
+            <a href="menu.html" class="back-button" style="margin-top:20px; display:inline-block;">← Back to Menu</a>
+        </div>
+
+        <!-- BOTONES NAVEGACIÓN -->
+        <div class="nav-buttons" id="navButtons">
+            <a href="menu.html" class="back-button">← Back to Menu</a>
+            <a href="index.html" class="back-button">🏠 Home</a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 📚 20 PREGUNTAS (3 OPCIONES)
+        // ============================================================
+        const questions = [
+            { correct: "I walked in the park yesterday.", missing: "walked in the park yesterday.", different: "I eat in the park yesterday." },
+            { correct: "She played the piano beautifully.", missing: "played the piano beautifully.", different: "She play the piano beautifully." },
+            { correct: "They wanted to go to the movies.", missing: "wanted to go to the movies.", different: "They want to go to the movies." },
+            { correct: "The rain stopped in the afternoon.", missing: "stopped in the afternoon.", different: "The rain stop in the afternoon." },
+            { correct: "He studied hard for the exam.", missing: "studied hard for the exam.", different: "He study hard for the exam." },
+            { correct: "We visited our grandparents on Sunday.", missing: "visited our grandparents on Sunday.", different: "We visit our grandparents on Sunday." },
+            { correct: "I helped my sister with her homework.", missing: "helped my sister with her homework.", different: "I help my sister with her homework." },
+            { correct: "She cleaned her room completely.", missing: "cleaned her room completely.", different: "She clean her room completely." },
+            { correct: "He finished his homework quickly.", missing: "finished his homework quickly.", different: "He finish his homework quickly." },
+            { correct: "They enjoyed the concert a lot.", missing: "enjoyed the concert a lot.", different: "They enjoy the concert a lot." },
+            { correct: "We danced all night at the party.", missing: "danced all night at the party.", different: "We dance all night at the party." },
+            { correct: "My mom cooked a delicious dinner.", missing: "cooked a delicious dinner.", different: "My mom cook a delicious dinner." },
+            { correct: "We listened to music all afternoon.", missing: "listened to music all afternoon.", different: "We listen to music all afternoon." },
+            { correct: "She opened the window to get some air.", missing: "opened the window to get some air.", different: "She open the window to get some air." },
+            { correct: "They worked hard on the project.", missing: "worked hard on the project.", different: "They work hard on the project." },
+            { correct: "It rained heavily last night.", missing: "rained heavily last night.", different: "It rain heavily last night." },
+            { correct: "He closed the door softly.", missing: "closed the door softly.", different: "He close the door softly." },
+            { correct: "I waited for the bus for 20 minutes.", missing: "waited for the bus for 20 minutes.", different: "I wait for the bus for 20 minutes." },
+            { correct: "They talked about their summer plans.", missing: "talked about their summer plans.", different: "They talk about their summer plans." },
+            { correct: "She traveled to Europe last summer.", missing: "traveled to Europe last summer.", different: "She travel to Europe last summer." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timer = 150; // 2:30
+        let timerInterval = null;
+        let isAnswered = false;
+        let totalQuestions = questions.length;
+        let currentSentence = "";
+
+        function generateOptions(q) {
+            const options = [q.correct, q.missing, q.different];
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function speakSentence(sentence) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(sentence);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Your browser does not support text-to-speech. Please use Chrome or Edge.");
+            }
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            currentSentence = q.correct;
+            const progress = ((currentQuestion) / totalQuestions) * 100;
+
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+            document.getElementById('scoreDisplay').textContent = score;
+
+            const options = generateOptions(q);
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, index) => {
+                btn.textContent = options[index] || '---';
+                btn.className = 'option-btn';
+                btn.disabled = false;
+                btn.dataset.correct = options[index] === q.correct ? 'true' : 'false';
+            });
+
+            const feedback = document.getElementById('feedback');
+            feedback.className = 'feedback empty';
+            feedback.textContent = '🎧 Listen to the audio. Choose the correct sentence.';
+
+            document.getElementById('playBtn').disabled = false;
+            document.getElementById('nextBtn').className = 'next-btn';
+            document.getElementById('nextBtn').textContent = currentQuestion === totalQuestions - 1 ? '🏆 See Results' : 'Next Question →';
+
+            isAnswered = false;
+        }
+
+        function handleOptionClick(e) {
+            const btn = e.currentTarget;
+            if (isAnswered || btn.disabled) return;
+
+            const isCorrect = btn.dataset.correct === 'true';
+            const q = questions[currentQuestion];
+            const feedback = document.getElementById('feedback');
+
+            isAnswered = true;
+            if (isCorrect) score++;
+
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            document.querySelectorAll('.option-btn').forEach(b => {
+                if (b.dataset.correct === 'true') b.classList.add('show-correct');
+                if (b === btn && !isCorrect) b.classList.add('wrong');
+                if (b === btn && isCorrect) b.classList.add('correct');
+            });
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `✅ Correct!`;
+            } else {
+                feedback.className = 'feedback wrong';
+                feedback.textContent = `❌ Oops! The correct sentence is: "${q.correct}".`;
+            }
+            document.getElementById('scoreDisplay').textContent = score;
+
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.className = 'next-btn show';
+            if (currentQuestion === totalQuestions - 1) {
+                nextBtn.textContent = '🏆 See Results';
+            }
+        }
+
+        function goToNext() {
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            clearInterval(timerInterval);
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('navButtons').style.display = 'none';
+            const results = document.getElementById('resultsArea');
+            results.className = 'results show';
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.getElementById('finalScore').textContent = `${score}/${totalQuestions}`;
+            document.getElementById('statFill').style.width = `${percentage}%`;
+            document.getElementById('statLabel').textContent = `${percentage}%`;
+
+            let emoji, message;
+            if (percentage === 100) { emoji = '🌟'; message = 'Perfect! Excellent work! 🎉'; }
+            else if (percentage >= 80) { emoji = '😊'; message = 'Great job! Keep practicing! 💪'; }
+            else if (percentage >= 60) { emoji = '📖'; message = 'Good effort! Review the verbs and try again!'; }
+            else if (percentage >= 40) { emoji = '🤔'; message = 'Practice more! You\'ll get better!'; }
+            else { emoji = '💪'; message = 'Don\'t give up! Study and try again!'; }
+
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('finalDetail').textContent = message;
+
+            localStorage.setItem('verbs_ed_pronunciation_puntos', score);
+        }
+
+        function startTimer() {
+            const timerDisplay = document.getElementById('timerDisplay');
+            timerInterval = setInterval(() => {
+                timer--;
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (timer <= 30) timerDisplay.classList.add('warning');
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '0:00';
+                    if (currentQuestion < totalQuestions - 1) {
+                        currentQuestion = totalQuestions - 1;
+                        showResults();
+                    } else {
+                        showResults();
+                    }
+                }
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', handleOptionClick);
+            });
+            document.getElementById('nextBtn').addEventListener('click', goToNext);
+            document.getElementById('playBtn').addEventListener('click', () => {
+                speakSentence(currentSentence);
+            });
+
+            renderQuestion();
+            startTimer();
+        });
+    </script>
+</body>
+</html>

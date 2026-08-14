@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular Verbs 1 - Conjugation Practice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .game-container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 600px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+            letter-spacing: -1px;
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* LOGIN */
+        #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 0; }
+        #login-screen input { 
+            padding: 14px 20px; 
+            font-size: 1.1rem; 
+            border: 2px solid #ced4da; 
+            border-radius: 12px; 
+            width: 280px; 
+            text-align: center; 
+            margin: 8px 0; 
+            outline: none; 
+            transition: 0.3s; 
+            font-family: inherit;
+        }
+        #login-screen input:focus { border-color: #0f3460; box-shadow: 0 0 0 3px rgba(15,52,96,0.2); }
+        #login-screen button { 
+            background: #0f3460; 
+            color: white; 
+            border: none; 
+            padding: 14px 50px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-top: 15px; 
+            box-shadow: 0 4px 0 #0a1f3a; 
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error { color: #e74c3c; font-weight: bold; margin-top: 10px; display: none; background: #fde8e8; padding: 8px 15px; border-radius: 8px; }
+        
+        /* JUEGO */
+        #game-screen { display: none; }
+        
+        .status-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #f8f9fa; 
+            padding: 10px 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid #e9ecef; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        #player-name { font-weight: bold; color: #1a1a2e; font-size: 1rem; }
+        #timer-display { 
+            font-weight: bold; 
+            color: #c0392b; 
+            font-size: 1.2rem; 
+            background: #fff; 
+            padding: 5px 18px; 
+            border-radius: 20px; 
+            border: 2px solid #c0392b; 
+        }
+        #progress-text { font-size: 0.9rem; color: #6c757d; }
+        
+        /* VERBO */
+        .verb-display {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+        .verb-infinitive {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1a1a2e;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+        .verb-infinitive small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #6c757d;
+            display: block;
+        }
+        .verb-pattern {
+            font-size: 1rem;
+            color: #6c757d;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px dashed #0f3460;
+        }
+        .verb-pattern strong {
+            color: #0f3460;
+        }
+        
+        .verb-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .verb-cell {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .verb-cell .label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .verb-cell input {
+            border: none;
+            border-bottom: 3px solid #0f3460;
+            background: transparent;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f3460;
+            text-align: center;
+            width: 100%;
+            max-width: 180px;
+            padding: 4px 8px;
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+            text-transform: lowercase;
+        }
+        .verb-cell input:focus {
+            border-bottom-color: #1a1a2e;
+            color: #1a1a2e;
+        }
+        .verb-cell input.correct {
+            border-bottom-color: #28a745;
+            color: #28a745;
+        }
+        .verb-cell input.wrong {
+            border-bottom-color: #dc3545;
+            color: #dc3545;
+        }
+        .verb-cell input:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+        .verb-cell .example {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .verb-hint {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 12px;
+            font-style: italic;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-primary { background: #0f3460; color: white; }
+        .btn-primary:hover { background: #0a1f3a; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #1e7e34; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-warning:hover { background: #d68910; }
+        
+        .resultado {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #contador {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 25px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #0f3460;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box h2 { color: #1a1a2e; margin: 0; }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #0f3460;
+        }
+        .final-score-box .details {
+            color: #6c757d;
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 600px) {
+            .game-container { padding: 20px; }
+            .verb-row { grid-template-columns: 1fr; gap: 10px; }
+            .verb-cell input { max-width: 150px; font-size: 1.1rem; }
+            .verb-infinitive { font-size: 2rem; }
+            .status-bar { flex-direction: column; align-items: center; }
+            .title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="title">📝 Regular <span>Verbs 1</span></h1>
+    <p class="sub">Write the past simple and past participle forms</p>
+
+    <div id="login-screen">
+        <p style="color:#6c757d; margin-bottom:5px;">Enter your name:</p>
+        <input type="text" id="input-name" placeholder="Your name">
+        <p style="color:#6c757d; margin-bottom:5px; margin-top:15px;">Enter Access Code:</p>
+        <input type="password" id="input-code" placeholder="Code">
+        <button onclick="verificarAcceso()">Start Practice</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+    </div>
+
+    <div id="game-screen">
+        <div class="status-bar">
+            <span id="player-name">👋 Welcome, Student!</span>
+            <span id="timer-display">⏱️ 120s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+
+        <div class="verb-display" id="verb-display">
+            <!-- Generado por JavaScript -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" id="checkBtn" onclick="verificarRespuesta()">✅ Check Answer</button>
+            <button class="btn btn-warning" id="resetBtn" onclick="resetGame()" style="display:none;">🔄 New Game</button>
+        </div>
+
+        <p class="resultado" id="respuesta"></p>
+        <p id="contador">Points: 0 / 20</p>
+
+        <div class="final-score-box" id="score-box">
+            <h2>🏁 Practice Complete!</h2>
+            <p class="big-score" id="final-score">0 / 20</p>
+            <p id="final-message" style="font-size:1.2rem; font-weight:bold;"></p>
+            <p class="details" id="final-details"></p>
+        </div>
+
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS DINÁMICOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('regular1_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = "Student";
+    let timerInterval;
+    let timeLeft = 120;
+    let juegoTerminado = false;
+
+    // ============================================================
+    // 2. BASE DE DATOS - REGULAR VERBS
+    // ============================================================
+    const VERBOS = [
+        { infinitive: 'walk', past: 'walked' },
+        { infinitive: 'talk', past: 'talked' },
+        { infinitive: 'play', past: 'played' },
+        { infinitive: 'watch', past: 'watched' },
+        { infinitive: 'work', past: 'worked' },
+        { infinitive: 'study', past: 'studied' },
+        { infinitive: 'cry', past: 'cried' },
+        { infinitive: 'try', past: 'tried' },
+        { infinitive: 'dance', past: 'danced' },
+        { infinitive: 'like', past: 'liked' },
+        { infinitive: 'love', past: 'loved' },
+        { infinitive: 'hate', past: 'hated' },
+        { infinitive: 'hope', past: 'hoped' },
+        { infinitive: 'call', past: 'called' },
+        { infinitive: 'clean', past: 'cleaned' },
+        { infinitive: 'cook', past: 'cooked' },
+        { infinitive: 'help', past: 'helped' },
+        { infinitive: 'need', past: 'needed' },
+        { infinitive: 'open', past: 'opened' },
+        { infinitive: 'close', past: 'closed' },
+        { infinitive: 'start', past: 'started' },
+        { infinitive: 'stop', past: 'stopped' },
+        { infinitive: 'plan', past: 'planned' },
+        { infinitive: 'prefer', past: 'preferred' },
+        { infinitive: 'travel', past: 'traveled' },
+        { infinitive: 'visit', past: 'visited' },
+        { infinitive: 'wait', past: 'waited' },
+        { infinitive: 'want', past: 'wanted' },
+        { infinitive: 'ask', past: 'asked' },
+        { infinitive: 'answer', past: 'answered' },
+        { infinitive: 'change', past: 'changed' },
+        { infinitive: 'check', past: 'checked' },
+        { infinitive: 'decide', past: 'decided' },
+        { infinitive: 'enjoy', past: 'enjoyed' },
+        { infinitive: 'finish', past: 'finished' },
+        { infinitive: 'join', past: 'joined' },
+        { infinitive: 'learn', past: 'learned' },
+        { infinitive: 'move', past: 'moved' },
+        { infinitive: 'offer', past: 'offered' },
+        { infinitive: 'practice', past: 'practiced' }
+    ];
+
+    // ============================================================
+    // 3. VARIABLES GLOBALES
+    // ============================================================
+    let preguntasActuales = [];
+    let puntaje = 0;
+    let indiceActual = 0;
+
+    // ============================================================
+    // 4. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('input-name').value.trim();
+        const codeInput = document.getElementById('input-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") { alert("Please enter your name."); return; }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('input-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('regular1_attempts')) || 0;
+        localStorage.setItem('regular1_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        document.getElementById('login-screen').style.display = "none";
+        document.getElementById('game-screen').style.display = "block";
+        document.getElementById('player-name').innerHTML = `👋 Welcome, ${playerName}!`;
+        iniciarJuego();
+    }
+
+    // ============================================================
+    // 5. INICIO DEL JUEGO
+    // ============================================================
+    function iniciarJuego() {
+        juegoTerminado = false;
+        puntaje = 0;
+        indiceActual = 0;
+
+        const mezclados = [...VERBOS].sort(() => Math.random() - 0.5);
+        preguntasActuales = mezclados.slice(0, 20);
+
+        document.getElementById('score-box').style.display = 'none';
+        document.getElementById('contador').style.display = 'block';
+        document.getElementById('contador').innerHTML = `Points: 0 / ${preguntasActuales.length}`;
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'inline-block';
+        document.getElementById('resetBtn').style.display = 'none';
+
+        mostrarPregunta();
+        iniciarCronometro();
+    }
+
+    // ============================================================
+    // 6. CRONÓMETRO (120 SEGUNDOS)
+    // ============================================================
+    function iniciarCronometro() {
+        timeLeft = 120;
+        document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+            if (timeLeft <= 0 && !juegoTerminado) {
+                clearInterval(timerInterval);
+                finalizarJuego("⏰ Time's Up!");
+            }
+        }, 1000);
+    }
+
+    // ============================================================
+    // 7. MOSTRAR PREGUNTA - AMBOS INPUTS
+    // ============================================================
+    function mostrarPregunta() {
+        if (juegoTerminado) return;
+        
+        if (indiceActual >= preguntasActuales.length) {
+            finalizarJuego("🎉 All verbs completed!");
+            return;
+        }
+
+        const verb = preguntasActuales[indiceActual];
+        
+        let html = `
+            <div style="text-align:center; margin-bottom:15px; color:#6c757d; font-size:0.9rem;">
+                Verb ${indiceActual + 1} of ${preguntasActuales.length}
+            </div>
+            <div class="verb-infinitive">
+                ${verb.infinitive}
+                <small>infinitive</small>
+            </div>
+            <div class="verb-pattern">
+                Regular verb: infinitive + <strong>ed</strong>
+            </div>
+            <div class="verb-row">
+                <div class="verb-cell">
+                    <span class="label">PAST SIMPLE</span>
+                    <input type="text" id="past-simple-input" placeholder="write here..." autocomplete="off" style="text-transform:lowercase;" />
+                    <div class="example">e.g., ${verb.infinitive} → ${verb.past}</div>
+                </div>
+                <div class="verb-cell">
+                    <span class="label">PAST PARTICIPLE</span>
+                    <input type="text" id="past-participle-input" placeholder="write here..." autocomplete="off" style="text-transform:lowercase;" />
+                    <div class="example">same as past simple</div>
+                </div>
+            </div>
+            <div class="verb-hint">
+                💡 Write both forms (add -ed)
+            </div>
+        `;
+
+        document.getElementById('verb-display').innerHTML = html;
+        document.getElementById('progress-text').innerHTML = `Question ${indiceActual + 1} / ${preguntasActuales.length}`;
+
+        const input1 = document.getElementById('past-simple-input');
+        const input2 = document.getElementById('past-participle-input');
+        
+        if (input1) {
+            input1.focus();
+            input1.removeEventListener('keydown', handleEnter);
+            input1.addEventListener('keydown', handleEnter);
+        }
+        if (input2) {
+            input2.removeEventListener('keydown', handleEnter);
+            input2.addEventListener('keydown', handleEnter);
+        }
+    }
+
+    // ============================================================
+    // 8. MANEJAR ENTER
+    // ============================================================
+    function handleEnter(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            verificarRespuesta();
+        }
+    }
+
+    // ============================================================
+    // 9. VERIFICAR RESPUESTA - AMBOS CAMPOS
+    // ============================================================
+    function verificarRespuesta() {
+        if (juegoTerminado) return;
+
+        const input1 = document.getElementById('past-simple-input');
+        const input2 = document.getElementById('past-participle-input');
+        
+        if (!input1 || !input2) return;
+
+        const userPast = input1.value.trim().toLowerCase();
+        const userParticiple = input2.value.trim().toLowerCase();
+        
+        if (userPast === "" || userParticiple === "") {
+            document.getElementById('respuesta').innerHTML = "⚠️ Please write both answers.";
+            document.getElementById('respuesta').style.color = "#f39c12";
+            return;
+        }
+
+        const verb = preguntasActuales[indiceActual];
+        const correctAnswer = verb.past.toLowerCase();
+
+        // Verificar ambos
+        let isPastCorrect = (userPast === correctAnswer);
+        let isParticipleCorrect = (userParticiple === correctAnswer);
+        
+        // Variante británica para travel
+        if (verb.infinitive === 'travel') {
+            if (userPast === 'travelled') isPastCorrect = true;
+            if (userParticiple === 'travelled') isParticipleCorrect = true;
+        }
+
+        const res = document.getElementById('respuesta');
+        
+        // Marcar cada input individualmente
+        if (isPastCorrect) {
+            input1.classList.add('correct');
+        } else {
+            input1.classList.add('wrong');
+        }
+        
+        if (isParticipleCorrect) {
+            input2.classList.add('correct');
+        } else {
+            input2.classList.add('wrong');
+        }
+
+        // Contar puntos (ambos correctos = 1 punto)
+        if (isPastCorrect && isParticipleCorrect) {
+            puntaje++;
+            res.innerHTML = "✅ Both correct! Well done!";
+            res.style.color = "#28a745";
+        } else {
+            let msg = "❌ ";
+            if (!isPastCorrect) msg += `Past Simple: "${correctAnswer}" `;
+            if (!isParticipleCorrect) msg += `Past Participle: "${correctAnswer}" `;
+            res.innerHTML = msg;
+            res.style.color = "#dc3545";
+        }
+
+        input1.disabled = true;
+        input2.disabled = true;
+        
+        document.getElementById('contador').innerHTML = `Points: ${puntaje} / ${preguntasActuales.length}`;
+
+        indiceActual++;
+        setTimeout(mostrarPregunta, 1500);
+    }
+
+    // ============================================================
+    // 10. FINALIZAR JUEGO
+    // ============================================================
+    function finalizarJuego(mensaje) {
+        if (juegoTerminado) return;
+        juegoTerminado = true;
+        clearInterval(timerInterval);
+
+        const input1 = document.getElementById('past-simple-input');
+        const input2 = document.getElementById('past-participle-input');
+        if (input1) input1.disabled = true;
+        if (input2) input2.disabled = true;
+
+        localStorage.setItem('regular1_score', puntaje);
+
+        let history = JSON.parse(localStorage.getItem('regular1_history')) || [];
+        history.push({
+            name: playerName,
+            score: puntaje,
+            total: preguntasActuales.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: 'Regular Verbs 1'
+        });
+        localStorage.setItem('regular1_history', JSON.stringify(history));
+
+        const total = preguntasActuales.length;
+        const percentage = Math.round((puntaje / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a verb master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the verbs you missed.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! You will get better!'; }
+
+        document.getElementById('score-box').style.display = 'block';
+        document.getElementById('final-score').innerHTML = `${puntaje} / ${total}`;
+        document.getElementById('final-message').innerHTML = `${emoji} ${message}`;
+        document.getElementById('final-details').innerHTML = `${percentage}% correct · ${playerName}`;
+
+        document.getElementById('contador').style.display = 'none';
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'inline-block';
+        document.getElementById('verb-display').innerHTML = `
+            <div style="text-align:center; padding:20px; color:#6c757d;">
+                🏁 Practice finished! See your results below.
+            </div>
+        `;
+        document.getElementById('progress-text').innerHTML = `Complete!`;
+    }
+
+    // ============================================================
+    // 11. REINICIAR
+    // ============================================================
+    function resetGame() {
+        if (confirm('Do you want to start a new game with different verbs?')) {
+            clearInterval(timerInterval);
+            iniciarJuego();
+        }
+    }
+
+    // ============================================================
+    // 12. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display !== 'none') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

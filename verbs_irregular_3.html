@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irregular Verbs 3 - Write the Missing Form</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        }
+        
+        .game-container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 650px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+            letter-spacing: -1px;
+        }
+        .title span { color: #e94560; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 0; }
+        #login-screen input { 
+            padding: 14px 20px; 
+            font-size: 1.1rem; 
+            border: 2px solid #ced4da; 
+            border-radius: 12px; 
+            width: 280px; 
+            text-align: center; 
+            margin: 8px 0; 
+            outline: none; 
+            transition: 0.3s; 
+            font-family: inherit;
+        }
+        #login-screen input:focus { border-color: #e94560; box-shadow: 0 0 0 3px rgba(233,69,96,0.2); }
+        #login-screen button { 
+            background: #e94560; 
+            color: white; 
+            border: none; 
+            padding: 14px 50px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-top: 15px; 
+            box-shadow: 0 4px 0 #c0392b; 
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error { color: #e74c3c; font-weight: bold; margin-top: 10px; display: none; background: #fde8e8; padding: 8px 15px; border-radius: 8px; }
+        
+        #game-screen { display: none; }
+        
+        .status-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #f8f9fa; 
+            padding: 10px 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid #e9ecef; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        #player-name { font-weight: bold; color: #1a1a2e; font-size: 1rem; }
+        #timer-display { 
+            font-weight: bold; 
+            color: #c0392b; 
+            font-size: 1.2rem; 
+            background: #fff; 
+            padding: 5px 18px; 
+            border-radius: 20px; 
+            border: 2px solid #c0392b; 
+        }
+        #progress-text { font-size: 0.9rem; color: #6c757d; }
+        
+        .verb-table {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+        .verb-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .verb-row:last-child { margin-bottom: 0; }
+        .verb-cell {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            padding: 8px;
+            text-align: center;
+        }
+        .verb-cell .label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+        .verb-cell input {
+            border: none;
+            border-bottom: 3px solid #e94560;
+            background: transparent;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e94560;
+            text-align: center;
+            width: 130px;
+            padding: 4px 8px;
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+            text-transform: lowercase;
+        }
+        .verb-cell input:focus {
+            border-bottom-color: #1a1a2e;
+            color: #1a1a2e;
+        }
+        .verb-cell input.correct {
+            border-bottom-color: #28a745;
+            color: #28a745;
+        }
+        .verb-cell input.wrong {
+            border-bottom-color: #dc3545;
+            color: #dc3545;
+        }
+        .verb-cell input:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+        
+        .verb-hint {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-primary { background: #1a1a2e; color: white; }
+        .btn-primary:hover { background: #0f0c29; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #1e7e34; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #a71d2a; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-warning:hover { background: #d68910; }
+        
+        .resultado {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #contador {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 25px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #e94560;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box h2 { color: #1a1a2e; margin: 0; }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #e94560;
+        }
+        .final-score-box .details {
+            color: #6c757d;
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 600px) {
+            .game-container { padding: 20px; }
+            .verb-row { grid-template-columns: 1fr; gap: 8px; padding: 15px; }
+            .verb-cell input { width: 100px; font-size: 1.1rem; }
+            .verb-cell { font-size: 1.1rem; }
+            .status-bar { flex-direction: column; align-items: center; }
+            .title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="title">🔄 Irregular <span>Verbs 3</span></h1>
+    <p class="sub">Write the missing form of each verb</p>
+
+    <div id="login-screen">
+        <p style="color:#6c757d; margin-bottom:5px;">Enter your name:</p>
+        <input type="text" id="input-name" placeholder="Your name">
+        <p style="color:#6c757d; margin-bottom:5px; margin-top:15px;">Enter Access Code:</p>
+        <input type="password" id="input-code" placeholder="Code">
+        <button onclick="verificarAcceso()">Start Challenge</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+    </div>
+
+    <div id="game-screen">
+        <div class="status-bar">
+            <span id="player-name">👋 Welcome, Student!</span>
+            <span id="timer-display">⏱️ 120s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+
+        <div class="verb-table" id="verb-table"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" id="checkBtn" onclick="verificarRespuesta()">✅ Check Answer</button>
+            <button class="btn btn-warning" id="resetBtn" onclick="resetGame()" style="display:none;">🔄 New Game</button>
+        </div>
+
+        <p class="resultado" id="respuesta"></p>
+        <p id="contador">Points: 0 / 20</p>
+
+        <div class="final-score-box" id="score-box">
+            <h2>🏁 Challenge Complete!</h2>
+            <p class="big-score" id="final-score">0 / 20</p>
+            <p id="final-message" style="font-size:1.2rem; font-weight:bold;"></p>
+            <p class="details" id="final-details"></p>
+        </div>
+
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS DINÁMICOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('verbs3_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = "Student";
+    let timerInterval;
+    let timeLeft = 120;
+    let juegoTerminado = false;
+
+    // ============================================================
+    // 2. BASE DE DATOS - VERBOS IRREGULARES
+    // ============================================================
+    const VERBOS = [
+        { infinitive: 'be', past: 'was/were', participle: 'been' },
+        { infinitive: 'eat', past: 'ate', participle: 'eaten' },
+        { infinitive: 'drink', past: 'drank', participle: 'drunk' },
+        { infinitive: 'see', past: 'saw', participle: 'seen' },
+        { infinitive: 'take', past: 'took', participle: 'taken' },
+        { infinitive: 'have', past: 'had', participle: 'had' },
+        { infinitive: 'make', past: 'made', participle: 'made' },
+        { infinitive: 'do', past: 'did', participle: 'done' },
+        { infinitive: 'say', past: 'said', participle: 'said' },
+        { infinitive: 'get', past: 'got', participle: 'gotten' },
+        { infinitive: 'buy', past: 'bought', participle: 'bought' },
+        { infinitive: 'come', past: 'came', participle: 'come' },
+        { infinitive: 'give', past: 'gave', participle: 'given' },
+        { infinitive: 'know', past: 'knew', participle: 'known' },
+        { infinitive: 'think', past: 'thought', participle: 'thought' },
+        { infinitive: 'read', past: 'read', participle: 'read' },
+        { infinitive: 'write', past: 'wrote', participle: 'written' },
+        { infinitive: 'speak', past: 'spoke', participle: 'spoken' },
+        { infinitive: 'break', past: 'broke', participle: 'broken' },
+        { infinitive: 'choose', past: 'chose', participle: 'chosen' },
+        { infinitive: 'drive', past: 'drove', participle: 'driven' },
+        { infinitive: 'fly', past: 'flew', participle: 'flown' },
+        { infinitive: 'forget', past: 'forgot', participle: 'forgotten' },
+        { infinitive: 'grow', past: 'grew', participle: 'grown' },
+        { infinitive: 'hide', past: 'hid', participle: 'hidden' },
+        { infinitive: 'keep', past: 'kept', participle: 'kept' },
+        { infinitive: 'leave', past: 'left', participle: 'left' },
+        { infinitive: 'lose', past: 'lost', participle: 'lost' },
+        { infinitive: 'mean', past: 'meant', participle: 'meant' },
+        { infinitive: 'pay', past: 'paid', participle: 'paid' },
+        { infinitive: 'run', past: 'ran', participle: 'run' },
+        { infinitive: 'send', past: 'sent', participle: 'sent' },
+        { infinitive: 'sing', past: 'sang', participle: 'sung' },
+        { infinitive: 'sleep', past: 'slept', participle: 'slept' },
+        { infinitive: 'swim', past: 'swam', participle: 'swum' },
+        { infinitive: 'tell', past: 'told', participle: 'told' },
+        { infinitive: 'wear', past: 'wore', participle: 'worn' },
+        { infinitive: 'win', past: 'won', participle: 'won' },
+        { infinitive: 'throw', past: 'threw', participle: 'thrown' },
+        { infinitive: 'understand', past: 'understood', participle: 'understood' }
+    ];
+
+    // ============================================================
+    // 3. VARIABLES GLOBALES
+    // ============================================================
+    let preguntasActuales = [];
+    let puntaje = 0;
+    let indiceActual = 0;
+
+    // ============================================================
+    // 4. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('input-name').value.trim();
+        const codeInput = document.getElementById('input-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") { alert("Please enter your name."); return; }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('input-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('verbs3_attempts')) || 0;
+        localStorage.setItem('verbs3_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        document.getElementById('login-screen').style.display = "none";
+        document.getElementById('game-screen').style.display = "block";
+        document.getElementById('player-name').innerHTML = `👋 Welcome, ${playerName}!`;
+        iniciarJuego();
+    }
+
+    // ============================================================
+    // 5. INICIO DEL JUEGO
+    // ============================================================
+    function iniciarJuego() {
+        juegoTerminado = false;
+        puntaje = 0;
+        indiceActual = 0;
+
+        const mezclados = [...VERBOS].sort(() => Math.random() - 0.5);
+        preguntasActuales = mezclados.slice(0, 20);
+
+        document.getElementById('score-box').style.display = 'none';
+        document.getElementById('contador').style.display = 'block';
+        document.getElementById('contador').innerHTML = `Points: 0 / ${preguntasActuales.length}`;
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'inline-block';
+        document.getElementById('resetBtn').style.display = 'none';
+
+        mostrarPregunta();
+        iniciarCronometro();
+    }
+
+    // ============================================================
+    // 6. CRONÓMETRO (120 SEGUNDOS)
+    // ============================================================
+    function iniciarCronometro() {
+        timeLeft = 120;
+        document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+            if (timeLeft <= 0 && !juegoTerminado) {
+                clearInterval(timerInterval);
+                finalizarJuego("⏰ Time's Up!");
+            }
+        }, 1000);
+    }
+
+    // ============================================================
+    // 7. MOSTRAR PREGUNTA (CORREGIDO)
+    // ============================================================
+    function mostrarPregunta() {
+        if (juegoTerminado) return;
+        
+        if (indiceActual >= preguntasActuales.length) {
+            finalizarJuego("🎉 All verbs completed!");
+            return;
+        }
+
+        const verb = preguntasActuales[indiceActual];
+        const missingType = indiceActual % 2 === 0 ? 'past' : 'participle';
+        
+        let html = `
+            <div style="text-align:center; margin-bottom:15px; color:#6c757d; font-size:0.9rem;">
+                Verb ${indiceActual + 1} of ${preguntasActuales.length}
+            </div>
+            <div class="verb-row">
+                <div class="verb-cell">
+                    <span class="label">INFINITIVE</span>
+                    <span style="color:#1a1a2e; text-transform:lowercase;">${verb.infinitive}</span>
+                </div>
+        `;
+
+        if (missingType === 'past') {
+            html += `
+                <div class="verb-cell">
+                    <span class="label">PAST SIMPLE</span>
+                    <input type="text" id="verb-input" placeholder="write here..." autocomplete="off" style="text-transform:lowercase;" />
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="verb-cell">
+                    <span class="label">PAST SIMPLE</span>
+                    <span style="color:#28a745; text-transform:lowercase;">${verb.past}</span>
+                </div>
+            `;
+        }
+
+        if (missingType === 'participle') {
+            html += `
+                <div class="verb-cell">
+                    <span class="label">PAST PARTICIPLE</span>
+                    <input type="text" id="verb-input" placeholder="write here..." autocomplete="off" style="text-transform:lowercase;" />
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="verb-cell">
+                    <span class="label">PAST PARTICIPLE</span>
+                    <span style="color:#28a745; text-transform:lowercase;">${verb.participle}</span>
+                </div>
+            `;
+        }
+
+        html += `</div>`;
+        html += `
+            <div class="verb-hint">
+                💡 Write the missing ${missingType === 'past' ? 'Past Simple' : 'Past Participle'} form
+            </div>
+        `;
+
+        document.getElementById('verb-table').innerHTML = html;
+        document.getElementById('progress-text').innerHTML = `Question ${indiceActual + 1} / ${preguntasActuales.length}`;
+
+        const input = document.getElementById('verb-input');
+        if (input) {
+            input.focus();
+            // Eliminar event listeners anteriores para evitar duplicados
+            input.removeEventListener('keydown', handleEnter);
+            input.addEventListener('keydown', handleEnter);
+        }
+    }
+
+    // ============================================================
+    // 8. MANEJAR ENTER
+    // ============================================================
+    function handleEnter(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            verificarRespuesta();
+        }
+    }
+
+    // ============================================================
+    // 9. VERIFICAR RESPUESTA (CORREGIDO)
+    // ============================================================
+    function verificarRespuesta() {
+        if (juegoTerminado) return;
+
+        const input = document.getElementById('verb-input');
+        if (!input) return;
+
+        const userAnswer = input.value.trim().toLowerCase();
+        if (userAnswer === "") {
+            document.getElementById('respuesta').innerHTML = "⚠️ Please write an answer.";
+            document.getElementById('respuesta').style.color = "#f39c12";
+            return;
+        }
+
+        const verb = preguntasActuales[indiceActual];
+        const missingType = indiceActual % 2 === 0 ? 'past' : 'participle';
+        const correctAnswer = missingType === 'past' ? verb.past.toLowerCase() : verb.participle.toLowerCase();
+
+        let isCorrect = false;
+        if (verb.infinitive === 'be' && missingType === 'past') {
+            isCorrect = userAnswer === 'was' || userAnswer === 'were' || userAnswer === 'was/were';
+        } else {
+            isCorrect = userAnswer === correctAnswer;
+        }
+
+        const res = document.getElementById('respuesta');
+        if (isCorrect) {
+            puntaje++;
+            input.classList.add('correct');
+            res.innerHTML = "✅ Correct! Well done!";
+            res.style.color = "#28a745";
+        } else {
+            input.classList.add('wrong');
+            res.innerHTML = `❌ Incorrect. The correct answer is: <strong>${correctAnswer}</strong>`;
+            res.style.color = "#dc3545";
+        }
+
+        input.disabled = true;
+        document.getElementById('contador').innerHTML = `Points: ${puntaje} / ${preguntasActuales.length}`;
+
+        indiceActual++;
+        setTimeout(mostrarPregunta, 1200);
+    }
+
+    // ============================================================
+    // 10. FINALIZAR JUEGO
+    // ============================================================
+    function finalizarJuego(mensaje) {
+        if (juegoTerminado) return;
+        juegoTerminado = true;
+        clearInterval(timerInterval);
+
+        const input = document.getElementById('verb-input');
+        if (input) input.disabled = true;
+
+        localStorage.setItem('verbs3_score', puntaje);
+
+        let history = JSON.parse(localStorage.getItem('verbs3_history')) || [];
+        history.push({
+            name: playerName,
+            score: puntaje,
+            total: preguntasActuales.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: 'Irregular Verbs 3'
+        });
+        localStorage.setItem('verbs3_history', JSON.stringify(history));
+
+        const total = preguntasActuales.length;
+        const percentage = Math.round((puntaje / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a verb master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the verbs you missed.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! You will get better!'; }
+
+        document.getElementById('score-box').style.display = 'block';
+        document.getElementById('final-score').innerHTML = `${puntaje} / ${total}`;
+        document.getElementById('final-message').innerHTML = `${emoji} ${message}`;
+        document.getElementById('final-details').innerHTML = `${percentage}% correct · ${playerName}`;
+
+        document.getElementById('contador').style.display = 'none';
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'inline-block';
+        document.getElementById('verb-table').innerHTML = `
+            <div style="text-align:center; padding:20px; color:#6c757d;">
+                🏁 Game finished! See your results below.
+            </div>
+        `;
+        document.getElementById('progress-text').innerHTML = `Complete!`;
+    }
+
+    // ============================================================
+    // 11. REINICIAR
+    // ============================================================
+    function resetGame() {
+        if (confirm('Do you want to start a new game with different verbs?')) {
+            clearInterval(timerInterval);
+            iniciarJuego();
+        }
+    }
+
+    // ============================================================
+    // 12. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display !== 'none') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

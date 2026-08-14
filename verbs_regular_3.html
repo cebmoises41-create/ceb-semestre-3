@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular Verbs 3 - Complete the Sentence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .game-container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 650px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+            letter-spacing: -1px;
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* LOGIN */
+        #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 0; }
+        #login-screen input { 
+            padding: 14px 20px; 
+            font-size: 1.1rem; 
+            border: 2px solid #ced4da; 
+            border-radius: 12px; 
+            width: 280px; 
+            text-align: center; 
+            margin: 8px 0; 
+            outline: none; 
+            transition: 0.3s; 
+            font-family: inherit;
+        }
+        #login-screen input:focus { border-color: #0f3460; box-shadow: 0 0 0 3px rgba(15,52,96,0.2); }
+        #login-screen button { 
+            background: #0f3460; 
+            color: white; 
+            border: none; 
+            padding: 14px 50px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-top: 15px; 
+            box-shadow: 0 4px 0 #0a1f3a; 
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error { color: #e74c3c; font-weight: bold; margin-top: 10px; display: none; background: #fde8e8; padding: 8px 15px; border-radius: 8px; }
+        
+        /* JUEGO */
+        #game-screen { display: none; }
+        
+        .status-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #f8f9fa; 
+            padding: 10px 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid #e9ecef; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        #player-name { font-weight: bold; color: #1a1a2e; font-size: 1rem; }
+        #timer-display { 
+            font-weight: bold; 
+            color: #c0392b; 
+            font-size: 1.2rem; 
+            background: #fff; 
+            padding: 5px 18px; 
+            border-radius: 20px; 
+            border: 2px solid #c0392b; 
+        }
+        #progress-text { font-size: 0.9rem; color: #6c757d; }
+        
+        /* VERBO */
+        .verb-display {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+            min-height: 200px;
+        }
+        .sentence-container {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            background: white;
+            padding: 20px 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            line-height: 2.2rem;
+        }
+        .sentence-container .blank {
+            display: inline-block;
+            min-width: 120px;
+            border-bottom: 4px dashed #0f3460;
+            color: #0f3460;
+            font-weight: 900;
+            padding: 0 8px;
+        }
+        .sentence-container .hint {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 400;
+        }
+        .verb-translation {
+            font-size: 1rem;
+            color: #0f3460;
+            background: #e8f0fe;
+            padding: 8px 20px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .verb-hint {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .input-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .input-container input {
+            border: none;
+            border-bottom: 3px solid #0f3460;
+            background: transparent;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f3460;
+            text-align: center;
+            width: 180px;
+            padding: 6px 8px;
+            outline: none;
+            font-family: inherit;
+            transition: 0.3s;
+            text-transform: lowercase;
+        }
+        .input-container input:focus {
+            border-bottom-color: #1a1a2e;
+            color: #1a1a2e;
+        }
+        .input-container input.correct {
+            border-bottom-color: #28a745;
+            color: #28a745;
+        }
+        .input-container input.wrong {
+            border-bottom-color: #dc3545;
+            color: #dc3545;
+        }
+        .input-container input:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-primary { background: #0f3460; color: white; }
+        .btn-primary:hover { background: #0a1f3a; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #1e7e34; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-warning:hover { background: #d68910; }
+        
+        .resultado {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #contador {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 25px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #0f3460;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box h2 { color: #1a1a2e; margin: 0; }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #0f3460;
+        }
+        .final-score-box .details {
+            color: #6c757d;
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 600px) {
+            .game-container { padding: 20px; }
+            .sentence-container { font-size: 1.1rem; padding: 15px; }
+            .input-container input { width: 140px; font-size: 1.1rem; }
+            .status-bar { flex-direction: column; align-items: center; }
+            .title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="title">📝 Regular <span>Verbs 3</span></h1>
+    <p class="sub">Complete the sentence with the correct form</p>
+
+    <div id="login-screen">
+        <p style="color:#6c757d; margin-bottom:5px;">Enter your name:</p>
+        <input type="text" id="input-name" placeholder="Your name">
+        <p style="color:#6c757d; margin-bottom:5px; margin-top:15px;">Enter Access Code:</p>
+        <input type="password" id="input-code" placeholder="Code">
+        <button onclick="verificarAcceso()">Start Practice</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+    </div>
+
+    <div id="game-screen">
+        <div class="status-bar">
+            <span id="player-name">👋 Welcome, Student!</span>
+            <span id="timer-display">⏱️ 120s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+
+        <div class="verb-display" id="verb-display">
+            <!-- Generado por JavaScript -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" id="checkBtn" onclick="verificarRespuesta()">✅ Check Answer</button>
+            <button class="btn btn-warning" id="resetBtn" onclick="resetGame()" style="display:none;">🔄 New Game</button>
+        </div>
+
+        <p class="resultado" id="respuesta"></p>
+        <p id="contador">Points: 0 / 20</p>
+
+        <div class="final-score-box" id="score-box">
+            <h2>🏁 Practice Complete!</h2>
+            <p class="big-score" id="final-score">0 / 20</p>
+            <p id="final-message" style="font-size:1.2rem; font-weight:bold;"></p>
+            <p class="details" id="final-details"></p>
+        </div>
+
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS DINÁMICOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('regular3_attempts')) || 0;
+        return count >= 3 ? "9999" : "2027";
+    };
+
+    let playerName = "Student";
+    let timerInterval;
+    let timeLeft = 120;
+    let juegoTerminado = false;
+
+    // ============================================================
+    // 2. BASE DE DATOS - REGULAR VERBS 3 (ORACIONES)
+    // ============================================================
+    const PREGUNTAS = [
+        // PAST SIMPLE (yesterday, last week, ago, etc.)
+        { infinitive: 'walk', spanish: 'caminar', sentence: 'She ______ (walk) to school yesterday.', correct: 'walked', tense: 'past' },
+        { infinitive: 'play', spanish: 'jugar', sentence: 'They ______ (play) soccer last weekend.', correct: 'played', tense: 'past' },
+        { infinitive: 'cook', spanish: 'cocinar', sentence: 'My mom ______ (cook) a delicious meal for dinner.', correct: 'cooked', tense: 'past' },
+        { infinitive: 'dance', spanish: 'bailar', sentence: 'We ______ (dance) at the party last night.', correct: 'danced', tense: 'past' },
+        { infinitive: 'watch', spanish: 'mirar', sentence: 'I ______ (watch) a great movie yesterday.', correct: 'watched', tense: 'past' },
+        { infinitive: 'clean', spanish: 'limpiar', sentence: 'She ______ (clean) her room this morning.', correct: 'cleaned', tense: 'past' },
+        { infinitive: 'study', spanish: 'estudiar', sentence: 'He ______ (study) for the exam all night.', correct: 'studied', tense: 'past' },
+        { infinitive: 'visit', spanish: 'visitar', sentence: 'We ______ (visit) our grandparents last week.', correct: 'visited', tense: 'past' },
+        { infinitive: 'start', spanish: 'empezar', sentence: 'The movie ______ (start) at 8:00 pm.', correct: 'started', tense: 'past' },
+        { infinitive: 'stop', spanish: 'parar', sentence: 'The rain ______ (stop) an hour ago.', correct: 'stopped', tense: 'past' },
+        { infinitive: 'call', spanish: 'llamar', sentence: 'I ______ (call) my friend yesterday.', correct: 'called', tense: 'past' },
+        { infinitive: 'help', spanish: 'ayudar', sentence: 'She ______ (help) her brother with his homework.', correct: 'helped', tense: 'past' },
+        { infinitive: 'open', spanish: 'abrir', sentence: 'He ______ (open) the window because it was hot.', correct: 'opened', tense: 'past' },
+        { infinitive: 'close', spanish: 'cerrar', sentence: 'They ______ (close) the store at 9:00 pm.', correct: 'closed', tense: 'past' },
+        { infinitive: 'enjoy', spanish: 'disfrutar', sentence: 'We ______ (enjoy) the concert last night.', correct: 'enjoyed', tense: 'past' },
+
+        // PAST PARTICIPLE (have/has)
+        { infinitive: 'eat', spanish: 'comer', sentence: 'I have ______ (eat) all the pizza.', correct: 'eaten', tense: 'participle' },
+        { infinitive: 'drink', spanish: 'beber', sentence: 'She has ______ (drink) three cups of coffee.', correct: 'drunk', tense: 'participle' },
+        { infinitive: 'see', spanish: 'ver', sentence: 'I have ______ (see) that movie before.', correct: 'seen', tense: 'participle' },
+        { infinitive: 'take', spanish: 'tomar', sentence: 'He has ______ (take) many photos.', correct: 'taken', tense: 'participle' },
+        { infinitive: 'make', spanish: 'hacer', sentence: 'My mom has ______ (make) a delicious cake.', correct: 'made', tense: 'participle' },
+        { infinitive: 'write', spanish: 'escribir', sentence: 'She has ______ (write) three letters.', correct: 'written', tense: 'participle' },
+        { infinitive: 'break', spanish: 'romper', sentence: 'I have ______ (break) my phone screen.', correct: 'broken', tense: 'participle' },
+        { infinitive: 'choose', spanish: 'elegir', sentence: 'We have ______ (choose) the red one.', correct: 'chosen', tense: 'participle' },
+        { infinitive: 'speak', spanish: 'hablar', sentence: 'He has ______ (speak) to the teacher.', correct: 'spoken', tense: 'participle' },
+        { infinitive: 'forget', spanish: 'olvidar', sentence: 'I have ______ (forget) my keys at home.', correct: 'forgotten', tense: 'participle' },
+        { infinitive: 'grow', spanish: 'crecer', sentence: 'The plant has ______ (grow) very fast.', correct: 'grown', tense: 'participle' },
+        { infinitive: 'hide', spanish: 'esconder', sentence: 'The boy has ______ (hide) behind the door.', correct: 'hidden', tense: 'participle' },
+        { infinitive: 'know', spanish: 'saber', sentence: 'I have ______ (know) her for years.', correct: 'known', tense: 'participle' },
+        { infinitive: 'think', spanish: 'pensar', sentence: 'I have ______ (think) about it a lot.', correct: 'thought', tense: 'participle' },
+        { infinitive: 'read', spanish: 'leer', sentence: 'I have ______ (read) three books this month.', correct: 'read', tense: 'participle' },
+        { infinitive: 'sing', spanish: 'cantar', sentence: 'She has ______ (sing) at many concerts.', correct: 'sung', tense: 'participle' },
+        { infinitive: 'swim', spanish: 'nadar', sentence: 'We have ______ (swim) in the ocean.', correct: 'swum', tense: 'participle' },
+        { infinitive: 'tell', spanish: 'decir', sentence: 'I have ______ (tell) him the truth.', correct: 'told', tense: 'participle' },
+        { infinitive: 'wear', spanish: 'usar', sentence: 'She has ______ (wear) a beautiful dress.', correct: 'worn', tense: 'participle' },
+        { infinitive: 'win', spanish: 'ganar', sentence: 'Our team has ______ (win) the championship.', correct: 'won', tense: 'participle' },
+        { infinitive: 'throw', spanish: 'lanzar', sentence: 'I have ______ (throw) the ball to my friend.', correct: 'thrown', tense: 'participle' },
+        { infinitive: 'understand', spanish: 'entender', sentence: 'I have ______ (understand) the lesson perfectly.', correct: 'understood', tense: 'participle' },
+        { infinitive: 'fly', spanish: 'volar', sentence: 'We have ______ (fly) to Paris before.', correct: 'flown', tense: 'participle' },
+        { infinitive: 'drive', spanish: 'conducir', sentence: 'My dad has ______ (drive) us to the airport.', correct: 'driven', tense: 'participle' },
+        { infinitive: 'send', spanish: 'enviar', sentence: 'I have ______ (send) an email to my teacher.', correct: 'sent', tense: 'participle' }
+    ];
+
+    // ============================================================
+    // 3. VARIABLES GLOBALES
+    // ============================================================
+    let preguntasActuales = [];
+    let puntaje = 0;
+    let indiceActual = 0;
+
+    // ============================================================
+    // 4. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('input-name').value.trim();
+        const codeInput = document.getElementById('input-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") { alert("Please enter your name."); return; }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('input-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('regular3_attempts')) || 0;
+        localStorage.setItem('regular3_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        document.getElementById('login-screen').style.display = "none";
+        document.getElementById('game-screen').style.display = "block";
+        document.getElementById('player-name').innerHTML = `👋 Welcome, ${playerName}!`;
+        iniciarJuego();
+    }
+
+    // ============================================================
+    // 5. INICIO DEL JUEGO
+    // ============================================================
+    function iniciarJuego() {
+        juegoTerminado = false;
+        puntaje = 0;
+        indiceActual = 0;
+
+        const mezclados = [...PREGUNTAS].sort(() => Math.random() - 0.5);
+        preguntasActuales = mezclados.slice(0, 20);
+
+        document.getElementById('score-box').style.display = 'none';
+        document.getElementById('contador').style.display = 'block';
+        document.getElementById('contador').innerHTML = `Points: 0 / ${preguntasActuales.length}`;
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'inline-block';
+        document.getElementById('resetBtn').style.display = 'none';
+
+        mostrarPregunta();
+        iniciarCronometro();
+    }
+
+    // ============================================================
+    // 6. CRONÓMETRO (120 SEGUNDOS)
+    // ============================================================
+    function iniciarCronometro() {
+        timeLeft = 120;
+        document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
+            if (timeLeft <= 0 && !juegoTerminado) {
+                clearInterval(timerInterval);
+                finalizarJuego("⏰ Time's Up!");
+            }
+        }, 1000);
+    }
+
+    // ============================================================
+    // 7. MOSTRAR PREGUNTA
+    // ============================================================
+    function mostrarPregunta() {
+        if (juegoTerminado) return;
+        
+        if (indiceActual >= preguntasActuales.length) {
+            finalizarJuego("🎉 All sentences completed!");
+            return;
+        }
+
+        const q = preguntasActuales[indiceActual];
+        
+        // Reemplazar el verbo en la oración con un espacio en blanco
+        const sentenceParts = q.sentence.split('______');
+        
+        let html = `
+            <div style="text-align:center; margin-bottom:10px; color:#6c757d; font-size:0.9rem;">
+                Sentence ${indiceActual + 1} of ${preguntasActuales.length}
+            </div>
+            <div style="text-align:center; margin-bottom:10px;">
+                <span class="verb-translation">📖 ${q.infinitive} → ${q.spanish}</span>
+            </div>
+            <div class="sentence-container">
+                ${sentenceParts[0]}
+                <span class="blank">______</span>
+                ${sentenceParts[1] || ''}
+                <div class="hint">
+                    ${q.tense === 'past' ? '🔹 Past Simple (yesterday, last week)' : '🔹 Past Participle (have/has)'}
+                </div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="verb-input" placeholder="write here..." autocomplete="off" style="text-transform:lowercase;" />
+            </div>
+            <div class="verb-hint">
+                💡 Write the correct form of "${q.infinitive}"
+            </div>
+        `;
+
+        document.getElementById('verb-display').innerHTML = html;
+        document.getElementById('progress-text').innerHTML = `Question ${indiceActual + 1} / ${preguntasActuales.length}`;
+
+        const input = document.getElementById('verb-input');
+        if (input) {
+            input.focus();
+            input.removeEventListener('keydown', handleEnter);
+            input.addEventListener('keydown', handleEnter);
+        }
+    }
+
+    // ============================================================
+    // 8. MANEJAR ENTER
+    // ============================================================
+    function handleEnter(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            verificarRespuesta();
+        }
+    }
+
+    // ============================================================
+    // 9. VERIFICAR RESPUESTA
+    // ============================================================
+    function verificarRespuesta() {
+        if (juegoTerminado) return;
+
+        const input = document.getElementById('verb-input');
+        if (!input) return;
+
+        const userAnswer = input.value.trim().toLowerCase();
+        if (userAnswer === "") {
+            document.getElementById('respuesta').innerHTML = "⚠️ Please write an answer.";
+            document.getElementById('respuesta').style.color = "#f39c12";
+            return;
+        }
+
+        const q = preguntasActuales[indiceActual];
+        const correctAnswer = q.correct.toLowerCase();
+
+        let isCorrect = false;
+        
+        // Verificación exacta
+        if (userAnswer === correctAnswer) {
+            isCorrect = true;
+        }
+        // Variante británica (travel → travelled)
+        else if (q.infinitive === 'travel' && userAnswer === 'travelled') {
+            isCorrect = true;
+        }
+        // Variante para "cancel" (canceled vs cancelled)
+        else if (q.infinitive === 'cancel' && userAnswer === 'cancelled') {
+            isCorrect = true;
+        }
+
+        const res = document.getElementById('respuesta');
+        if (isCorrect) {
+            puntaje++;
+            input.classList.add('correct');
+            res.innerHTML = "✅ Correct! Well done!";
+            res.style.color = "#28a745";
+        } else {
+            input.classList.add('wrong');
+            res.innerHTML = `❌ Incorrect. The correct form is: <strong>${correctAnswer}</strong>`;
+            res.style.color = "#dc3545";
+        }
+
+        input.disabled = true;
+        document.getElementById('contador').innerHTML = `Points: ${puntaje} / ${preguntasActuales.length}`;
+
+        indiceActual++;
+        setTimeout(mostrarPregunta, 1500);
+    }
+
+    // ============================================================
+    // 10. FINALIZAR JUEGO
+    // ============================================================
+    function finalizarJuego(mensaje) {
+        if (juegoTerminado) return;
+        juegoTerminado = true;
+        clearInterval(timerInterval);
+
+        const input = document.getElementById('verb-input');
+        if (input) input.disabled = true;
+
+        localStorage.setItem('regular3_score', puntaje);
+
+        let history = JSON.parse(localStorage.getItem('regular3_history')) || [];
+        history.push({
+            name: playerName,
+            score: puntaje,
+            total: preguntasActuales.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: 'Regular Verbs 3'
+        });
+        localStorage.setItem('regular3_history', JSON.stringify(history));
+
+        const total = preguntasActuales.length;
+        const percentage = Math.round((puntaje / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a verb master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the verbs you missed.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! You will get better!'; }
+
+        document.getElementById('score-box').style.display = 'block';
+        document.getElementById('final-score').innerHTML = `${puntaje} / ${total}`;
+        document.getElementById('final-message').innerHTML = `${emoji} ${message}`;
+        document.getElementById('final-details').innerHTML = `${percentage}% correct · ${playerName}`;
+
+        document.getElementById('contador').style.display = 'none';
+        document.getElementById('respuesta').innerHTML = '';
+        document.getElementById('checkBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'inline-block';
+        document.getElementById('verb-display').innerHTML = `
+            <div style="text-align:center; padding:20px; color:#6c757d;">
+                🏁 Practice finished! See your results below.
+            </div>
+        `;
+        document.getElementById('progress-text').innerHTML = `Complete!`;
+    }
+
+    // ============================================================
+    // 11. REINICIAR
+    // ============================================================
+    function resetGame() {
+        if (confirm('Do you want to start a new game with different sentences?')) {
+            clearInterval(timerInterval);
+            iniciarJuego();
+        }
+    }
+
+    // ============================================================
+    // 12. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display !== 'none') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

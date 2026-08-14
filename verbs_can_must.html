@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can / Must - Modal Verbs</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 750px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* MENU DE BOTONES */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: inherit;
+            width: 100%;
+            box-shadow: 0 4px 0 #0a1f3a;
+        }
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #0a1f3a;
+        }
+        .menu-btn .icon {
+            font-size: 2rem;
+            min-width: 50px;
+        }
+        .menu-btn .info {
+            flex: 1;
+        }
+        .menu-btn .info .title-btn {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .menu-btn .info .desc {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .menu-btn.practice {
+            background: #28a745;
+            box-shadow: 0 4px 0 #1e7e34;
+        }
+        .menu-btn.practice:hover {
+            box-shadow: 0 6px 0 #1e7e34;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        /* CONTENIDO DE LAS SECCIONES */
+        .content-section {
+            display: none;
+            text-align: left;
+            padding: 20px 0;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-section h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .content-section h3 {
+            color: #0f3460;
+            margin: 15px 0 8px;
+            font-size: 1.2rem;
+        }
+        .content-section p {
+            color: #2c3e50;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 15px;
+        }
+        .content-section ul li {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border-left: 4px solid #0f3460;
+            color: #1a1a2e;
+            font-size: 1rem;
+        }
+        .content-section ul li strong {
+            color: #0f3460;
+        }
+        .content-section .example-box {
+            background: #e8f0fe;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #d4e0f0;
+        }
+        .content-section .example-box .correct {
+            color: #28a745;
+            font-weight: 700;
+        }
+        .content-section .example-box .wrong {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        .content-section .rule-box {
+            background: #fff3cd;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+        .content-section .rule-box strong {
+            color: #856404;
+        }
+        
+        .audio-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0;
+            font-family: inherit;
+        }
+        .audio-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .back-inner-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: inherit;
+            color: #495057;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+        }
+        .back-inner-btn:hover { background: #ced4da; }
+        
+        /* LOGIN PARA EL JUEGO */
+        #login-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        #login-screen input {
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            width: 280px;
+            text-align: center;
+            margin: 8px 0;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        #login-screen input:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+        }
+        #login-screen button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 0 #1e7e34;
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+            background: #fde8e8;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        /* GAME */
+        .game-container {
+            display: none;
+            text-align: center;
+        }
+        .game-container.active {
+            display: block;
+        }
+        .game-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #timer-display {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.2rem;
+            background: #fff;
+            padding: 5px 18px;
+            border-radius: 20px;
+            border: 2px solid #c0392b;
+        }
+        #question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 20px 0;
+        }
+        .game-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-options button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 4px 0 #0a1f3a;
+            font-family: inherit;
+        }
+        .game-options button:hover { transform: translateY(-2px); }
+        .game-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .game-options button.correct { background: #28a745; box-shadow: 0 4px 0 #1e7e34; }
+        .game-options button.wrong { background: #dc3545; box-shadow: 0 4px 0 #a71d2a; }
+        #game-result {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #game-score {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #28a745;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .menu-btn { padding: 14px 18px; font-size: 1rem; }
+            .menu-btn .icon { font-size: 1.5rem; min-width: 40px; }
+            .game-options button { width: 95%; }
+            #login-screen input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1 class="title">🔧 Modal <span>Verbs</span></h1>
+    <p class="sub">Can / Must - Explanation and Practice</p>
+
+    <!-- ===== MENU PRINCIPAL ===== -->
+    <div id="mainMenu">
+        <div class="menu-grid">
+            <!-- Botón 1: CAN Explicación -->
+            <button class="menu-btn" onclick="showSection('can_explanation')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">1. CAN - Explanation</span>
+                    <span class="desc">Learn the use and structure</span>
+                </span>
+            </button>
+            
+            <!-- Botón 2: CAN Practice -->
+            <button class="menu-btn practice" onclick="showLogin('can')">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">2. CAN - Practice</span>
+                    <span class="desc">20 sentences · 90 seconds</span>
+                </span>
+            </button>
+            
+            <!-- Botón 3: MUST Explicación -->
+            <button class="menu-btn" onclick="showSection('must_explanation')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">3. MUST - Explanation</span>
+                    <span class="desc">Learn the use and structure</span>
+                </span>
+            </button>
+            
+            <!-- Botón 4: MUST Practice -->
+            <button class="menu-btn practice" onclick="showLogin('must')">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">4. MUST - Practice</span>
+                    <span class="desc">20 sentences · 90 seconds</span>
+                </span>
+            </button>
+        </div>
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+
+    <!-- ===== SECCIÓN 1: CAN EXPLANATION ===== -->
+    <div class="content-section" id="section-can_explanation">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📖 CAN - Explanation</h2>
+        
+        <h3>🔹 Usos de CAN</h3>
+        <ul>
+            <li><strong>Habilidad:</strong> I <strong>can</strong> swim. (Sé nadar)</li>
+            <li><strong>Permiso:</strong> <strong>Can</strong> I go to the bathroom? (¿Puedo ir al baño?)</li>
+            <li><strong>Posibilidad:</strong> It <strong>can</strong> rain today. (Puede llover hoy)</li>
+        </ul>
+        
+        <h3>🔹 Estructura</h3>
+        <div class="example-box">
+            <p><span class="correct">✅ Afirmativo:</span> <strong>Sujeto + can + verbo infinitivo</strong></p>
+            <p>→ I <strong>can play</strong> soccer.</p>
+            <p>→ She <strong>can sing</strong> beautifully.</p>
+        </div>
+        <div class="example-box">
+            <p><span class="wrong">❌ Negativo:</span> <strong>Sujeto + cannot / can't + verbo infinitivo</strong></p>
+            <p>→ I <strong>cannot swim</strong>. / I <strong>can't swim</strong>.</p>
+            <p>→ He <strong>can't drive</strong>.</p>
+        </div>
+        <div class="example-box">
+            <p><span class="correct">❓ Interrogativo:</span> <strong>Can + sujeto + verbo infinitivo?</strong></p>
+            <p>→ <strong>Can</strong> you help me?</p>
+            <p>→ <strong>Can</strong> she speak French?</p>
+        </div>
+        
+        <div class="rule-box">
+            <p><strong>⚠️ Regla importante:</strong></p>
+            <p>El verbo después de <strong>CAN</strong> siempre va en <strong>INFINITIVO</strong> (sin "to").</p>
+            <p>✅ I <strong>can</strong> sing.</p>
+            <p>❌ I <strong>can to</strong> sing.</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('We use can to talk about ability, permission, and possibility. Affirmative: subject plus can plus verb. Negative: subject plus cannot or can not. Question: Can plus subject plus verb. Remember, the verb after can is always in the infinitive form without to.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== SECCIÓN 3: MUST EXPLANATION ===== -->
+    <div class="content-section" id="section-must_explanation">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📖 MUST - Explanation</h2>
+        
+        <h3>🔹 Usos de MUST</h3>
+        <ul>
+            <li><strong>Obligación:</strong> You <strong>must</strong> wear a seatbelt. (Debes usar cinturón)</li>
+            <li><strong>Prohibición:</strong> You <strong>must not</strong> smoke here. (No debes fumar aquí)</li>
+        </ul>
+        
+        <h3>🔹 Estructura</h3>
+        <div class="example-box">
+            <p><span class="correct">✅ Afirmativo:</span> <strong>Sujeto + must + verbo infinitivo</strong></p>
+            <p>→ You <strong>must study</strong> for the exam.</p>
+            <p>→ We <strong>must wear</strong> a uniform.</p>
+        </div>
+        <div class="example-box">
+            <p><span class="wrong">❌ Negativo:</span> <strong>Sujeto + must not / mustn't + verbo infinitivo</strong></p>
+            <p>→ You <strong>must not run</strong> in the hallways.</p>
+            <p>→ We <strong>mustn't eat</strong> in class.</p>
+        </div>
+        <div class="example-box">
+            <p><span class="correct">❓ Interrogativo:</span> <strong>Must + sujeto + verbo infinitivo?</strong></p>
+            <p>→ <strong>Must</strong> I wear a uniform?</p>
+            <p>→ <strong>Must</strong> we arrive early?</p>
+        </div>
+        
+        <div class="rule-box">
+            <p><strong>⚠️ Regla importante:</strong></p>
+            <p>El verbo después de <strong>MUST</strong> siempre va en <strong>INFINITIVO</strong> (sin "to").</p>
+            <p>✅ You <strong>must</strong> listen to the teacher.</p>
+            <p>❌ You <strong>must to</strong> listen.</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('We use must to talk about obligation and prohibition. Affirmative: subject plus must plus verb. Negative: subject plus must not or mustn t plus verb. Question: Must plus subject plus verb. Remember, the verb after must is always in the infinitive form without to.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== LOGIN PARA EL JUEGO ===== -->
+    <div id="login-screen">
+        <h2 style="color:#1a1a2e; margin-bottom:10px;">🎯 Practice Game</h2>
+        <p style="color:#6c757d; margin-bottom:15px;">Enter your name and code to start</p>
+        <input type="text" id="login-name" placeholder="Your name">
+        <input type="password" id="login-code" placeholder="Access code">
+        <button onclick="verificarAcceso()">▶ Start Game</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+        <button class="back-inner-btn" onclick="cancelLogin()" style="margin-top:15px;">← Cancel</button>
+    </div>
+
+    <!-- ===== PRACTICE GAME ===== -->
+    <div class="game-container" id="gameContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">🎯 Practice Game</h2>
+        <p class="sub" id="game-subtitle">Complete the sentence with the correct option</p>
+        
+        <div class="game-status">
+            <span id="player-name-game">👋 Student</span>
+            <span id="timer-display">⏱️ 90s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+        
+        <p id="question-text">Loading...</p>
+        
+        <div class="game-options" id="gameOptions">
+            <!-- Generado por JavaScript -->
+        </div>
+        
+        <p id="game-result"></p>
+        <p id="game-score">Points: 0 / 20</p>
+        
+        <div class="final-score-box" id="finalScore">
+            <h2>🏁 Game Complete!</h2>
+            <p class="big-score" id="finalScoreNumber">0 / 20</p>
+            <p id="finalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="btn" onclick="resetGame()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;">🔄 Play Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('can_must_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = 'Student';
+    let currentGame = 'can'; // 'can' o 'must'
+    let gameStarted = false;
+
+    // ============================================================
+    // 2. NAVEGACIÓN
+    // ============================================================
+    function showMenu() {
+        document.getElementById('mainMenu').style.display = 'block';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('gameContainer').classList.remove('active');
+        gameStarted = false;
+    }
+    
+    function showSection(section) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+    }
+
+    function showLogin(game) {
+        currentGame = game;
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('login-error').style.display = 'none';
+        document.getElementById('login-name').value = '';
+        document.getElementById('login-code').value = '';
+        document.getElementById('login-name').focus();
+    }
+
+    function cancelLogin() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    // ============================================================
+    // 3. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('login-name').value.trim();
+        const codeInput = document.getElementById('login-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('login-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('can_must_attempts')) || 0;
+        localStorage.setItem('can_must_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        localStorage.setItem('student_name', nameInput);
+        
+        document.getElementById('login-screen').style.display = 'none';
+        startGame(currentGame);
+    }
+
+    // ============================================================
+    // 4. SPEECH SYNTHESIS (AUDIO)
+    // ============================================================
+    function speakText(text) {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Your browser does not support audio. Please use Chrome, Edge, or Safari.');
+        }
+    }
+
+    // ============================================================
+    // 5. BASE DE DATOS - CAN PRACTICE (40 preguntas)
+    // ============================================================
+    const CAN_QUESTIONS = [
+        // Afirmativo
+        { sentence: 'I ______ swim very well.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'She ______ play the piano.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'He ______ drive a car.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'We ______ speak English.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'They ______ run fast.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'I ______ cook delicious food.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'She ______ dance salsa.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'He ______ solve math problems.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'We ______ paint beautiful pictures.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'They ______ play soccer.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        // Negativo
+        { sentence: 'I ______ speak French.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'She ______ drive a truck.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'He ______ swim in winter.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'We ______ run fast.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'They ______ cook well.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'I ______ sing very well.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'She ______ play guitar.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'He ______ solve this problem.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'We ______ dance.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        { sentence: 'They ______ speak Japanese.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 1 },
+        // Interrogativo
+        { sentence: '______ you help me?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ she speak Japanese?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ he drive?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ we go to the park?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ they play tennis?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ I have some water?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ your sister sing?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ your brother cook?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ we watch TV?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        { sentence: '______ they come with us?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 0 },
+        // Más mezclados
+        { sentence: 'I ______ swim in the ocean.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'She ______ play volleyball.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'He ______ ride a bike.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'We ______ ski in the mountains.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'They ______ skate.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'I ______ climb that mountain.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'She ______ draw beautiful portraits.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'He ______ play chess.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'We ______ build a house.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 },
+        { sentence: 'They ______ fly a plane.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 0 }
+    ];
+
+    // ============================================================
+    // 6. BASE DE DATOS - MUST PRACTICE (40 preguntas)
+    // ============================================================
+    const MUST_QUESTIONS = [
+        // Afirmativo
+        { sentence: 'You ______ wear a seatbelt.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ study for the exam.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ listen to the teacher.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ do your homework.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ brush your teeth.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ eat healthy food.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ respect your parents.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ arrive on time.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ wear a helmet.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ recycle.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        // Negativo
+        { sentence: 'You ______ run in the hallways.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ smoke here.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ speak during the exam.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ touch that.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ use your phone in class.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ eat in the library.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ drive fast.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ waste water.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ cheat in the exam.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ shout in the hospital.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        // Interrogativo
+        { sentence: '______ I wear a uniform?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ we arrive early?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ she bring her ID?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ he call the teacher?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ they pay now?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ I stay here?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ we wear boots?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ she do the homework?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ he come with us?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        { sentence: '______ they bring food?', options: ['Can', 'Can\'t', 'Must', 'Mustn\'t'], correct: 2 },
+        // Más mezclados
+        { sentence: 'You ______ be quiet in the library.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ eat in the classroom.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ help your friends.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ be late for class.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ clean your room.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ lose your keys.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ wear a jacket.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ forget your password.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 },
+        { sentence: 'You ______ save water.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 2 },
+        { sentence: 'You ______ waste food.', options: ['can', 'can\'t', 'must', 'mustn\'t'], correct: 3 }
+    ];
+
+    // ============================================================
+    // 7. JUEGO
+    // ============================================================
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let timer = 90;
+    let timerInterval = null;
+    let gameFinished = false;
+
+    function startGame(gameType) {
+        gameStarted = true;
+        gameFinished = false;
+        currentIndex = 0;
+        score = 0;
+        timer = 90;
+
+        // Seleccionar el banco de preguntas según el tipo
+        const questionBank = gameType === 'can' ? CAN_QUESTIONS : MUST_QUESTIONS;
+        const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+        currentQuestions = shuffled.slice(0, 20);
+
+        const gameTitle = gameType === 'can' ? 'CAN - Practice' : 'MUST - Practice';
+        document.getElementById('game-subtitle').textContent = gameTitle;
+
+        document.getElementById('gameContainer').classList.add('active');
+        document.getElementById('player-name-game').innerHTML = `👋 ${playerName}`;
+
+        document.getElementById('finalScore').style.display = 'none';
+        document.getElementById('game-result').innerHTML = '';
+        document.getElementById('game-score').innerHTML = `Points: 0 / ${currentQuestions.length}`;
+
+        showQuestion();
+        startTimer();
+    }
+
+    function showQuestion() {
+        if (gameFinished) return;
+        
+        if (currentIndex >= currentQuestions.length) {
+            finishGame();
+            return;
+        }
+        
+        const q = currentQuestions[currentIndex];
+        document.getElementById('question-text').innerHTML = q.sentence;
+        document.getElementById('progress-text').innerHTML = `Question ${currentIndex + 1} / ${currentQuestions.length}`;
+        
+        const optionsContainer = document.getElementById('gameOptions');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.dataset.index = idx;
+            btn.onclick = () => checkAnswer(idx);
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('game-result').innerHTML = '';
+    }
+
+    function checkAnswer(selected) {
+        if (gameFinished) return;
+        
+        const q = currentQuestions[currentIndex];
+        const buttons = document.querySelectorAll('#gameOptions button');
+        
+        buttons.forEach(btn => btn.disabled = true);
+        
+        buttons.forEach((btn, idx) => {
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === selected && idx !== q.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+        
+        const result = document.getElementById('game-result');
+        if (selected === q.correct) {
+            score++;
+            result.innerHTML = '✅ Correct! Well done!';
+            result.style.color = '#28a745';
+        } else {
+            result.innerHTML = `❌ Incorrect. The correct answer is: "${q.options[q.correct]}"`;
+            result.style.color = '#dc3545';
+        }
+        
+        document.getElementById('game-score').innerHTML = `Points: ${score} / ${currentQuestions.length}`;
+        
+        currentIndex++;
+        setTimeout(showQuestion, 1200);
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timer--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timer}s`;
+            if (timer <= 0) {
+                clearInterval(timerInterval);
+                finishGame();
+            }
+        }, 1000);
+    }
+
+    function finishGame() {
+        if (gameFinished) return;
+        gameFinished = true;
+        clearInterval(timerInterval);
+        
+        document.querySelectorAll('#gameOptions button').forEach(btn => btn.disabled = true);
+        
+        // Guardar puntos según el tipo de juego
+        const gameKey = currentGame === 'can' ? 'can_score' : 'must_score';
+        localStorage.setItem(gameKey, score);
+        
+        let historyKey = currentGame === 'can' ? 'can_history' : 'must_history';
+        let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+        history.push({
+            name: playerName,
+            score: score,
+            total: currentQuestions.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: currentGame === 'can' ? 'CAN Practice' : 'MUST Practice'
+        });
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        
+        const total = currentQuestions.length;
+        const percentage = Math.round((score / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a modal verb master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the theory.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Review the theory above.'; }
+        
+        document.getElementById('finalScore').style.display = 'block';
+        document.getElementById('finalScoreNumber').innerHTML = `${score} / ${total}`;
+        document.getElementById('finalMessage').innerHTML = `${emoji} ${message}`;
+        
+        document.getElementById('game-score').innerHTML = '';
+        document.getElementById('question-text').innerHTML = '🏁 Game Complete!';
+        document.getElementById('gameOptions').innerHTML = '';
+    }
+
+    function resetGame() {
+        document.getElementById('finalScore').style.display = 'none';
+        showLogin(currentGame);
+    }
+
+    // ============================================================
+    // 8. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display === 'flex') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

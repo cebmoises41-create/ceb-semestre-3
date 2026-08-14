@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>There Is / Are - Grammar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 750px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* MENU DE BOTONES */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: inherit;
+            width: 100%;
+            box-shadow: 0 4px 0 #0a1f3a;
+        }
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #0a1f3a;
+        }
+        .menu-btn .icon {
+            font-size: 2rem;
+            min-width: 50px;
+        }
+        .menu-btn .info {
+            flex: 1;
+        }
+        .menu-btn .info .title-btn {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .menu-btn .info .desc {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .menu-btn.practice {
+            background: #28a745;
+            box-shadow: 0 4px 0 #1e7e34;
+        }
+        .menu-btn.practice:hover {
+            box-shadow: 0 6px 0 #1e7e34;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        /* CONTENIDO DE LAS SECCIONES */
+        .content-section {
+            display: none;
+            text-align: left;
+            padding: 20px 0;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-section h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .content-section h3 {
+            color: #0f3460;
+            margin: 15px 0 8px;
+            font-size: 1.2rem;
+        }
+        .content-section p {
+            color: #2c3e50;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 15px;
+        }
+        .content-section ul li {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border-left: 4px solid #0f3460;
+            color: #1a1a2e;
+            font-size: 1rem;
+        }
+        .content-section ul li strong {
+            color: #0f3460;
+        }
+        .content-section .example-box {
+            background: #e8f0fe;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #d4e0f0;
+        }
+        .content-section .example-box .correct {
+            color: #28a745;
+            font-weight: 700;
+        }
+        .content-section .example-box .wrong {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        
+        .audio-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0;
+            font-family: inherit;
+        }
+        .audio-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .back-inner-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: inherit;
+            color: #495057;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+        }
+        .back-inner-btn:hover { background: #ced4da; }
+        
+        /* LOGIN PARA EL JUEGO */
+        #login-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        #login-screen input {
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            width: 280px;
+            text-align: center;
+            margin: 8px 0;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        #login-screen input:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+        }
+        #login-screen button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 0 #1e7e34;
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+            background: #fde8e8;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        /* GAME */
+        .game-container {
+            display: none;
+            text-align: center;
+        }
+        .game-container.active {
+            display: block;
+        }
+        .game-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #timer-display {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.2rem;
+            background: #fff;
+            padding: 5px 18px;
+            border-radius: 20px;
+            border: 2px solid #c0392b;
+        }
+        #question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 20px 0;
+        }
+        .game-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-options button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 4px 0 #0a1f3a;
+            font-family: inherit;
+        }
+        .game-options button:hover { transform: translateY(-2px); }
+        .game-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .game-options button.correct { background: #28a745; box-shadow: 0 4px 0 #1e7e34; }
+        .game-options button.wrong { background: #dc3545; box-shadow: 0 4px 0 #a71d2a; }
+        #game-result {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #game-score {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #28a745;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .menu-btn { padding: 14px 18px; font-size: 1rem; }
+            .menu-btn .icon { font-size: 1.5rem; min-width: 40px; }
+            .game-options button { width: 95%; }
+            #login-screen input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1 class="title">📚 There <span>Is / Are</span></h1>
+    <p class="sub">Grammar: countable, uncountable, and practice</p>
+
+    <!-- ===== MENU PRINCIPAL ===== -->
+    <div id="mainMenu">
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="showSection('countable')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">1. Countable vs. Uncountable</span>
+                    <span class="desc">Learn the difference with examples</span>
+                </span>
+            </button>
+            
+            <button class="menu-btn" onclick="showSection('affirmative')">
+                <span class="icon">📝</span>
+                <span class="info">
+                    <span class="title-btn">2. Affirmative / Negative / Interrogative</span>
+                    <span class="desc">Learn the three forms</span>
+                </span>
+            </button>
+            
+            <button class="menu-btn" onclick="showSection('quantifiers')">
+                <span class="icon">🔧</span>
+                <span class="info">
+                    <span class="title-btn">3. A / An / Some / Any / A lot of</span>
+                    <span class="desc">Learn how to use quantifiers</span>
+                </span>
+            </button>
+            
+            <button class="menu-btn practice" onclick="showLogin()">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">4. PRACTICE GAME</span>
+                    <span class="desc">30 mixed sentences · 90 seconds</span>
+                </span>
+            </button>
+        </div>
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+
+    <!-- ===== SECCIÓN 1: COUNTABLE / UNCOUNTABLE ===== -->
+    <div class="content-section" id="section-countable">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📖 Countable vs. Uncountable Nouns</h2>
+        
+        <h3>✅ Countable Nouns (Contables)</h3>
+        <p>Son cosas que podemos contar con números: <strong>1, 2, 3...</strong></p>
+        <ul>
+            <li>🍎 <strong>apple</strong> → one apple, two apples, three apples</li>
+            <li>🍌 <strong>banana</strong> → one banana, two bananas</li>
+            <li>🥚 <strong>egg</strong> → one egg, two eggs</li>
+            <li>🍕 <strong>pizza</strong> → one pizza, two pizzas</li>
+        </ul>
+        
+        <h3>❌ Uncountable Nouns (Incontables)</h3>
+        <p>Son cosas que NO podemos contar con números. Usamos cantidades.</p>
+        <ul>
+            <li>🥛 <strong>milk</strong> → some milk, a glass of milk</li>
+            <li>🍞 <strong>bread</strong> → some bread, a slice of bread</li>
+            <li>🍚 <strong>rice</strong> → some rice, a bowl of rice</li>
+            <li>💧 <strong>water</strong> → some water, a bottle of water</li>
+        </ul>
+        
+        <div class="example-box">
+            <p><strong>💡 Important:</strong></p>
+            <p>With countable nouns, we use <span class="correct">"There is"</span> (singular) and <span class="correct">"There are"</span> (plural).</p>
+            <p>With uncountable nouns, we <strong>always</strong> use <span class="correct">"There is"</span>.</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('Countable nouns can be counted: one apple, two apples. Uncountable nouns cannot be counted: milk, bread, rice.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== SECCIÓN 2: AFFIRMATIVE / NEGATIVE / INTERROGATIVE ===== -->
+    <div class="content-section" id="section-affirmative">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📝 Affirmative / Negative / Interrogative</h2>
+        
+        <h3>✅ Affirmative (Afirmativo)</h3>
+        <p>Usamos <strong>"there is"</strong> (singular) y <strong>"there are"</strong> (plural).</p>
+        <ul>
+            <li>🟢 <strong>There is</strong> a banana on the table.</li>
+            <li>🟢 <strong>There are</strong> five apples in the bowl.</li>
+            <li>🟢 <strong>There is</strong> some milk in the fridge.</li>
+        </ul>
+        
+        <h3>❌ Negative (Negativo)</h3>
+        <p>Usamos <strong>"there isn't"</strong> (singular) y <strong>"there aren't"</strong> (plural).</p>
+        <ul>
+            <li>🔴 <strong>There isn't</strong> any bread at home.</li>
+            <li>🔴 <strong>There aren't</strong> any eggs for breakfast.</li>
+        </ul>
+        
+        <h3>❓ Interrogative (Interrogativo)</h3>
+        <p>Usamos <strong>"Is there?"</strong> (singular) y <strong>"Are there?"</strong> (plural).</p>
+        <ul>
+            <li>🔵 <strong>Is there</strong> any milk in the fridge?</li>
+            <li>🔵 <strong>Are there</strong> any apples in the basket?</li>
+        </ul>
+        
+        <div class="example-box">
+            <p><strong>📝 Remember:</strong></p>
+            <p>🔹 <span class="correct">There is</span> → singular / uncountable</p>
+            <p>🔹 <span class="correct">There are</span> → plural</p>
+            <p>🔹 <span class="wrong">There isn't</span> → negative singular</p>
+            <p>🔹 <span class="wrong">There aren't</span> → negative plural</p>
+            <p>🔹 <span class="correct">Is there?</span> / <span class="correct">Are there?</span> → questions</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('We use There is for singular and uncountable nouns. We use There are for plural nouns. For questions, we say Is there or Are there. For negatives, we say There is not or There are not.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== SECCIÓN 3: QUANTIFIERS ===== -->
+    <div class="content-section" id="section-quantifiers">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>🔧 A / An / Some / Any / A lot of</h2>
+        
+        <h3>📌 A / An (singular)</h3>
+        <p>Usamos con sustantivos contables en singular.</p>
+        <ul>
+            <li>🍎 <strong>an</strong> apple (vocal: a, e, i, o, u → <strong>an</strong>)</li>
+            <li>🍌 <strong>a</strong> banana (consonante → <strong>a</strong>)</li>
+        </ul>
+        
+        <h3>📌 Some (afirmativo)</h3>
+        <p>Usamos con sustantivos contables en plural e incontables.</p>
+        <ul>
+            <li>✅ There are <strong>some</strong> apples on the table.</li>
+            <li>✅ There is <strong>some</strong> milk in the fridge.</li>
+        </ul>
+        
+        <h3>📌 Any (negativo / interrogativo)</h3>
+        <p>Usamos con sustantivos plurales e incontables.</p>
+        <ul>
+            <li>❌ There aren't <strong>any</strong> eggs.</li>
+            <li>❓ Is there <strong>any</strong> bread?</li>
+        </ul>
+        
+        <h3>📌 A lot of (muchos / mucha)</h3>
+        <p>Usamos con contables e incontables en afirmativo.</p>
+        <ul>
+            <li>✅ There are <strong>a lot of</strong> people.</li>
+            <li>✅ There is <strong>a lot of</strong> water.</li>
+        </ul>
+        
+        <div class="example-box">
+            <p><strong>📝 Quick Guide:</strong></p>
+            <p>🔹 <span class="correct">a / an</span> → singular countable</p>
+            <p>🔹 <span class="correct">some</span> → affirmative (plural / uncountable)</p>
+            <p>🔹 <span class="correct">any</span> → negative / question (plural / uncountable)</p>
+            <p>🔹 <span class="correct">a lot of</span> → affirmative (plural / uncountable)</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('We use a or an with singular countable nouns. We use some in affirmative sentences. We use any in negative sentences and questions. We use a lot of to say many or much.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== LOGIN PARA EL JUEGO ===== -->
+    <div id="login-screen">
+        <h2 style="color:#1a1a2e; margin-bottom:10px;">🎯 Practice Game</h2>
+        <p style="color:#6c757d; margin-bottom:15px;">Enter your name and code to start</p>
+        <input type="text" id="login-name" placeholder="Your name">
+        <input type="password" id="login-code" placeholder="Access code">
+        <button onclick="verificarAcceso()">▶ Start Game</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+        <button class="back-inner-btn" onclick="cancelLogin()" style="margin-top:15px;">← Cancel</button>
+    </div>
+
+    <!-- ===== PRACTICE GAME ===== -->
+    <div class="game-container" id="gameContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">🎯 Practice Game</h2>
+        <p class="sub">Complete the sentence with the correct option</p>
+        
+        <div class="game-status">
+            <span id="player-name-game">👋 Student</span>
+            <span id="timer-display">⏱️ 90s</span>
+            <span id="progress-text">Question 1 / 30</span>
+        </div>
+        
+        <p id="question-text">Loading...</p>
+        
+        <div class="game-options" id="gameOptions">
+            <!-- Generado por JavaScript -->
+        </div>
+        
+        <p id="game-result"></p>
+        <p id="game-score">Points: 0 / 30</p>
+        
+        <div class="final-score-box" id="finalScore">
+            <h2>🏁 Game Complete!</h2>
+            <p class="big-score" id="finalScoreNumber">0 / 30</p>
+            <p id="finalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="btn" onclick="resetGame()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;">🔄 Play Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('there_is_are_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = 'Student';
+    let gameStarted = false;
+
+    // ============================================================
+    // 2. NAVEGACIÓN
+    // ============================================================
+    function showMenu() {
+        document.getElementById('mainMenu').style.display = 'block';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('gameContainer').classList.remove('active');
+        gameStarted = false;
+    }
+    
+    function showSection(section) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+    }
+
+    function showLogin() {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('login-error').style.display = 'none';
+        document.getElementById('login-name').value = '';
+        document.getElementById('login-code').value = '';
+        document.getElementById('login-name').focus();
+    }
+
+    function cancelLogin() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    // ============================================================
+    // 3. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('login-name').value.trim();
+        const codeInput = document.getElementById('login-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('login-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('there_is_are_attempts')) || 0;
+        localStorage.setItem('there_is_are_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        localStorage.setItem('student_name', nameInput);
+        
+        document.getElementById('login-screen').style.display = 'none';
+        startGame();
+    }
+
+    // ============================================================
+    // 4. SPEECH SYNTHESIS (AUDIO)
+    // ============================================================
+    function speakText(text) {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Your browser does not support audio. Please use Chrome, Edge, or Safari.');
+        }
+    }
+
+    // ============================================================
+    // 5. BASE DE DATOS - 40 PREGUNTAS
+    // ============================================================
+    const ALL_QUESTIONS = [
+        { sentence: '______ a banana on the table.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ five apples in the bowl.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any milk in the fridge?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any eggs for breakfast.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 3 },
+        { sentence: '______ a lot of water in the bottle.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ three oranges in the bag.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any cheese in the sandwich?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any bread at home.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 2 },
+        { sentence: '______ a pizza in the oven.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ some cookies on the plate.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any sugar in my coffee?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any tomatoes in the salad.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 3 },
+        { sentence: '______ a glass of juice on the counter.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ four chairs around the table.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any salt in the soup?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any rice in the cupboard.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 2 },
+        { sentence: '______ some pasta for dinner.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ two sandwiches in the lunch box.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any butter in the fridge?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any potatoes in the basket.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 3 },
+        { sentence: '______ a cup of tea on the table.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ six eggs in the carton.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any coffee in the jar?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any meat in the freezer.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 2 },
+        { sentence: '______ some vegetables for the soup.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ a piece of cake on the plate.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ any onions in the fridge?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 3 },
+        { sentence: '______ any jam for breakfast.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 2 },
+        { sentence: '______ some bread on the table.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ five bananas in the fruit bowl.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any orange juice in the fridge?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any cheese in the sandwich.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 2 },
+        { sentence: '______ some carrots in the vegetable drawer.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ a bottle of water in the fridge.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ any pasta in the cupboard?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any mushrooms on the pizza.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 3 },
+        { sentence: '______ a lot of chocolate in the box.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 0 },
+        { sentence: '______ two apples in my backpack.', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 1 },
+        { sentence: '______ any rice for dinner?', options: ['There is', 'There are', 'Is there', 'Are there'], correct: 2 },
+        { sentence: '______ any fruit in the bowl.', options: ['There is', 'There are', 'There isn\'t', 'There aren\'t'], correct: 3 }
+    ];
+
+    // ============================================================
+    // 6. JUEGO
+    // ============================================================
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let timer = 90;
+    let timerInterval = null;
+    let gameFinished = false;
+
+    function startGame() {
+        gameStarted = true;
+        gameFinished = false;
+        currentIndex = 0;
+        score = 0;
+        timer = 90;
+
+        document.getElementById('gameContainer').classList.add('active');
+        document.getElementById('player-name-game').innerHTML = `👋 ${playerName}`;
+
+        const shuffled = [...ALL_QUESTIONS].sort(() => Math.random() - 0.5);
+        currentQuestions = shuffled.slice(0, 30);
+
+        document.getElementById('finalScore').style.display = 'none';
+        document.getElementById('game-result').innerHTML = '';
+        document.getElementById('game-score').innerHTML = `Points: 0 / ${currentQuestions.length}`;
+
+        showQuestion();
+        startTimer();
+    }
+
+    function showQuestion() {
+        if (gameFinished) return;
+        
+        if (currentIndex >= currentQuestions.length) {
+            finishGame();
+            return;
+        }
+        
+        const q = currentQuestions[currentIndex];
+        document.getElementById('question-text').innerHTML = q.sentence;
+        document.getElementById('progress-text').innerHTML = `Question ${currentIndex + 1} / ${currentQuestions.length}`;
+        
+        const optionsContainer = document.getElementById('gameOptions');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.dataset.index = idx;
+            btn.onclick = () => checkAnswer(idx);
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('game-result').innerHTML = '';
+    }
+
+    function checkAnswer(selected) {
+        if (gameFinished) return;
+        
+        const q = currentQuestions[currentIndex];
+        const buttons = document.querySelectorAll('#gameOptions button');
+        
+        buttons.forEach(btn => btn.disabled = true);
+        
+        buttons.forEach((btn, idx) => {
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === selected && idx !== q.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+        
+        const result = document.getElementById('game-result');
+        if (selected === q.correct) {
+            score++;
+            result.innerHTML = '✅ Correct! Well done!';
+            result.style.color = '#28a745';
+        } else {
+            result.innerHTML = `❌ Incorrect. The correct answer is: "${q.options[q.correct]}"`;
+            result.style.color = '#dc3545';
+        }
+        
+        document.getElementById('game-score').innerHTML = `Points: ${score} / ${currentQuestions.length}`;
+        
+        currentIndex++;
+        setTimeout(showQuestion, 1200);
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timer--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timer}s`;
+            if (timer <= 0) {
+                clearInterval(timerInterval);
+                finishGame();
+            }
+        }, 1000);
+    }
+
+    function finishGame() {
+        if (gameFinished) return;
+        gameFinished = true;
+        clearInterval(timerInterval);
+        
+        document.querySelectorAll('#gameOptions button').forEach(btn => btn.disabled = true);
+        
+        localStorage.setItem('there_is_are_score', score);
+        
+        let history = JSON.parse(localStorage.getItem('there_is_are_history')) || [];
+        history.push({
+            name: playerName,
+            score: score,
+            total: currentQuestions.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: 'There Is / Are'
+        });
+        localStorage.setItem('there_is_are_history', JSON.stringify(history));
+        
+        const total = currentQuestions.length;
+        const percentage = Math.round((score / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a grammar master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the theory.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Review the theory above.'; }
+        
+        document.getElementById('finalScore').style.display = 'block';
+        document.getElementById('finalScoreNumber').innerHTML = `${score} / ${total}`;
+        document.getElementById('finalMessage').innerHTML = `${emoji} ${message}`;
+        
+        document.getElementById('game-score').innerHTML = '';
+        document.getElementById('question-text').innerHTML = '🏁 Game Complete!';
+        document.getElementById('gameOptions').innerHTML = '';
+    }
+
+    function resetGame() {
+        document.getElementById('finalScore').style.display = 'none';
+        showLogin();
+    }
+
+    // ============================================================
+    // 7. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display === 'flex') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect 2 - Grammar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 750px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* MENU DE BOTONES */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: inherit;
+            width: 100%;
+            box-shadow: 0 4px 0 #0a1f3a;
+        }
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #0a1f3a;
+        }
+        .menu-btn .icon {
+            font-size: 2rem;
+            min-width: 50px;
+        }
+        .menu-btn .info {
+            flex: 1;
+        }
+        .menu-btn .info .title-btn {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .menu-btn .info .desc {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .menu-btn.practice {
+            background: #28a745;
+            box-shadow: 0 4px 0 #1e7e34;
+        }
+        .menu-btn.practice:hover {
+            box-shadow: 0 6px 0 #1e7e34;
+        }
+        .menu-btn.mixed {
+            background: #f39c12;
+            box-shadow: 0 4px 0 #d68910;
+        }
+        .menu-btn.mixed:hover {
+            box-shadow: 0 6px 0 #d68910;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        /* CONTENIDO DE LAS SECCIONES */
+        .content-section {
+            display: none;
+            text-align: left;
+            padding: 20px 0;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-section h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .content-section h3 {
+            color: #0f3460;
+            margin: 15px 0 8px;
+            font-size: 1.2rem;
+        }
+        .content-section p {
+            color: #2c3e50;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 15px;
+        }
+        .content-section ul li {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border-left: 4px solid #0f3460;
+            color: #1a1a2e;
+            font-size: 1rem;
+        }
+        .content-section ul li strong {
+            color: #0f3460;
+        }
+        .content-section .example-box {
+            background: #e8f0fe;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #d4e0f0;
+        }
+        .content-section .example-box .correct {
+            color: #28a745;
+            font-weight: 700;
+        }
+        .content-section .example-box .wrong {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        .content-section .rule-box {
+            background: #fff3cd;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+        .content-section .rule-box strong {
+            color: #856404;
+        }
+        
+        .audio-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0;
+            font-family: inherit;
+        }
+        .audio-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .back-inner-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: inherit;
+            color: #495057;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+        }
+        .back-inner-btn:hover { background: #ced4da; }
+        
+        /* LOGIN PARA EL JUEGO */
+        #login-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        #login-screen input {
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            width: 280px;
+            text-align: center;
+            margin: 8px 0;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        #login-screen input:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+        }
+        #login-screen button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 0 #1e7e34;
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+            background: #fde8e8;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        /* GAME */
+        .game-container {
+            display: none;
+            text-align: center;
+        }
+        .game-container.active {
+            display: block;
+        }
+        .game-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #timer-display {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.2rem;
+            background: #fff;
+            padding: 5px 18px;
+            border-radius: 20px;
+            border: 2px solid #c0392b;
+        }
+        #question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 20px 0;
+        }
+        .game-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-options button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 4px 0 #0a1f3a;
+            font-family: inherit;
+        }
+        .game-options button:hover { transform: translateY(-2px); }
+        .game-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .game-options button.correct { background: #28a745; box-shadow: 0 4px 0 #1e7e34; }
+        .game-options button.wrong { background: #dc3545; box-shadow: 0 4px 0 #a71d2a; }
+        #game-result {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #game-score {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #28a745;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .menu-btn { padding: 14px 18px; font-size: 1rem; }
+            .menu-btn .icon { font-size: 1.5rem; min-width: 40px; }
+            .game-options button { width: 95%; }
+            #login-screen input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1 class="title">📝 Present <span>Perfect 2</span></h1>
+    <p class="sub">Negative & Interrogative - Explanation and Practice</p>
+
+    <!-- ===== MENU PRINCIPAL ===== -->
+    <div id="mainMenu">
+        <div class="menu-grid">
+            <!-- Botón 1: Negative Explanation -->
+            <button class="menu-btn" onclick="showSection('negative_explanation')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">1. NEGATIVE - Explanation</span>
+                    <span class="desc">Structure, examples and audio</span>
+                </span>
+            </button>
+            
+            <!-- Botón 2: Negative Practice -->
+            <button class="menu-btn practice" onclick="showLogin('negative')">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">2. NEGATIVE - Practice</span>
+                    <span class="desc">20 sentences · 90 seconds</span>
+                </span>
+            </button>
+            
+            <!-- Botón 3: Interrogative Explanation -->
+            <button class="menu-btn" onclick="showSection('interrogative_explanation')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">3. INTERROGATIVE - Explanation</span>
+                    <span class="desc">Structure, examples and audio</span>
+                </span>
+            </button>
+            
+            <!-- Botón 4: Interrogative Practice -->
+            <button class="menu-btn practice" onclick="showLogin('interrogative')">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">4. INTERROGATIVE - Practice</span>
+                    <span class="desc">20 sentences · 90 seconds</span>
+                </span>
+            </button>
+            
+            <!-- Botón 5: Mixed -->
+            <button class="menu-btn mixed" onclick="showLogin('mixed')">
+                <span class="icon">🔀</span>
+                <span class="info">
+                    <span class="title-btn">5. MIXED - Negative & Interrogative</span>
+                    <span class="desc">20 sentences · 100 seconds</span>
+                </span>
+            </button>
+        </div>
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+
+    <!-- ===== SECCIÓN 1: NEGATIVE EXPLANATION ===== -->
+    <div class="content-section" id="section-negative_explanation">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📖 Present Perfect - Negative</h2>
+        
+        <h3>🔹 Estructura</h3>
+        <div class="example-box">
+            <p><strong>Sujeto + have/has + not + past participle</strong></p>
+        </div>
+        
+        <h3>🔹 Contracciones</h3>
+        <ul>
+            <li><strong>have not</strong> → haven't</li>
+            <li><strong>has not</strong> → hasn't</li>
+        </ul>
+        
+        <h3>🔹 Ejemplos</h3>
+        <ul>
+            <li>✅ I <strong>have not</strong> eaten breakfast. / I <strong>haven't</strong> eaten breakfast.</li>
+            <li>✅ She <strong>has not</strong> finished yet. / She <strong>hasn't</strong> finished yet.</li>
+            <li>✅ They <strong>have not</strong> arrived. / They <strong>haven't</strong> arrived.</li>
+            <li>✅ He <strong>has not</strong> called me. / He <strong>hasn't</strong> called me.</li>
+        </ul>
+        
+        <h3>🔹 Usos</h3>
+        <ul>
+            <li>Decir que algo <strong>NO ha ocurrido</strong></li>
+            <li>Con <strong>"yet"</strong> al final de la oración<br>
+                → I haven't seen that movie <strong>yet</strong>.</li>
+            <li>Con <strong>"never"</strong> para decir que nunca ha pasado<br>
+                → I have <strong>never</strong> been to Paris.</li>
+        </ul>
+        
+        <div class="rule-box">
+            <p><strong>⚠️ Regla importante:</strong></p>
+            <p>El verbo auxiliar <strong>HAVE/HAS</strong> se usa con <strong>NOT</strong> + <strong>PAST PARTICIPLE</strong>.</p>
+            <p>✅ I <strong>haven't seen</strong> that movie.</p>
+            <p>❌ I <strong>don't have seen</strong> that movie.</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('The negative form of Present Perfect is used to say that something has not happened. The structure is subject plus have or has plus not plus the past participle. The contractions are haven t and hasn t. We often use yet at the end of the sentence.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== SECCIÓN 3: INTERROGATIVE EXPLANATION ===== -->
+    <div class="content-section" id="section-interrogative_explanation">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📖 Present Perfect - Interrogative</h2>
+        
+        <h3>🔹 Estructura</h3>
+        <div class="example-box">
+            <p><strong>Have/Has + sujeto + past participle?</strong></p>
+        </div>
+        
+        <h3>🔹 Ejemplos</h3>
+        <ul>
+            <li>✅ <strong>Have</strong> you eaten breakfast?</li>
+            <li>✅ <strong>Has</strong> she finished her work?</li>
+            <li>✅ <strong>Have</strong> they arrived yet?</li>
+            <li>✅ <strong>Has</strong> he called you?</li>
+        </ul>
+        
+        <h3>🔹 Usos</h3>
+        <ul>
+            <li>Preguntar si algo <strong>ha ocurrido</strong></li>
+            <li>Con <strong>"ever"</strong> para preguntar sobre experiencias<br>
+                → <strong>Have</strong> you <strong>ever</strong> been to Paris?</li>
+            <li>Con <strong>"yet"</strong> para preguntar si algo ya pasó<br>
+                → <strong>Has</strong> she called you <strong>yet</strong>?</li>
+        </ul>
+        
+        <div class="rule-box">
+            <p><strong>⚠️ Regla importante:</strong></p>
+            <p>El verbo auxiliar <strong>HAVE/HAS</strong> va al <strong>PRINCIPIO</strong> de la pregunta.</p>
+            <p>✅ <strong>Have</strong> you seen that movie?</p>
+            <p>❌ You <strong>have seen</strong> that movie?</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('The interrogative form of Present Perfect is used to ask if something has happened. The structure is Have or Has plus subject plus past participle. We use ever to ask about experiences and yet to ask if something has already happened.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== LOGIN PARA EL JUEGO ===== -->
+    <div id="login-screen">
+        <h2 style="color:#1a1a2e; margin-bottom:10px;">🎯 Practice Game</h2>
+        <p style="color:#6c757d; margin-bottom:15px;">Enter your name and code to start</p>
+        <input type="text" id="login-name" placeholder="Your name">
+        <input type="password" id="login-code" placeholder="Access code">
+        <button onclick="verificarAcceso()">▶ Start Game</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+        <button class="back-inner-btn" onclick="cancelLogin()" style="margin-top:15px;">← Cancel</button>
+    </div>
+
+    <!-- ===== PRACTICE GAME ===== -->
+    <div class="game-container" id="gameContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">🎯 Practice Game</h2>
+        <p class="sub" id="game-subtitle">Complete the sentence with the correct option</p>
+        
+        <div class="game-status">
+            <span id="player-name-game">👋 Student</span>
+            <span id="timer-display">⏱️ 90s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+        
+        <p id="question-text">Loading...</p>
+        
+        <div class="game-options" id="gameOptions">
+            <!-- Generado por JavaScript -->
+        </div>
+        
+        <p id="game-result"></p>
+        <p id="game-score">Points: 0 / 20</p>
+        
+        <div class="final-score-box" id="finalScore">
+            <h2>🏁 Game Complete!</h2>
+            <p class="big-score" id="finalScoreNumber">0 / 20</p>
+            <p id="finalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="btn" onclick="resetGame()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;">🔄 Play Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('present_perfect2_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = 'Student';
+    let currentGame = 'negative';
+    let gameStarted = false;
+
+    // ============================================================
+    // 2. NAVEGACIÓN
+    // ============================================================
+    function showMenu() {
+        document.getElementById('mainMenu').style.display = 'block';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('gameContainer').classList.remove('active');
+        gameStarted = false;
+    }
+    
+    function showSection(section) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+    }
+
+    function showLogin(game) {
+        currentGame = game;
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('login-error').style.display = 'none';
+        document.getElementById('login-name').value = '';
+        document.getElementById('login-code').value = '';
+        document.getElementById('login-name').focus();
+    }
+
+    function cancelLogin() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    // ============================================================
+    // 3. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('login-name').value.trim();
+        const codeInput = document.getElementById('login-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('login-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('present_perfect2_attempts')) || 0;
+        localStorage.setItem('present_perfect2_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        localStorage.setItem('student_name', nameInput);
+        
+        document.getElementById('login-screen').style.display = 'none';
+        startGame(currentGame);
+    }
+
+    // ============================================================
+    // 4. SPEECH SYNTHESIS (AUDIO)
+    // ============================================================
+    function speakText(text) {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Your browser does not support audio. Please use Chrome, Edge, or Safari.');
+        }
+    }
+
+    // ============================================================
+    // 5. BASE DE DATOS
+    // ============================================================
+    // NEGATIVE (40 preguntas)
+    const NEGATIVE_QUESTIONS = [
+        { sentence: 'I ______ not eaten breakfast.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not finished yet.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not arrived.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not called me.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not seen her today.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not been to London.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not studied for the exam.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not bought a car yet.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not found his keys.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not decided yet.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not done my homework.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not visited Paris.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not left yet.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not spoken to her.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not seen that movie.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not tried sushi.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not written the letter.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not arrived yet.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not finished his project.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not met before.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not seen that movie.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not been to school.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not eaten dinner.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not finished his homework.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not visited that museum.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not called my mom.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not bought the tickets.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not packed their bags.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not told me the truth.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not made a decision.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not worn that dress.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not given her opinion.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not paid the bill.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not sent the email.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not taken the test.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'I ______ not read that book.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: 'She ______ not won a prize.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'They ______ not broken anything.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: 'He ______ not driven a truck.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: 'We ______ not spoken about it.', options: ['have', 'has', 'are', 'were'], correct: 0 }
+    ];
+
+    // INTERROGATIVE (40 preguntas)
+    const INTERROGATIVE_QUESTIONS = [
+        { sentence: '______ you eaten breakfast?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she finished her work?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they arrived yet?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he called you?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ we met before?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ you ever been to Mexico?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she seen the new movie?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they been to Paris?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he finished his homework?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ we met before?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ you tried sushi?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she left yet?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they bought a car?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he spoken to her?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you seen that movie?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she written the letter?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they arrived?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he found his keys?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you done your homework?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she visited Paris?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you ever tried Indian food?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she seen the new teacher?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they left the party?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he called his mom?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you ever been to Japan?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she finished the book?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they seen the Eiffel Tower?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he talked to the boss?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you ever ridden a horse?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she made the cake?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they taken the test?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he sent the email?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you ever seen a whale?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she broken the vase?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they driven to the beach?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he read that book?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ you ever sung in public?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ she won the competition?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: '______ they told the truth?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: '______ he written a poem?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 }
+    ];
+
+    // MIXED (40 preguntas - Negative + Interrogative)
+    const MIXED_QUESTIONS = [
+        { sentence: 'I ______ not eaten breakfast.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: '______ you finished your work?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'She ______ not called me.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ they arrived yet?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'We ______ not seen that movie.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ she ever been to London?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'He ______ not done his homework.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ you tried sushi?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'They ______ not bought a car.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ he finished his project?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'I ______ not been to Paris.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: '______ she written the letter?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'We ______ not decided yet.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ they left yet?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'She ______ not visited her grandmother.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ you ever seen snow?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'He ______ not found his keys.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ they spoken to the teacher?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'I ______ not tried that food.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: '______ she finished her homework?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'They ______ not arrived.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ he called you?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'We ______ not seen her today.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ you ever been to Mexico?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'She ______ not studied for the exam.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ they bought a house?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'He ______ not spoken to her.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ you done your homework?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'I ______ not called my mom.', options: ['have', 'has', 'am', 'was'], correct: 0 },
+        { sentence: '______ she seen the new movie?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'They ______ not packed their bags.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ he told you the truth?', options: ['Have', 'Has', 'Is', 'Was'], correct: 1 },
+        { sentence: 'We ______ not made a decision.', options: ['have', 'has', 'are', 'were'], correct: 0 },
+        { sentence: '______ you ever ridden a horse?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'She ______ not given her opinion.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ they paid the bill?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'He ______ not sent the email.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ you ever seen a whale?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 },
+        { sentence: 'She ______ not broken anything.', options: ['have', 'has', 'is', 'was'], correct: 1 },
+        { sentence: '______ they driven to the beach?', options: ['Have', 'Has', 'Are', 'Were'], correct: 0 }
+    ];
+
+    // ============================================================
+    // 6. JUEGO
+    // ============================================================
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let timer = 90;
+    let timerInterval = null;
+    let gameFinished = false;
+
+    function startGame(gameType) {
+        gameStarted = true;
+        gameFinished = false;
+        currentIndex = 0;
+        score = 0;
+
+        let questionBank;
+        let gameTitle;
+        let timeLimit = 90;
+
+        if (gameType === 'negative') {
+            questionBank = NEGATIVE_QUESTIONS;
+            gameTitle = 'NEGATIVE - Practice';
+            timeLimit = 90;
+        } else if (gameType === 'interrogative') {
+            questionBank = INTERROGATIVE_QUESTIONS;
+            gameTitle = 'INTERROGATIVE - Practice';
+            timeLimit = 90;
+        } else {
+            questionBank = MIXED_QUESTIONS;
+            gameTitle = 'MIXED - Negative & Interrogative';
+            timeLimit = 100;
+        }
+
+        timer = timeLimit;
+
+        const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+        currentQuestions = shuffled.slice(0, 20);
+
+        document.getElementById('game-subtitle').textContent = gameTitle;
+        document.getElementById('gameContainer').classList.add('active');
+        document.getElementById('player-name-game').innerHTML = `👋 ${playerName}`;
+
+        document.getElementById('finalScore').style.display = 'none';
+        document.getElementById('game-result').innerHTML = '';
+        document.getElementById('game-score').innerHTML = `Points: 0 / ${currentQuestions.length}`;
+
+        showQuestion();
+        startTimer();
+    }
+
+    function showQuestion() {
+        if (gameFinished) return;
+        
+        if (currentIndex >= currentQuestions.length) {
+            finishGame();
+            return;
+        }
+        
+        const q = currentQuestions[currentIndex];
+        document.getElementById('question-text').innerHTML = q.sentence;
+        document.getElementById('progress-text').innerHTML = `Question ${currentIndex + 1} / ${currentQuestions.length}`;
+        
+        const optionsContainer = document.getElementById('gameOptions');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.dataset.index = idx;
+            btn.onclick = () => checkAnswer(idx);
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('game-result').innerHTML = '';
+    }
+
+    function checkAnswer(selected) {
+        if (gameFinished) return;
+        
+        const q = currentQuestions[currentIndex];
+        const buttons = document.querySelectorAll('#gameOptions button');
+        
+        buttons.forEach(btn => btn.disabled = true);
+        
+        buttons.forEach((btn, idx) => {
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === selected && idx !== q.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+        
+        const result = document.getElementById('game-result');
+        if (selected === q.correct) {
+            score++;
+            result.innerHTML = '✅ Correct! Well done!';
+            result.style.color = '#28a745';
+        } else {
+            result.innerHTML = `❌ Incorrect. The correct answer is: "${q.options[q.correct]}"`;
+            result.style.color = '#dc3545';
+        }
+        
+        document.getElementById('game-score').innerHTML = `Points: ${score} / ${currentQuestions.length}`;
+        
+        currentIndex++;
+        setTimeout(showQuestion, 1200);
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timer--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${timer}s`;
+            if (timer <= 0) {
+                clearInterval(timerInterval);
+                finishGame();
+            }
+        }, 1000);
+    }
+
+    function finishGame() {
+        if (gameFinished) return;
+        gameFinished = true;
+        clearInterval(timerInterval);
+        
+        document.querySelectorAll('#gameOptions button').forEach(btn => btn.disabled = true);
+        
+        const gameKey = currentGame === 'negative' ? 'present_perfect2_negative_score' : 
+                        currentGame === 'interrogative' ? 'present_perfect2_interrogative_score' : 
+                        'present_perfect2_mixed_score';
+        localStorage.setItem(gameKey, score);
+        
+        let historyKey = currentGame === 'negative' ? 'present_perfect2_negative_history' : 
+                         currentGame === 'interrogative' ? 'present_perfect2_interrogative_history' : 
+                         'present_perfect2_mixed_history';
+        let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+        history.push({
+            name: playerName,
+            score: score,
+            total: currentQuestions.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: currentGame === 'negative' ? 'Present Perfect 2 - Negative' : 
+                  currentGame === 'interrogative' ? 'Present Perfect 2 - Interrogative' : 
+                  'Present Perfect 2 - Mixed'
+        });
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        
+        const total = currentQuestions.length;
+        const percentage = Math.round((score / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a grammar master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the theory.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Review the theory above.'; }
+        
+        document.getElementById('finalScore').style.display = 'block';
+        document.getElementById('finalScoreNumber').innerHTML = `${score} / ${total}`;
+        document.getElementById('finalMessage').innerHTML = `${emoji} ${message}`;
+        
+        document.getElementById('game-score').innerHTML = '';
+        document.getElementById('question-text').innerHTML = '🏁 Game Complete!';
+        document.getElementById('gameOptions').innerHTML = '';
+    }
+
+    function resetGame() {
+        document.getElementById('finalScore').style.display = 'none';
+        showLogin(currentGame);
+    }
+
+    // ============================================================
+    // 7. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display === 'flex') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>

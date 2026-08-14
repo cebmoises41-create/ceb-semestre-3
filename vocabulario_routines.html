@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routines - Fill in the Gaps</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body { margin:0; padding:20px; min-height:100vh; display:flex; justify-content:center; align-items:center; font-family:sans-serif; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        .floating-words { position:fixed; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:0; overflow:hidden; }
+        .word { position:absolute; color:rgba(41, 128, 185, 0.1); font-weight:900; font-size:5rem; transform:rotate(-15deg); user-select:none; }
+        .w1 { top:5%; left:-5%; } .w2 { bottom:5%; right:-5%; } .w3 { top:50%; left:10%; font-size:3rem; }
+        
+        .game-container { position:relative; z-index:1; background:rgba(255,255,255,0.95); backdrop-filter:blur(5px); padding:30px; border-radius:30px; box-shadow:0 15px 40px rgba(0,0,0,0.1); max-width:750px; width:100%; text-align:center; border:1px solid rgba(255,255,255,0.8); }
+        .title { font-size:2.5rem; font-weight:900; color:#1c3d3b; margin:0; }
+        .sub { color:#6c757d; margin-bottom:20px; }
+        
+        /* LOGIN */
+        #login-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 0; }
+        #login-screen input { padding:12px 15px; font-size:1.1rem; border:2px solid #ced4da; border-radius:12px; width:250px; text-align:center; margin:8px 0; outline:none; transition:0.3s; }
+        #login-screen input:focus { border-color:#2d6a4f; box-shadow:0 0 0 3px rgba(45,106,79,0.2); }
+        #login-screen button { background:#2d6a4f; color:white; border:none; padding:14px 40px; border-radius:30px; font-weight:bold; font-size:1.1rem; cursor:pointer; transition:0.3s; margin-top:15px; box-shadow:0 4px 0 #1b4332; }
+        #login-screen button:hover { transform:translateY(-2px); }
+        #login-error { color:#e74c3c; font-weight:bold; margin-top:10px; display:none; background:#fde8e8; padding:8px 15px; border-radius:8px; }
+        
+        /* JUEGO */
+        #game-screen { display:none; }
+        .status-bar { display:flex; justify-content:space-between; align-items:center; background:#f8f9fa; padding:10px 20px; border-radius:15px; margin-bottom:20px; border:1px solid #e9ecef; }
+        #player-name { font-weight:bold; color:#1c3d3b; font-size:1.1rem; }
+        #timer-display { font-weight:bold; color:#c0392b; font-size:1.3rem; background:#fff; padding:5px 15px; border-radius:20px; border:2px solid #c0392b; }
+
+        /* TEXTO CON HUECOS (GAPS) */
+        .story-text {
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 2.2rem;
+            background: #fcfcfc;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .gap-container {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .gap-select {
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 2px solid #2d6a4f;
+            background: #fff;
+            font-weight: bold;
+            color: #1c3d3b;
+            font-size: 1rem;
+            cursor: pointer;
+            outline: none;
+            min-width: 90px;
+        }
+        .gap-select:focus { border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41,128,185,0.2); }
+        
+        /* Colores al seleccionar */
+        .gap-select.correct { background: #d4edda; border-color: #28a745; }
+        .gap-select.wrong { background: #f8d7da; border-color: #dc3545; }
+
+        .resultado { font-size:1.2rem; font-weight:bold; margin-top:15px; }
+        #contador { font-weight:bold; margin-top:20px; font-size:1.2rem; color:#2980b9; }
+        .back-btn { display:inline-block; text-decoration:none; color:#495057; background:#e9ecef; padding:12px 35px; border-radius:30px; font-weight:bold; margin-top:30px; border:1px solid #ced4da; transition:0.3s; }
+        .back-btn:hover { background:#ced4da; }
+        
+        /* Mensaje de finalización */
+        .final-score-box { background:#f8f9fa; padding:20px; border-radius:15px; border:2px solid #2d6a4f; margin-top:20px; display:none; }
+    </style>
+</head>
+<body>
+    <div class="floating-words">
+        <div class="word w1">ROUTINES</div> <div class="word w2">DAILY</div> <div class="word w3">LIFE</div>
+    </div>
+
+    <div class="game-container">
+        <h1 class="title">Routines - Fill in the Gaps</h1>
+        <p class="sub">Read Lionel Messi's routine. Choose the correct word.</p>
+
+        <!-- LOGIN -->
+        <div id="login-screen">
+            <p style="color:#6c757d; margin-bottom:5px;">Enter your name:</p>
+            <input type="text" id="input-name" placeholder="Your name">
+            <p style="color:#6c757d; margin-bottom:5px; margin-top:15px;">Enter Access Code:</p>
+            <input type="password" id="input-code" placeholder="Code">
+            <button onclick="verificarAcceso()">Start Reading</button>
+            <p id="login-error">❌ Incorrect code. Try again.</p>
+        </div>
+
+        <!-- JUEGO -->
+        <div id="game-screen">
+            <div class="status-bar">
+                <span id="player-name">👋 Welcome, Student!</span>
+                <span id="timer-display">⏱️ 10:00</span>
+            </div>
+            
+            <div class="story-text" id="story-container">
+                <!-- El texto se generará con JavaScript aquí -->
+            </div>
+
+            <p class="resultado" id="respuesta"></p>
+            <div class="final-score-box" id="score-box">
+                <h2 style="color:#1c3d3b;">🎉 Completed!</h2>
+                <p id="final-message" style="font-size:1.3rem; font-weight:bold;"></p>
+            </div>
+            <p id="contador" style="display:none;">Points: 0 / 20</p>
+            <a href="menu.html" class="back-btn">← Back to Menu</a>
+        </div>
+    </div>
+
+    <script>
+        // --- SISTEMA DE CÓDIGOS ---
+        const getCorrectCode = () => {
+            let count = parseInt(localStorage.getItem('routines_attempts')) || 0;
+            return count >= 3 ? "9999" : "2025";
+        };
+
+        let playerName = "Student";
+        let timerInterval;
+        let timeLeft = 600; // 10 MINUTOS EN SEGUNDOS
+
+        function verificarAcceso() {
+            const nameInput = document.getElementById('input-name').value.trim();
+            const codeInput = document.getElementById('input-code').value.trim();
+            const errorMsg = document.getElementById('login-error');
+
+            if(nameInput === "") { alert("Please enter your name."); return; }
+            
+            if(codeInput !== getCorrectCode()) {
+                errorMsg.style.display = "block";
+                document.getElementById('input-code').value = "";
+                return;
+            }
+
+            let count = parseInt(localStorage.getItem('routines_attempts')) || 0;
+            localStorage.setItem('routines_attempts', count + 1);
+
+            errorMsg.style.display = "none";
+            playerName = nameInput;
+            document.getElementById('login-screen').style.display = "none";
+            document.getElementById('game-screen').style.display = "block";
+            document.getElementById('player-name').innerHTML = `👋 Welcome, ${playerName}!`;
+            iniciarCronometro();
+            construirTexto();
+        }
+
+        // --- CRONÓMETRO (10 MINUTOS) ---
+        function iniciarCronometro() {
+            timeLeft = 600;
+            actualizarTimer();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                actualizarTimer();
+                if(timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finalizarJuego("⏰ Time's Up!");
+                }
+            }, 1000);
+        }
+        function actualizarTimer() {
+            const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const secs = String(timeLeft % 60).padStart(2, '0');
+            document.getElementById('timer-display').innerHTML = `⏱️ ${mins}:${secs}`;
+        }
+
+        // --- BANCO DE PALABRAS POR CATEGORÍA (SOLUCIÓN AL ERROR) ---
+        // Hemos separado las palabras por tipo gramatical para que las opciones tengan sentido.
+        const BANCO_VERBOS = ['wake', 'drink', 'wear', 'practice', 'eat', 'use', 'drive', 'go', 'brush', 'take', 'send', 'read', 'ride', 'swim', 'listen', 'tie', 'walk', 'have', 'watch', 'open', 'close', 'wash', 'put', 'look', 'cut', 'water', 'add', 'make'];
+        const BANCO_SUSTANTIVOS = ['stadium', 'pasta', 'jacket', 'window', 'mirror', 'scissors', 'plants', 'milk', 'soup'];
+        const BANCO_ADJETIVOS = ['happy', 'excited', 'relaxed'];
+
+        // --- CONSTRUCCIÓN DEL TEXTO CON LOS HUECOS (20 huecos) ---
+        // Los huecos están marcados con ___. 
+        let preguntasActuales = []; // Guarda las 20 palabras seleccionadas
+        let a=0; // Puntaje
+
+        function construirTexto() {
+            // 1. Definir el orden exacto de las 20 palabras que van en los huecos
+            // Esto asegura que la historia tenga sentido.
+            const ordenPalabras = [
+                'wake', 'drink', 'wear', 'happy', 'stadium', 'practice', 'eat', 'use', 'excited', 'drive',
+                'wear', 'eat', 'go', 'relaxed', 'brush', 'take', 'go', 'use', 'send', 'drink'
+            ];
+            preguntasActuales = ordenPalabras;
+
+            // 2. Generar el HTML con los selects
+            let html = `
+                <p>I am Lionel Messi. I 
+                    <span class="gap-container"><select class="gap-select" data-index="0"><option value="">___</option></select></span> 
+                    up at 6:00 am every day. First, I 
+                    <span class="gap-container"><select class="gap-select" data-index="1"><option value="">___</option></select></span> 
+                    a glass of orange juice. Then, I 
+                    <span class="gap-container"><select class="gap-select" data-index="2"><option value="">___</option></select></span> 
+                    my training shirt. I feel 
+                    <span class="gap-container"><select class="gap-select" data-index="3"><option value="">___</option></select></span> 
+                    because I love mornings. After that, I go to the 
+                    <span class="gap-container"><select class="gap-select" data-index="4"><option value="">___</option></select></span>. 
+                    We 
+                    <span class="gap-container"><select class="gap-select" data-index="5"><option value="">___</option></select></span> 
+                    for two hours. Then, I 
+                    <span class="gap-container"><select class="gap-select" data-index="6"><option value="">___</option></select></span> 
+                    a healthy breakfast: eggs and toast. At noon, I 
+                    <span class="gap-container"><select class="gap-select" data-index="7"><option value="">___</option></select></span> 
+                    my tablet to talk with my family. I feel 
+                    <span class="gap-container"><select class="gap-select" data-index="8"><option value="">___</option></select></span> 
+                    when I see my kids. In the afternoon, I 
+                    <span class="gap-container"><select class="gap-select" data-index="9"><option value="">___</option></select></span> 
+                    my car to the gym. I 
+                    <span class="gap-container"><select class="gap-select" data-index="10"><option value="">___</option></select></span> 
+                    my blue jacket because it's cold. At night, I 
+                    <span class="gap-container"><select class="gap-select" data-index="11"><option value="">___</option></select></span> 
+                    pasta for dinner. I 
+                    <span class="gap-container"><select class="gap-select" data-index="12"><option value="">___</option></select></span> 
+                    to bed at 10:00 pm. I feel 
+                    <span class="gap-container"><select class="gap-select" data-index="13"><option value="">___</option></select></span> 
+                    because it was a great day.</p>
+                <p>I 
+                    <span class="gap-container"><select class="gap-select" data-index="14"><option value="">___</option></select></span> 
+                    my teeth before breakfast. I 
+                    <span class="gap-container"><select class="gap-select" data-index="15"><option value="">___</option></select></span> 
+                    a shower every morning. I 
+                    <span class="gap-container"><select class="gap-select" data-index="16"><option value="">___</option></select></span> 
+                    to work at 8:00 am. I 
+                    <span class="gap-container"><select class="gap-select" data-index="17"><option value="">___</option></select></span> 
+                    my computer to check emails. I 
+                    <span class="gap-container"><select class="gap-select" data-index="18"><option value="">___</option></select></span> 
+                    messages to my friends. I 
+                    <span class="gap-container"><select class="gap-select" data-index="19"><option value="">___</option></select></span> 
+                    a cup of coffee at 10:00 am.</p>
+            `;
+            
+            document.getElementById('story-container').innerHTML = html;
+
+            // 3. Llenar cada select con opciones lógicas basadas en el tipo de palabra
+            const selects = document.querySelectorAll('.gap-select');
+            selects.forEach((select, idx) => {
+                const correctWord = preguntasActuales[idx];
+                let distractores = [];
+
+                // DETERMINAR DE QUÉ TIPO DE PALABRA ES Y ELEGIR DISTRACTORES DE SU MISMO TIPO
+                if (BANCO_VERBOS.includes(correctWord)) {
+                    // Es un verbo: elegir 2 verbos aleatorios diferentes
+                    distractores = BANCO_VERBOS
+                        .filter(word => word !== correctWord)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 2);
+                } else if (BANCO_SUSTANTIVOS.includes(correctWord)) {
+                    // Es un sustantivo: elegir 2 sustantivos aleatorios diferentes
+                    distractores = BANCO_SUSTANTIVOS
+                        .filter(word => word !== correctWord)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 2);
+                } else if (BANCO_ADJETIVOS.includes(correctWord)) {
+                    // Es un adjetivo: elegir 2 adjetivos aleatorios diferentes
+                    distractores = BANCO_ADJETIVOS
+                        .filter(word => word !== correctWord)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 2);
+                }
+
+                // Si por alguna razón no hay distractores suficientes (ej. solo hay 1 adjetivo en el banco), rellenamos con comodines
+                while(distractores.length < 2) {
+                    distractores.push("---");
+                }
+
+                // Mezclar opciones: [correcta, distractor1, distractor2]
+                let opciones = [correctWord, ...distractores];
+                opciones = opciones.sort(() => 0.5 - Math.random());
+
+                // Agregar opciones al select
+                opciones.forEach(word => {
+                    const option = document.createElement('option');
+                    option.value = word;
+                    option.textContent = word;
+                    select.appendChild(option);
+                });
+
+                // Evento para verificar en tiempo real (cambia el color)
+                select.addEventListener('change', function() {
+                    if(this.value === correctWord) {
+                        this.classList.add('correct');
+                        this.classList.remove('wrong');
+                    } else {
+                        this.classList.add('wrong');
+                        this.classList.remove('correct');
+                    }
+                    // Verificar si ya se llenaron todos los huecos para actualizar el contador
+                    verificarProgreso();
+                });
+            });
+        }
+
+        // --- VERIFICACIÓN DE PROGRESO EN TIEMPO REAL ---
+        function verificarProgreso() {
+            const selects = document.querySelectorAll('.gap-select');
+            let correctas = 0;
+            let llenas = 0;
+            selects.forEach((select, idx) => {
+                if(select.value !== "___" && select.value !== "" && select.value !== "---") {
+                    llenas++;
+                    if(select.value === preguntasActuales[idx]) {
+                        correctas++;
+                    }
+                }
+            });
+            document.getElementById('contador').innerHTML = `Points: ${correctas} / 20`;
+            
+            // Si todas las 20 están llenas, terminar el juego automáticamente
+            if(llenas === 20) {
+                clearInterval(timerInterval);
+                finalizarJuego("🎉 All gaps filled!");
+            }
+        }
+
+        // --- FINALIZAR Y CALIFICAR ---
+        function finalizarJuego(mensaje) {
+            clearInterval(timerInterval);
+            
+            // Calcular puntaje final
+            let correctas = 0;
+            const selects = document.querySelectorAll('.gap-select');
+            selects.forEach((select, idx) => {
+                if(select.value === preguntasActuales[idx]) {
+                    correctas++;
+                }
+                select.disabled = true;
+            });
+            a = correctas;
+
+            // Guardar puntos
+            localStorage.setItem('vocabulario_routines_puntos', a);
+
+            // Mostrar resultados
+            document.getElementById('score-box').style.display = 'block';
+            document.getElementById('final-message').innerHTML = `${mensaje}<br>${playerName}, you got <span style="color:#2d6a4f;">${a}</span> out of 20 correct!`;
+            document.getElementById('contador').style.display = 'none';
+            document.getElementById('respuesta').innerHTML = "";
+        }
+    </script>
+</body>
+</html>

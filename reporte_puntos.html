@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntaje Total Acumulado</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body { margin:0; padding:20px; min-height:100vh; display:flex; justify-content:center; align-items:center; font-family:sans-serif; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        .container { background:rgba(255,255,255,0.95); backdrop-filter:blur(5px); padding:40px; border-radius:30px; box-shadow:0 15px 40px rgba(0,0,0,0.1); max-width:600px; width:100%; text-align:center; border:1px solid rgba(255,255,255,0.8); }
+        h1 { color:#1c3d3b; font-size:2.5rem; }
+        .input-group { margin:20px 0; }
+        input { padding:12px; font-size:1.1rem; border-radius:10px; border:2px solid #ced4da; width:80%; text-align:center; }
+        button { background:#2d6a4f; color:white; border:none; padding:12px 30px; border-radius:30px; font-size:1.2rem; font-weight:bold; cursor:pointer; margin-top:15px; transition:0.3s; box-shadow:0 4px 0 #1b4332; }
+        button:hover { transform:translateY(-2px); }
+        .resultado-box { margin-top:25px; padding:20px; background:#f8f9fa; border-radius:15px; border:1px solid #e9ecef; display:none; }
+        .resultado-box h2 { color:#2980b9; margin-bottom:10px; }
+        .total-final { font-size:2.5rem; font-weight:900; color:#2d6a4f; }
+        .back-btn { display:inline-block; text-decoration:none; color:#495057; background:#e9ecef; padding:12px 35px; border-radius:30px; font-weight:bold; margin-top:20px; border:1px solid #ced4da; transition:0.3s; }
+        .back-btn:hover { background:#ced4da; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Total Points</h1>
+        <p style="color:#6c757d;">Enter your name to see your accumulated score.</p>
+        
+        <div class="input-group">
+            <input type="text" id="input-name" placeholder="Your full name">
+            <br>
+            <button onclick="calcularTotal()">Check My Score</button>
+        </div>
+
+        <div class="resultado-box" id="resultado-box">
+            <h2 id="nombre-display">Student</h2>
+            
+            <div style="text-align:left; margin:15px 0; padding:0 20px; font-size:1.1rem;">
+                <p>📖 <strong>Vocabulary Total:</strong> <span id="total-vocab" style="color:#2980b9;">0</span> / 160</p>
+                <p>⚡ <strong>Verbs Total:</strong> <span id="total-verbs" style="color:#2980b9;">0</span> / 160</p>
+                <p>🧠 <strong>Grammar Total:</strong> <span id="total-grammar" style="color:#2980b9;">0</span> / 80</p>
+                <hr style="border:0; border-top:2px dashed #ced4da; margin:15px 0;">
+                <p style="font-size:1.4rem; font-weight:bold;">🎯 <strong>GRAND TOTAL</strong></p>
+                <p class="total-final" id="total-final">0</p>
+                <p style="color:#6c757d; font-size:0.9rem;">Out of 400 possible points</p>
+            </div>
+            
+            <a href="menu.html" class="back-btn">← Back to Menu</a>
+        </div>
+    </div>
+
+    <script>
+        function calcularTotal() {
+            const name = document.getElementById('input-name').value.trim();
+            if(name === "") { alert("Please enter your name."); return; }
+
+            document.getElementById('nombre-display').innerHTML = `📊 Score for: ${name}`;
+
+            // --- LISTA DE TODOS LOS NOMBRES DE LAS CLAVES GUARDADAS ---
+            // VOCABULARIO (8 juegos x 20 puntos = 160 max)
+            const vocabKeys = [
+                'vocabulario_places_puntos', 'vocabulario_professions_puntos',
+                'vocabulario_routines_puntos', 'vocabulario_hobbies_puntos',
+                'vocabulario_emotions_puntos', 'vocabulario_food_puntos',
+                'vocabulario_clothes_puntos', 'vocabulario_travel_puntos'
+            ];
+            
+            // VERBOS (8 juegos x 20 puntos = 160 max)
+            const verbsKeys = [
+                'verbs_irregular_1_puntos', 'verbs_irregular_2_puntos', 'verbs_irregular_3_puntos',
+                'verbs_regular_1_puntos', 'verbs_regular_2_puntos', 'verbs_regular_3_puntos',
+                'verbs_past_simple_mixed_puntos', 'verbs_can_must_puntos'
+            ];
+
+            // GRAMÁTICA (4 juegos x 20 puntos = 80 max)
+            const grammarKeys = [
+                'there_is_are_puntos', 'present_perfect_1_puntos', 
+                'present_perfect_2_puntos', 'comparatives_superlatives_puntos'
+            ];
+
+            // --- FUNCIÓN PARA SUMAR PUNTOS ---
+            function sumarPuntos(claves) {
+                let total = 0;
+                claves.forEach(clave => {
+                    // localStorage.getItem() devuelve "15" o null. Si es null, lo convertimos a 0.
+                    let valor = parseInt(localStorage.getItem(clave)) || 0;
+                    total += valor;
+                });
+                return total;
+            }
+
+            // --- CALCULAR Y MOSTRAR ---
+            let vocabTotal = sumarPuntos(vocabKeys);
+            let verbsTotal = sumarPuntos(verbsKeys);
+            let grammarTotal = sumarPuntos(grammarKeys);
+            let grandTotal = vocabTotal + verbsTotal + grammarTotal;
+
+            document.getElementById('total-vocab').innerHTML = vocabTotal;
+            document.getElementById('total-verbs').innerHTML = verbsTotal;
+            document.getElementById('total-grammar').innerHTML = grammarTotal;
+            document.getElementById('total-final').innerHTML = grandTotal;
+
+            document.getElementById('resultado-box').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

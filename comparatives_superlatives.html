@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparatives - Grammar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            max-width: 800px; 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: #1a1a2e; 
+            margin: 0; 
+        }
+        .title span { color: #0f3460; }
+        .sub { 
+            color: #6c757d; 
+            margin-bottom: 25px; 
+            font-size: 1rem;
+        }
+        
+        /* MENU DE BOTONES */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: inherit;
+            width: 100%;
+            box-shadow: 0 4px 0 #0a1f3a;
+        }
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #0a1f3a;
+        }
+        .menu-btn .icon {
+            font-size: 2rem;
+            min-width: 50px;
+        }
+        .menu-btn .info {
+            flex: 1;
+        }
+        .menu-btn .info .title-btn {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .menu-btn .info .desc {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .menu-btn.practice {
+            background: #28a745;
+            box-shadow: 0 4px 0 #1e7e34;
+        }
+        .menu-btn.practice:hover {
+            box-shadow: 0 6px 0 #1e7e34;
+        }
+        .menu-btn.matching {
+            background: #8e44ad;
+            box-shadow: 0 4px 0 #6c3483;
+        }
+        .menu-btn.matching:hover {
+            box-shadow: 0 6px 0 #6c3483;
+        }
+        .menu-btn.writing {
+            background: #e67e22;
+            box-shadow: 0 4px 0 #b85e19;
+        }
+        .menu-btn.writing:hover {
+            box-shadow: 0 6px 0 #b85e19;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #495057;
+            background: #e9ecef;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .back-btn:hover { background: #ced4da; }
+        
+        /* CONTENIDO DE LAS SECCIONES */
+        .content-section {
+            display: none;
+            text-align: left;
+            padding: 20px 0;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-section h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .content-section h3 {
+            color: #0f3460;
+            margin: 15px 0 8px;
+            font-size: 1.2rem;
+        }
+        .content-section p {
+            color: #2c3e50;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 15px;
+        }
+        .content-section ul li {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border-left: 4px solid #0f3460;
+            color: #1a1a2e;
+            font-size: 1rem;
+        }
+        .content-section ul li strong {
+            color: #0f3460;
+        }
+        .content-section .example-box {
+            background: #e8f0fe;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #d4e0f0;
+        }
+        .content-section .example-box .correct {
+            color: #28a745;
+            font-weight: 700;
+        }
+        .content-section .example-box .wrong {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        .content-section .rule-box {
+            background: #fff3cd;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+        .content-section .rule-box strong {
+            color: #856404;
+        }
+        
+        .audio-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0;
+            font-family: inherit;
+        }
+        .audio-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .back-inner-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: inherit;
+            color: #495057;
+            border: 1px solid #ced4da;
+            transition: 0.3s;
+        }
+        .back-inner-btn:hover { background: #ced4da; }
+        
+        /* LOGIN PARA EL JUEGO */
+        #login-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        #login-screen input {
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            width: 280px;
+            text-align: center;
+            margin: 8px 0;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        #login-screen input:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+        }
+        #login-screen button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 0 #1e7e34;
+            font-family: inherit;
+        }
+        #login-screen button:hover { transform: translateY(-2px); }
+        #login-error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+            background: #fde8e8;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        /* GAME - Multiple Choice */
+        .game-container {
+            display: none;
+            text-align: center;
+        }
+        .game-container.active {
+            display: block;
+        }
+        .game-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #timer-display {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.2rem;
+            background: #fff;
+            padding: 5px 18px;
+            border-radius: 20px;
+            border: 2px solid #c0392b;
+        }
+        #question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 20px 0;
+        }
+        .game-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-options button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 4px 0 #0a1f3a;
+            font-family: inherit;
+        }
+        .game-options button:hover { transform: translateY(-2px); }
+        .game-options button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .game-options button.correct { background: #28a745; box-shadow: 0 4px 0 #1e7e34; }
+        .game-options button.wrong { background: #dc3545; box-shadow: 0 4px 0 #a71d2a; }
+        #game-result {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+        #game-score {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #2980b9;
+        }
+        
+        .final-score-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+        .final-score-box .big-score {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #28a745;
+        }
+        
+        /* MATCHING GAME - CORREGIDO */
+        .matching-container {
+            display: none;
+            text-align: center;
+        }
+        .matching-container.active {
+            display: block;
+        }
+        .match-status {
+            font-size: 1rem;
+            color: #6c757d;
+            margin: 15px 0;
+        }
+        .match-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 3px solid #e9ecef;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            user-select: none;
+        }
+        .match-item:hover {
+            transform: scale(1.02);
+            border-color: #0f3460;
+        }
+        .match-item.selected {
+            border-color: #0f3460;
+            background: #e8f0fe;
+        }
+        .match-item.matched {
+            border-color: #28a745;
+            background: #d4edda;
+            cursor: default;
+            opacity: 0.7;
+        }
+        .match-item.wrong-match {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        .match-item .audio-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .match-item .audio-icon:hover {
+            transform: scale(1.2);
+        }
+        #matchResult {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+        #matchResetBtn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 15px;
+            display: none;
+        }
+        #matchResetBtn:hover {
+            transform: scale(1.02);
+        }
+        
+        /* WRITING PRACTICE */
+        .writing-container {
+            display: none;
+            text-align: center;
+        }
+        .writing-container.active {
+            display: block;
+        }
+        .writing-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 15px 0;
+        }
+        .writing-box .adjective-display {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #0f3460;
+            margin: 10px 0;
+        }
+        .writing-box .example-sentence {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .writing-box textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .writing-box textarea:focus {
+            border-color: #0f3460;
+            box-shadow: 0 0 0 3px rgba(15,52,96,0.2);
+        }
+        .writing-box textarea:disabled {
+            background: #e9ecef;
+        }
+        .writing-box .writing-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .menu-btn { padding: 14px 18px; font-size: 1rem; }
+            .menu-btn .icon { font-size: 1.5rem; min-width: 40px; }
+            .game-options button { width: 95%; }
+            #login-screen input { width: 100%; }
+            .match-item { font-size: 0.95rem; padding: 12px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1 class="title">📊 <span>Comparatives</span></h1>
+    <p class="sub">Grammar explanation and practice</p>
+
+    <!-- ===== MENU PRINCIPAL ===== -->
+    <div id="mainMenu">
+        <div class="menu-grid">
+            <!-- Botón 1: Explanation -->
+            <button class="menu-btn" onclick="showSection('explanation')">
+                <span class="icon">📖</span>
+                <span class="info">
+                    <span class="title-btn">1. Explanation</span>
+                    <span class="desc">Rules, examples and audio</span>
+                </span>
+            </button>
+            
+            <!-- Botón 2: Matching Game -->
+            <button class="menu-btn matching" onclick="showMatching()">
+                <span class="icon">🔀</span>
+                <span class="info">
+                    <span class="title-btn">2. Matching Game</span>
+                    <span class="desc">Match adjective with comparative · 🔊 Audio included</span>
+                </span>
+            </button>
+            
+            <!-- Botón 3: Multiple Choice -->
+            <button class="menu-btn practice" onclick="showLogin('choice')">
+                <span class="icon">🎯</span>
+                <span class="info">
+                    <span class="title-btn">3. Multiple Choice Practice</span>
+                    <span class="desc">20 sentences · 90 seconds</span>
+                </span>
+            </button>
+            
+            <!-- Botón 4: Writing Practice -->
+            <button class="menu-btn writing" onclick="showLogin('writing')">
+                <span class="icon">✍️</span>
+                <span class="info">
+                    <span class="title-btn">4. Writing Practice</span>
+                    <span class="desc">🔊 Listen to the adjective · ✍️ Write a comparative sentence</span>
+                </span>
+            </button>
+        </div>
+        <a href="menu.html" class="back-btn">← Back to Menu</a>
+    </div>
+
+    <!-- ===== SECCIÓN 1: EXPLANATION ===== -->
+    <div class="content-section" id="section-explanation">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2>📊 Comparatives - Explanation</h2>
+        
+        <h3>🔹 Regla 1: Adjetivos cortos (1 sílaba)</h3>
+        <div class="example-box">
+            <p><strong>Adjetivo + -er + than</strong></p>
+            <p>→ tall → <span class="correct">taller than</span></p>
+            <p>→ fast → <span class="correct">faster than</span></p>
+            <p>→ big → <span class="correct">bigger than</span> (doble consonante)</p>
+        </div>
+        
+        <h3>🔹 Regla 2: Adjetivos de 2 sílabas terminados en -y</h3>
+        <div class="example-box">
+            <p><strong>-y → -ier + than</strong></p>
+            <p>→ happy → <span class="correct">happier than</span></p>
+            <p>→ busy → <span class="correct">busier than</span></p>
+        </div>
+        
+        <h3>🔹 Regla 3: Adjetivos largos (2+ sílabas)</h3>
+        <div class="example-box">
+            <p><strong>more + adjetivo + than</strong></p>
+            <p>→ expensive → <span class="correct">more expensive than</span></p>
+            <p>→ beautiful → <span class="correct">more beautiful than</span></p>
+        </div>
+        
+        <h3>🔹 Regla 4: Irregulares</h3>
+        <div class="example-box">
+            <p>→ good → <span class="correct">better than</span></p>
+            <p>→ bad → <span class="correct">worse than</span></p>
+            <p>→ far → <span class="correct">farther than</span></p>
+        </div>
+        
+        <h3>🔹 Estructura de la oración</h3>
+        <div class="example-box">
+            <p><strong>Sujeto + verbo + comparativo + than + objeto</strong></p>
+            <p>→ A car is <span class="correct">cheaper than</span> a plane.</p>
+            <p>→ She is <span class="correct">taller than</span> her brother.</p>
+        </div>
+        
+        <div class="rule-box">
+            <p><strong>⚠️ Recuerda:</strong></p>
+            <p>🔹 Adjetivos cortos → <strong>+er</strong></p>
+            <p>🔹 Adjetivos largos → <strong>more +</strong></p>
+            <p>🔹 Siempre usa <strong>than</strong> para comparar</p>
+        </div>
+        
+        <button class="audio-btn" onclick="speakText('Comparatives are used to compare two things. For short adjectives, add er. For long adjectives, use more. Always use than. For example: A car is cheaper than a plane. She is more beautiful than her sister.')">
+            🔊 Listen to explanation
+        </button>
+    </div>
+
+    <!-- ===== MATCHING GAME ===== -->
+    <div class="matching-container" id="matchingContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">🔀 Matching Game</h2>
+        <p class="sub">Click an adjective, then click its comparative form</p>
+        <p style="color:#6c757d; font-size:0.9rem; margin-bottom:10px;">
+            🔊 Click the speaker icon to hear the word
+        </p>
+        
+        <div class="match-status" id="matchStatus">Pairs matched: 0 / 10</div>
+        
+        <div id="matchContainer">
+            <!-- Generado por JavaScript -->
+        </div>
+        
+        <div id="matchResult"></div>
+        <button id="matchResetBtn" onclick="resetMatching()">🔄 Play Again</button>
+    </div>
+
+    <!-- ===== LOGIN PARA EL JUEGO ===== -->
+    <div id="login-screen">
+        <h2 style="color:#1a1a2e; margin-bottom:10px;">🎯 Practice Game</h2>
+        <p style="color:#6c757d; margin-bottom:15px;">Enter your name and code to start</p>
+        <input type="text" id="login-name" placeholder="Your name">
+        <input type="password" id="login-code" placeholder="Access code">
+        <button onclick="verificarAcceso()">▶ Start Game</button>
+        <p id="login-error">❌ Incorrect code. Try again.</p>
+        <button class="back-inner-btn" onclick="cancelLogin()" style="margin-top:15px;">← Cancel</button>
+    </div>
+
+    <!-- ===== MULTIPLE CHOICE GAME ===== -->
+    <div class="game-container" id="gameContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">🎯 Multiple Choice Practice</h2>
+        <p class="sub" id="game-subtitle">Choose the correct comparative form</p>
+        
+        <div class="game-status">
+            <span id="player-name-game">👋 Student</span>
+            <span id="timer-display">⏱️ 90s</span>
+            <span id="progress-text">Question 1 / 20</span>
+        </div>
+        
+        <p id="question-text">Loading...</p>
+        
+        <div class="game-options" id="gameOptions">
+            <!-- Generado por JavaScript -->
+        </div>
+        
+        <p id="game-result"></p>
+        <p id="game-score">Points: 0 / 20</p>
+        
+        <div class="final-score-box" id="finalScore">
+            <h2>🏁 Game Complete!</h2>
+            <p class="big-score" id="finalScoreNumber">0 / 20</p>
+            <p id="finalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="btn" onclick="resetGame()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;">🔄 Play Again</button>
+        </div>
+    </div>
+
+    <!-- ===== WRITING PRACTICE ===== -->
+    <div class="writing-container" id="writingContainer">
+        <button class="back-inner-btn" onclick="showMenu()">← Back to Menu</button>
+        <h2 style="margin-top:10px;">✍️ Writing Practice</h2>
+        <p class="sub">🔊 Listen to the adjective · ✍️ Write a comparative sentence</p>
+        
+        <div class="writing-box" id="writingBox">
+            <p style="color:#6c757d; margin-bottom:5px;">Adjective:</p>
+            <div class="adjective-display" id="adjectiveDisplay">—</div>
+            <button class="audio-btn" onclick="playAdjectiveAudio()" id="audioAdjectiveBtn" style="font-size:1.2rem; padding:12px 40px;">
+                🔊 Listen
+            </button>
+            <p style="color:#6c757d; margin-top:10px;">💡 Example: A car is cheaper than a plane.</p>
+            <div class="example-sentence" id="exampleSentence"></div>
+            <textarea id="writingInput" placeholder="Write your comparative sentence here..." disabled></textarea>
+            <div class="writing-feedback" id="writingFeedback"></div>
+            <button class="btn" onclick="checkWriting()" style="background:#28a745;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;display:none;" id="writingCheckBtn">✅ Check Answer</button>
+            <button class="btn" onclick="nextWritingWord()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;display:none;" id="writingNextBtn">➡️ Next</button>
+        </div>
+        
+        <div class="final-score-box" id="writingScoreBox">
+            <h2>🏁 Writing Complete!</h2>
+            <p class="big-score" id="writingScoreNumber">0 / 10</p>
+            <p id="writingFinalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="btn" onclick="resetWriting()" style="background:#0f3460;color:white;border:none;padding:12px 35px;border-radius:30px;font-weight:bold;cursor:pointer;font-family:inherit;margin-top:10px;">🔄 Play Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. SISTEMA DE CÓDIGOS
+    // ============================================================
+    const getCorrectCode = () => {
+        let count = parseInt(localStorage.getItem('comparatives_attempts')) || 0;
+        return count >= 3 ? "9999" : "2025";
+    };
+
+    let playerName = 'Student';
+    let currentGame = 'choice';
+
+    // ============================================================
+    // 2. NAVEGACIÓN
+    // ============================================================
+    function showMenu() {
+        document.getElementById('mainMenu').style.display = 'block';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('gameContainer').classList.remove('active');
+        document.getElementById('matchingContainer').classList.remove('active');
+        document.getElementById('writingContainer').classList.remove('active');
+    }
+    
+    function showSection(section) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+    }
+
+    function showLogin(game) {
+        currentGame = game;
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('login-error').style.display = 'none';
+        document.getElementById('login-name').value = '';
+        document.getElementById('login-code').value = '';
+        document.getElementById('login-name').focus();
+    }
+
+    function cancelLogin() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function showMatching() {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.getElementById('matchingContainer').classList.add('active');
+        initMatching();
+    }
+
+    // ============================================================
+    // 3. LOGIN
+    // ============================================================
+    function verificarAcceso() {
+        const nameInput = document.getElementById('login-name').value.trim();
+        const codeInput = document.getElementById('login-code').value.trim();
+        const errorMsg = document.getElementById('login-error');
+
+        if (nameInput === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        const requiredCode = getCorrectCode();
+        if (codeInput !== requiredCode) {
+            errorMsg.style.display = "block";
+            document.getElementById('login-code').value = "";
+            return;
+        }
+
+        let count = parseInt(localStorage.getItem('comparatives_attempts')) || 0;
+        localStorage.setItem('comparatives_attempts', count + 1);
+
+        errorMsg.style.display = "none";
+        playerName = nameInput;
+        localStorage.setItem('student_name', nameInput);
+        
+        document.getElementById('login-screen').style.display = 'none';
+        
+        if (currentGame === 'choice') {
+            startChoiceGame();
+        } else if (currentGame === 'writing') {
+            startWritingGame();
+        }
+    }
+
+    // ============================================================
+    // 4. SPEECH SYNTHESIS (AUDIO)
+    // ============================================================
+    function speakText(text) {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Your browser does not support audio. Please use Chrome, Edge, or Safari.');
+        }
+    }
+
+    function speakWord(word) {
+        speakText(word);
+    }
+
+    // ============================================================
+    // 5. MATCHING GAME - CORREGIDO
+    // ============================================================
+    const MATCHING_PAIRS = [
+        { adjective: 'tall', comparative: 'taller' },
+        { adjective: 'short', comparative: 'shorter' },
+        { adjective: 'fast', comparative: 'faster' },
+        { adjective: 'slow', comparative: 'slower' },
+        { adjective: 'big', comparative: 'bigger' },
+        { adjective: 'small', comparative: 'smaller' },
+        { adjective: 'happy', comparative: 'happier' },
+        { adjective: 'cheap', comparative: 'cheaper' },
+        { adjective: 'expensive', comparative: 'more expensive' },
+        { adjective: 'beautiful', comparative: 'more beautiful' }
+    ];
+
+    let matchingItems = [];
+    let selectedIndex = null;
+    let matchedPairs = 0;
+    let isProcessing = false;
+
+    function initMatching() {
+        matchedPairs = 0;
+        selectedIndex = null;
+        isProcessing = false;
+        document.getElementById('matchResult').innerHTML = '';
+        document.getElementById('matchResetBtn').style.display = 'none';
+        document.getElementById('matchStatus').innerHTML = 'Pairs matched: 0 / ' + MATCHING_PAIRS.length;
+
+        const items = [];
+        MATCHING_PAIRS.forEach((pair, idx) => {
+            items.push({ id: 'adj-' + idx, text: pair.adjective, pairId: idx, type: 'adj', matched: false });
+            items.push({ id: 'comp-' + idx, text: pair.comparative, pairId: idx, type: 'comp', matched: false });
+        });
+        
+        matchingItems = items.sort(() => Math.random() - 0.5);
+        renderMatching();
+    }
+
+    function renderMatching() {
+        const container = document.getElementById('matchContainer');
+        container.innerHTML = '';
+        
+        const grid = document.createElement('div');
+        grid.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 15px;';
+        
+        const col1 = document.createElement('div');
+        col1.style.cssText = 'display: flex; flex-direction: column; gap: 10px;';
+        const col2 = document.createElement('div');
+        col2.style.cssText = 'display: flex; flex-direction: column; gap: 10px;';
+        
+        matchingItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'match-item';
+            if (item.matched) div.classList.add('matched');
+            div.dataset.index = index;
+            div.dataset.pairId = item.pairId;
+            div.dataset.type = item.type;
+            
+            if (item.type === 'adj') {
+                div.innerHTML = `
+                    <span class="audio-icon" onclick="event.stopPropagation(); speakWord('${item.text}')">🔊</span>
+                    ${item.text}
+                `;
+            } else {
+                div.textContent = item.text;
+            }
+            
+            div.onclick = () => selectMatch(index);
+            
+            if (index < matchingItems.length / 2) {
+                col1.appendChild(div);
+            } else {
+                col2.appendChild(div);
+            }
+        });
+        
+        grid.appendChild(col1);
+        grid.appendChild(col2);
+        container.appendChild(grid);
+        
+        document.getElementById('matchStatus').innerHTML = `Pairs matched: ${matchedPairs} / ${MATCHING_PAIRS.length}`;
+    }
+
+    function selectMatch(index) {
+        if (isProcessing) return;
+        
+        const item = matchingItems[index];
+        if (item.matched) return;
+        
+        const elements = document.querySelectorAll('.match-item');
+        const element = elements[index];
+        
+        if (element.classList.contains('selected')) {
+            element.classList.remove('selected');
+            selectedIndex = null;
+            return;
+        }
+        
+        if (selectedIndex === null) {
+            element.classList.add('selected');
+            selectedIndex = index;
+            return;
+        }
+        
+        const firstIndex = selectedIndex;
+        const firstItem = matchingItems[firstIndex];
+        const firstElement = elements[firstIndex];
+        
+        if (firstItem.pairId === item.pairId && firstItem.type !== item.type) {
+            firstItem.matched = true;
+            item.matched = true;
+            firstElement.classList.remove('selected');
+            firstElement.classList.add('matched');
+            element.classList.add('matched');
+            matchedPairs++;
+            document.getElementById('matchStatus').innerHTML = `Pairs matched: ${matchedPairs} / ${MATCHING_PAIRS.length}`;
+            
+            if (matchedPairs === MATCHING_PAIRS.length) {
+                document.getElementById('matchResult').innerHTML = '🎉 Perfect! You matched all pairs!';
+                document.getElementById('matchResult').style.color = '#28a745';
+                document.getElementById('matchResetBtn').style.display = 'inline-block';
+            }
+            selectedIndex = null;
+        } else {
+            isProcessing = true;
+            firstElement.classList.add('wrong-match');
+            element.classList.add('wrong-match');
+            
+            setTimeout(() => {
+                firstElement.classList.remove('selected', 'wrong-match');
+                element.classList.remove('wrong-match');
+                isProcessing = false;
+            }, 800);
+            selectedIndex = null;
+        }
+    }
+
+    function resetMatching() {
+        initMatching();
+    }
+
+    // ============================================================
+    // 6. MULTIPLE CHOICE GAME
+    // ============================================================
+    const CHOICE_QUESTIONS = [
+        { sentence: 'A car is ______ than a bike.', options: ['faster', 'more fast', 'fastest', 'fast'], correct: 0 },
+        { sentence: 'She is ______ than her brother.', options: ['taller', 'more tall', 'tallest', 'tall'], correct: 0 },
+        { sentence: 'This book is ______ than that one.', options: ['cheaper', 'more cheap', 'cheapest', 'cheap'], correct: 0 },
+        { sentence: 'He is ______ than his father.', options: ['younger', 'more young', 'youngest', 'young'], correct: 0 },
+        { sentence: 'My house is ______ than yours.', options: ['bigger', 'more big', 'biggest', 'big'], correct: 0 },
+        { sentence: 'This test is ______ than the last one.', options: ['easier', 'more easy', 'easiest', 'easy'], correct: 0 },
+        { sentence: 'She is ______ than her sister.', options: ['more beautiful', 'beautifuler', 'most beautiful', 'beautiful'], correct: 0 },
+        { sentence: 'This problem is ______ than that one.', options: ['more difficult', 'difficulter', 'most difficult', 'difficult'], correct: 0 },
+        { sentence: 'He is ______ than his friend.', options: ['more intelligent', 'intelligenter', 'most intelligent', 'intelligent'], correct: 0 },
+        { sentence: 'This city is ______ than my town.', options: ['more expensive', 'expensiver', 'most expensive', 'expensive'], correct: 0 },
+        { sentence: 'I am ______ than my brother.', options: ['happier', 'more happy', 'happiest', 'happy'], correct: 0 },
+        { sentence: 'This movie is ______ than the other.', options: ['more interesting', 'interestinger', 'most interesting', 'interesting'], correct: 0 },
+        { sentence: 'She is ______ than me.', options: ['friendlier', 'more friendly', 'friendlyer', 'most friendly'], correct: 0 },
+        { sentence: 'This exercise is ______ than the previous one.', options: ['harder', 'more hard', 'hardest', 'hard'], correct: 0 },
+        { sentence: 'He is ______ than his cousin.', options: ['stronger', 'more strong', 'strongest', 'strong'], correct: 0 },
+        { sentence: 'This bag is ______ than that one.', options: ['heavier', 'more heavy', 'heaviest', 'heavy'], correct: 0 },
+        { sentence: 'She runs ______ than me.', options: ['faster', 'more fast', 'fastest', 'fast'], correct: 0 },
+        { sentence: 'This restaurant is ______ than that one.', options: ['better', 'gooder', 'more good', 'best'], correct: 0 },
+        { sentence: 'This weather is ______ than yesterday.', options: ['worse', 'badder', 'more bad', 'worst'], correct: 0 },
+        { sentence: 'A plane is ______ than a car.', options: ['faster', 'more fast', 'fastest', 'fast'], correct: 0 },
+        { sentence: 'An elephant is ______ than a horse.', options: ['bigger', 'more big', 'biggest', 'big'], correct: 0 },
+        { sentence: 'Gold is ______ than silver.', options: ['more expensive', 'expensiver', 'most expensive', 'expensive'], correct: 0 },
+        { sentence: 'Summer is ______ than winter.', options: ['hotter', 'more hot', 'hottest', 'hot'], correct: 0 },
+        { sentence: 'Winter is ______ than summer.', options: ['colder', 'more cold', 'coldest', 'cold'], correct: 0 },
+        { sentence: 'A lion is ______ than a cat.', options: ['stronger', 'more strong', 'strongest', 'strong'], correct: 0 },
+        { sentence: 'A feather is ______ than a rock.', options: ['lighter', 'more light', 'lightest', 'light'], correct: 0 },
+        { sentence: 'A turtle is ______ than a rabbit.', options: ['slower', 'more slow', 'slowest', 'slow'], correct: 0 },
+        { sentence: 'This exercise is ______ than the other.', options: ['easier', 'more easy', 'easiest', 'easy'], correct: 0 },
+        { sentence: 'She is ______ than her mother.', options: ['more beautiful', 'beautifuler', 'most beautiful', 'beautiful'], correct: 0 },
+        { sentence: 'He is ______ than his brother.', options: ['more intelligent', 'intelligenter', 'most intelligent', 'intelligent'], correct: 0 },
+        { sentence: 'This problem is ______ than that one.', options: ['more difficult', 'difficulter', 'most difficult', 'difficult'], correct: 0 },
+        { sentence: 'This city is ______ than my town.', options: ['more expensive', 'expensiver', 'most expensive', 'expensive'], correct: 0 },
+        { sentence: 'I am ______ than my sister.', options: ['happier', 'more happy', 'happiest', 'happy'], correct: 0 },
+        { sentence: 'This movie is ______ than the other.', options: ['more interesting', 'interestinger', 'most interesting', 'interesting'], correct: 0 },
+        { sentence: 'She is ______ than her friend.', options: ['friendlier', 'more friendly', 'friendlyer', 'most friendly'], correct: 0 },
+        { sentence: 'This test is ______ than the last one.', options: ['harder', 'more hard', 'hardest', 'hard'], correct: 0 },
+        { sentence: 'He is ______ than his cousin.', options: ['stronger', 'more strong', 'strongest', 'strong'], correct: 0 },
+        { sentence: 'This bag is ______ than that one.', options: ['heavier', 'more heavy', 'heaviest', 'heavy'], correct: 0 },
+        { sentence: 'She runs ______ than me.', options: ['faster', 'more fast', 'fastest', 'fast'], correct: 0 },
+        { sentence: 'This restaurant is ______ than that one.', options: ['better', 'gooder', 'more good', 'best'], correct: 0 }
+    ];
+
+    let choiceQuestions = [];
+    let choiceIndex = 0;
+    let choiceScore = 0;
+    let choiceTimer = 90;
+    let choiceTimerInterval = null;
+    let choiceFinished = false;
+
+    function startChoiceGame() {
+        choiceFinished = false;
+        choiceIndex = 0;
+        choiceScore = 0;
+        choiceTimer = 90;
+
+        const shuffled = [...CHOICE_QUESTIONS].sort(() => Math.random() - 0.5);
+        choiceQuestions = shuffled.slice(0, 20);
+
+        document.getElementById('gameContainer').classList.add('active');
+        document.getElementById('player-name-game').innerHTML = `👋 ${playerName}`;
+        document.getElementById('game-subtitle').textContent = 'Choose the correct comparative form';
+
+        document.getElementById('finalScore').style.display = 'none';
+        document.getElementById('game-result').innerHTML = '';
+        document.getElementById('game-score').innerHTML = `Points: 0 / ${choiceQuestions.length}`;
+
+        showChoiceQuestion();
+        startChoiceTimer();
+    }
+
+    function showChoiceQuestion() {
+        if (choiceFinished) return;
+        
+        if (choiceIndex >= choiceQuestions.length) {
+            finishChoiceGame();
+            return;
+        }
+        
+        const q = choiceQuestions[choiceIndex];
+        document.getElementById('question-text').innerHTML = q.sentence;
+        document.getElementById('progress-text').innerHTML = `Question ${choiceIndex + 1} / ${choiceQuestions.length}`;
+        
+        const optionsContainer = document.getElementById('gameOptions');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.dataset.index = idx;
+            btn.onclick = () => checkChoiceAnswer(idx);
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('game-result').innerHTML = '';
+    }
+
+    function checkChoiceAnswer(selected) {
+        if (choiceFinished) return;
+        
+        const q = choiceQuestions[choiceIndex];
+        const buttons = document.querySelectorAll('#gameOptions button');
+        
+        buttons.forEach(btn => btn.disabled = true);
+        
+        buttons.forEach((btn, idx) => {
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === selected && idx !== q.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+        
+        const result = document.getElementById('game-result');
+        if (selected === q.correct) {
+            choiceScore++;
+            result.innerHTML = '✅ Correct! Well done!';
+            result.style.color = '#28a745';
+        } else {
+            result.innerHTML = `❌ Incorrect. The correct answer is: "${q.options[q.correct]}"`;
+            result.style.color = '#dc3545';
+        }
+        
+        document.getElementById('game-score').innerHTML = `Points: ${choiceScore} / ${choiceQuestions.length}`;
+        
+        choiceIndex++;
+        setTimeout(showChoiceQuestion, 1200);
+    }
+
+    function startChoiceTimer() {
+        if (choiceTimerInterval) clearInterval(choiceTimerInterval);
+        choiceTimerInterval = setInterval(() => {
+            choiceTimer--;
+            document.getElementById('timer-display').innerHTML = `⏱️ ${choiceTimer}s`;
+            if (choiceTimer <= 0) {
+                clearInterval(choiceTimerInterval);
+                finishChoiceGame();
+            }
+        }, 1000);
+    }
+
+    function finishChoiceGame() {
+        if (choiceFinished) return;
+        choiceFinished = true;
+        clearInterval(choiceTimerInterval);
+        
+        document.querySelectorAll('#gameOptions button').forEach(btn => btn.disabled = true);
+        
+        localStorage.setItem('comparatives_choice_score', choiceScore);
+        
+        let history = JSON.parse(localStorage.getItem('comparatives_choice_history')) || [];
+        history.push({
+            name: playerName,
+            score: choiceScore,
+            total: choiceQuestions.length,
+            date: new Date().toISOString().slice(0, 10),
+            game: 'Comparatives - Multiple Choice'
+        });
+        localStorage.setItem('comparatives_choice_history', JSON.stringify(history));
+        
+        const total = choiceQuestions.length;
+        const percentage = Math.round((choiceScore / total) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a grammar master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the theory.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Review the theory above.'; }
+        
+        document.getElementById('finalScore').style.display = 'block';
+        document.getElementById('finalScoreNumber').innerHTML = `${choiceScore} / ${total}`;
+        document.getElementById('finalMessage').innerHTML = `${emoji} ${message}`;
+        
+        document.getElementById('game-score').innerHTML = '';
+        document.getElementById('question-text').innerHTML = '🏁 Game Complete!';
+        document.getElementById('gameOptions').innerHTML = '';
+    }
+
+    function resetGame() {
+        document.getElementById('finalScore').style.display = 'none';
+        showLogin('choice');
+    }
+
+    // ============================================================
+    // 7. WRITING PRACTICE
+    // ============================================================
+    const WRITING_WORDS = [
+        { adjective: 'cheap', example: 'A car is cheaper than a plane.' },
+        { adjective: 'tall', example: 'My brother is taller than me.' },
+        { adjective: 'fast', example: 'A cheetah is faster than a dog.' },
+        { adjective: 'big', example: 'An elephant is bigger than a horse.' },
+        { adjective: 'expensive', example: 'A diamond is more expensive than gold.' },
+        { adjective: 'beautiful', example: 'She is more beautiful than her sister.' },
+        { adjective: 'intelligent', example: 'He is more intelligent than his brother.' },
+        { adjective: 'strong', example: 'A lion is stronger than a cat.' },
+        { adjective: 'heavy', example: 'This bag is heavier than that one.' },
+        { adjective: 'hot', example: 'Summer is hotter than winter.' }
+    ];
+
+    let writingWords = [];
+    let writingIndex = 0;
+    let writingScore = 0;
+    let writingFinished = false;
+    let currentAdjective = '';
+
+    function startWritingGame() {
+        writingFinished = false;
+        writingScore = 0;
+        writingIndex = 0;
+        
+        const shuffled = [...WRITING_WORDS].sort(() => Math.random() - 0.5);
+        writingWords = shuffled.slice(0, 10);
+        
+        document.getElementById('writingContainer').classList.add('active');
+        document.getElementById('writingScoreBox').style.display = 'none';
+        document.getElementById('writingCheckBtn').style.display = 'none';
+        document.getElementById('writingNextBtn').style.display = 'none';
+        document.getElementById('writingInput').disabled = false;
+        document.getElementById('writingInput').value = '';
+        document.getElementById('writingFeedback').innerHTML = '';
+        document.getElementById('writingFeedback').className = 'writing-feedback';
+        
+        showWritingWord();
+    }
+
+    function showWritingWord() {
+        if (writingIndex >= writingWords.length) {
+            finishWriting();
+            return;
+        }
+        
+        const word = writingWords[writingIndex];
+        currentAdjective = word.adjective;
+        document.getElementById('adjectiveDisplay').textContent = word.adjective;
+        document.getElementById('exampleSentence').textContent = '💡 Example: ' + word.example;
+        document.getElementById('writingInput').value = '';
+        document.getElementById('writingInput').disabled = false;
+        document.getElementById('writingInput').focus();
+        document.getElementById('writingFeedback').innerHTML = '';
+        document.getElementById('writingFeedback').className = 'writing-feedback';
+        document.getElementById('writingCheckBtn').style.display = 'inline-block';
+        document.getElementById('writingNextBtn').style.display = 'none';
+    }
+
+    function playAdjectiveAudio() {
+        if (currentAdjective) {
+            speakText(currentAdjective);
+        }
+    }
+
+    function checkWriting() {
+        const input = document.getElementById('writingInput');
+        const feedback = document.getElementById('writingFeedback');
+        const userSentence = input.value.trim();
+        
+        if (userSentence === '') {
+            feedback.innerHTML = '⚠️ Please write a sentence.';
+            feedback.style.color = '#f39c12';
+            return;
+        }
+        
+        const word = writingWords[writingIndex];
+        const adj = word.adjective;
+        
+        const hasComparative = userSentence.toLowerCase().includes('than');
+        const hasAdjective = userSentence.toLowerCase().includes(adj.toLowerCase());
+        
+        if (hasComparative && hasAdjective) {
+            writingScore++;
+            feedback.innerHTML = '✅ Good! You used "' + adj + '" and "than" correctly!';
+            feedback.style.color = '#28a745';
+        } else if (hasComparative) {
+            feedback.innerHTML = '⚠️ Good use of "than", but try to include "' + adj + '".';
+            feedback.style.color = '#f39c12';
+        } else if (hasAdjective) {
+            feedback.innerHTML = '⚠️ You used "' + adj + '", but remember to use "than" to compare.';
+            feedback.style.color = '#f39c12';
+        } else {
+            feedback.innerHTML = '❌ Try to use "' + adj + '" and "than" in your sentence.';
+            feedback.style.color = '#dc3545';
+        }
+        
+        document.getElementById('writingInput').disabled = true;
+        document.getElementById('writingCheckBtn').style.display = 'none';
+        document.getElementById('writingNextBtn').style.display = 'inline-block';
+        
+        if (!hasComparative || !hasAdjective) {
+            feedback.innerHTML += '<br>💡 Example: ' + word.example;
+        }
+    }
+
+    function nextWritingWord() {
+        writingIndex++;
+        document.getElementById('writingNextBtn').style.display = 'none';
+        showWritingWord();
+    }
+
+    function finishWriting() {
+        writingFinished = true;
+        document.getElementById('writingInput').disabled = true;
+        document.getElementById('writingCheckBtn').style.display = 'none';
+        document.getElementById('writingNextBtn').style.display = 'none';
+        document.getElementById('adjectiveDisplay').textContent = '🏁 Complete!';
+        document.getElementById('exampleSentence').textContent = '';
+        
+        document.getElementById('writingScoreBox').style.display = 'block';
+        document.getElementById('writingScoreNumber').innerHTML = `${writingScore} / ${writingWords.length}`;
+        
+        const percentage = Math.round((writingScore / writingWords.length) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a writing master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the examples.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Review the examples above.'; }
+        
+        document.getElementById('writingFinalMessage').innerHTML = `${emoji} ${message}`;
+        
+        localStorage.setItem('comparatives_writing_score', writingScore);
+    }
+
+    function resetWriting() {
+        startWritingGame();
+    }
+
+    // ============================================================
+    // 8. PERMITIR ENTER EN LOGIN
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen.style.display === 'flex') {
+                verificarAcceso();
+            }
+        }
+    });
+</script>
+</body>
+</html>
