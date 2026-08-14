@@ -77,15 +77,15 @@
         const getCorrectCode = () => {
             let count = parseInt(localStorage.getItem('places_attempts')) || 0;
             if (count >= 3) {
-                return "9999"; // Tercer código de seguridad
+                return "9999"; 
             } else {
-                return "2025"; // Código inicial
+                return "2024"; /* Código cambiado a 2024 */
             }
         };
 
         let playerName = "Student";
         let timerInterval;
-        let timeLeft = 100; // CAMBIADO A 100 SEGUNDOS
+        let timeLeft = 100;
 
         function verificarAcceso() {
             const nameInput = document.getElementById('input-name').value.trim();
@@ -113,7 +113,6 @@
             cargar();
         }
 
-        // --- CRONÓMETRO (100 SEGUNDOS) ---
         function iniciarCronometro() {
             timeLeft = 100;
             document.getElementById('timer-display').innerHTML = `⏱️ ${timeLeft}s`;
@@ -180,20 +179,19 @@
         let i=0, a=0;
 
         function cargar() {
-            // Si es la primera vez que se carga el juego, seleccionar 20 preguntas aleatorias del banco
             if(preguntasActuales.length === 0) {
-                // Mezclar el banco de preguntas (Algoritmo Fisher-Yates)
                 const mezcladas = [...BANCO_PREGUNTAS];
                 for (let j = mezcladas.length - 1; j > 0; j--) {
                     const k = Math.floor(Math.random() * (j + 1));
                     [mezcladas[j], mezcladas[k]] = [mezcladas[k], mezcladas[j]];
                 }
-                // Tomar las primeras 20
                 preguntasActuales = mezcladas.slice(0, 20);
             }
 
             if(i>=preguntasActuales.length) {
                 clearInterval(timerInterval);
+                localStorage.setItem('vocabulario_places_puntos', a);
+                
                 document.getElementById('pregunta').innerHTML = "🎉 Game Over!";
                 document.getElementById('botones').innerHTML = `<h3 style="color:#2d6a4f;">${playerName}, you got ${a} out of ${preguntasActuales.length}</h3>`;
                 document.getElementById('respuesta').innerHTML = "";
