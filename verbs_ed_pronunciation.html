@@ -79,7 +79,7 @@
             font-weight: 900;
             background: linear-gradient(135deg, #1c3d3b, #2980b9);
             -webkit-background-clip: text;
-            background-clip: text; /* Línea agregada para quitar el warning */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0;
         }
@@ -141,6 +141,17 @@
             transition: width 0.3s ease;
             border-radius: 10px;
         }
+
+        /* -- PANTALLA DE ACCESO -- */
+        #login-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 0; }
+        #login-screen input { padding:12px 15px; font-size:1.1rem; border:2px solid #ced4da; border-radius:12px; width:250px; text-align:center; margin:8px 0; outline:none; transition:0.3s; }
+        #login-screen input:focus { border-color:#2d6a4f; box-shadow:0 0 0 3px rgba(45,106,79,0.2); }
+        #login-screen button { background:#2d6a4f; color:white; border:none; padding:14px 40px; border-radius:30px; font-weight:bold; font-size:1.1rem; cursor:pointer; transition:0.3s; margin-top:15px; box-shadow:0 4px 0 #1b4332; }
+        #login-screen button:hover { transform:translateY(-2px); }
+        #login-error { color:#e74c3c; font-weight:bold; margin-top:10px; display:none; background:#fde8e8; padding:8px 15px; border-radius:8px; }
+        
+        /* -- PANTALLA DE JUEGO -- */
+        #game-screen { display:none; }
 
         /* ÁREA DE PREGUNTA (AUDIO DE LA ORACIÓN) */
         .question-area {
@@ -409,8 +420,18 @@
             <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
         </div>
 
+        <!-- PANTALLA DE LOGIN -->
+        <div id="login-screen">
+            <p style="color:#6c757d; margin-bottom:5px;">Enter your name:</p>
+            <input type="text" id="input-name" placeholder="Your name">
+            <p style="color:#6c757d; margin-bottom:5px; margin-top:15px;">Enter Access Code:</p>
+            <input type="password" id="input-code" placeholder="Code">
+            <button onclick="verificarAcceso()">Enter Game</button>
+            <p id="login-error">❌ Incorrect code. Try again.</p>
+        </div>
+
         <!-- ÁREA DE JUEGO -->
-        <div id="gameArea">
+        <div id="game-screen">
             <div class="question-area">
                 <div class="question-number" id="questionNumber">Question 1 of 20</div>
                 
@@ -482,13 +503,52 @@
             { correct: "She traveled to Europe last summer.", missing: "traveled to Europe last summer.", different: "She travel to Europe last summer." }
         ];
 
-        let currentQuestion = 0;
-        let score = 0;
-        let timer = 150; // 2:30
+        // ============================================================
+        // 1. SISTEMA DE CÓDIGOS DINÁMICOS (3 INTENTOS)
+        // ============================================================
+        const getCorrectCode = () => {
+            let count = parseInt(localStorage.getItem('ed_pronunciation_attempts')) || 0;
+            if (count >= 3) {
+                return "9999"; 
+            } else {
+                return "7201"; /* Código cambiado a 7201 */
+            }
+        };
+
+        let playerName = "Student";
         let timerInterval = null;
         let isAnswered = false;
+        let currentQuestion = 0;
+        let score = 0;
         let totalQuestions = questions.length;
         let currentSentence = "";
+        let timer = 150; // 2:30
+
+        function verificarAcceso() {
+            const nameInput = document.getElementById('input-name').value.trim();
+            const codeInput = document.getElementById('input-code').value.trim();
+            const errorMsg = document.getElementById('login-error');
+
+            if(nameInput === "") { alert("Please enter your name."); return; }
+            
+            const requiredCode = getCorrectCode();
+            if(codeInput !== requiredCode) {
+                errorMsg.style.display = "block";
+                document.getElementById('input-code').value = "";
+                return;
+            }
+
+            let count = parseInt(localStorage.getItem('ed_pronunciation_attempts')) || 0;
+            localStorage.setItem('ed_pronunciation_attempts', count + 1);
+
+            errorMsg.style.display = "none";
+            playerName = nameInput;
+            document.getElementById('login-screen').style.display = "none";
+            document.getElementById('game-screen').style.display = "block";
+            document.getElementById('player-name').innerHTML = `👋 Welcome, ${playerName}!`;
+            renderQuestion();
+            startTimer();
+        }
 
         function generateOptions(q) {
             const options = [q.correct, q.missing, q.different];
@@ -632,9 +692,6 @@
             document.getElementById('playBtn').addEventListener('click', () => {
                 speakSentence(currentSentence);
             });
-
-            renderQuestion();
-            startTimer();
         });
     </script>
 </body>
