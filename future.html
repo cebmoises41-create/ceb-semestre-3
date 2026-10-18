@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>Future - Will & Going To</title>
+<style>
+  :root {
+    --primary: #2980b9;
+    --secondary: #1abc9c;
+    --dark-bg: #2c3e50;
+    --card-bg: rgba(44, 62, 80, 0.95);
+    --text-light: #ecf0f1;
+    --success: #2ecc71;
+    --error: #e74c3c;
+    --warning: #f1c40f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .author-box {
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    background: #ffffff;
+    color: #2c3e50;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  .main-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  h1 { font-size: 2rem; text-align: center; color: var(--warning); margin-bottom: 10px; }
+  h2 { font-size: 1.4rem; text-align: center; margin-bottom: 20px; color: #fff; }
+  .subtitle { text-align: center; color: #bdc3c7; margin-bottom: 20px; line-height: 1.6; }
+
+  .explanation-box {
+    background: rgba(255,255,255,0.05);
+    border-left: 5px solid var(--primary);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+  }
+  .explanation-box strong { color: var(--warning); }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-weight: bold;
+    background: rgba(255,255,255,0.1);
+    padding: 10px 20px;
+    border-radius: 15px;
+  }
+  .game-area {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  .option-btn {
+    background: #fff;
+    color: #2c3e50;
+    border: 2px solid transparent;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--primary); transform: scale(1.02); }
+  .option-btn.correct { background: #d5f5e3; border-color: var(--success); color: #1e8449; }
+  .option-btn.wrong { background: #fadbd8; border-color: var(--error); color: #922b21; }
+
+  .btn-start {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+  }
+  .btn-start:hover { background: #27ae60; transform: translateY(-3px); }
+
+  .feedback { margin-top: 15px; font-size: 1.2rem; font-weight: bold; min-height: 30px; }
+  .feedback.ok { color: var(--success); }
+  .feedback.bad { color: var(--error); }
+
+  .start-screen { text-align: center; padding: 40px 20px; }
+
+  @media (max-width: 600px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .main-card { padding: 20px 15px; }
+  }
+</style>
+</head>
+<body translate="no" class="notranslate">
+
+<div class="author-box" translate="no">FPB with AI</div>
+
+<div class="main-card" translate="no">
+  
+  <h1>Future: Will & Going To</h1>
+  <p class="subtitle">Learn how to talk about the future in English.</p>
+
+  <div class="explanation-box">
+    <h3>📖 Explanation</h3>
+    <p><strong>WILL:</strong> Usamos <em>will</em> para decisiones espontáneas, promesas o predicciones sin pruebas. <br> 
+    <em>Example: I will help you with your homework.</em></p>
+    <p style="margin-top:10px;"><strong>GOING TO:</strong> Usamos <em>going to</em> para planes ya decididos o predicciones basadas en lo que vemos. <br> 
+    <em>Example: I am going to visit my grandmother tomorrow.</em></p>
+  </div>
+
+  <div id="game-start" class="start-screen">
+    <h2>🎯 Practice Time</h2>
+    <p>Choose the correct future form (will or going to).</p>
+    <button class="btn-start" onclick="startGame()">▶ Start Activity</button>
+  </div>
+
+  <div id="game-play" style="display:none;">
+    <div class="game-header">
+      <span>Question: <span id="current">1</span>/10</span>
+      <span>Score: <span id="score">0</span></span>
+    </div>
+    <div class="game-area">
+      <h3 style="margin-bottom:20px; font-size:1.3rem;" id="question">Question text</h3>
+      <div class="options-grid" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const QUESTIONS = [
+    { q: "Look at those dark clouds! It ___ rain.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
+    { q: "I'm hungry. I think I ___ make a sandwich.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
+    { q: "She ___ travel to London next summer. She already bought the tickets.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
+    { q: "Don't worry, I ___ call you when I arrive.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
+    { q: "They ___ buy a new house. They saved money for years.", opts: ["will", "is going to", "are going to", "am going to"], a: "are going to" },
+    { q: "Wait! I ___ open the door for you.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
+    { q: "Watch out! You ___ fall!", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
+    { q: "I promise I ___ study for the exam.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
+    { q: "We ___ watch a movie tonight. We have the tickets.", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
+    { q: "I think she ___ love this gift.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+  let locked = false;
+
+  function startGame() {
+    document.getElementById('game-start').style.display = 'none';
+    document.getElementById('game-play').style.display = 'block';
+    currentIndex = 0;
+    score = 0;
+    loadQuestion();
+  }
+
+  function loadQuestion() {
+    if (currentIndex >= QUESTIONS.length) {
+      document.getElementById('game-play').innerHTML = `<div class="game-area"><h2>🏆 Completed!</h2><p>Your score: ${score}/10</p><button class="btn-start" style="margin-top:20px;" onclick="location.reload()">🔄 Try Again</button></div>`;
+      return;
+    }
+
+    locked = false;
+    const q = QUESTIONS[currentIndex];
+    document.getElementById('current').textContent = currentIndex + 1;
+    document.getElementById('score').textContent = score;
+    document.getElementById('question').textContent = q.q;
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'feedback';
+
+    const optsContainer = document.getElementById('options');
+    optsContainer.innerHTML = '';
+
+    // Mezclar opciones
+    const shuffledOpts = [...q.opts].sort(() => Math.random() - 0.5);
+
+    shuffledOpts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt;
+      btn.onclick = () => checkAnswer(btn, opt, q.a);
+      optsContainer.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(btn, selected, correct) {
+    if (locked) return;
+    locked = true;
+    const allBtns = document.querySelectorAll('#options .option-btn');
+    allBtns.forEach(b => b.disabled = true);
+
+    const fb = document.getElementById('feedback');
+    if (selected === correct) {
+      btn.classList.add('correct');
+      score++;
+      fb.textContent = '✅ Correct!';
+      fb.className = 'feedback ok';
+    } else {
+      btn.classList.add('wrong');
+      allBtns.forEach(b => { if (b.textContent === correct) b.classList.add('correct'); });
+      fb.textContent = `❌ Correct answer: ${correct}`;
+      fb.className = 'feedback bad';
+    }
+
+    document.getElementById('score').textContent = score;
+    currentIndex++;
+    setTimeout(loadQuestion, 1500);
+  }
+</script>
+
+</body>
+</html>
