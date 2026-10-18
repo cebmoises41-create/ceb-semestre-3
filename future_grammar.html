@@ -1,300 +1,291 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="notranslate">
+<html lang="es" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-<title>Class 12 - Future Grammar Practice</title>
+<meta name="robots" content="notranslate">
+<title>Future Grammar — Will & Going To</title>
 <style>
-  :root {
-    --primary: #9b59b6;
-    --secondary: #8e44ad;
-    --bg-dark: #1a1a2e;
-    --text-light: #ecf0f1;
-    --success: #2ecc71;
-    --error: #e74c3c;
-    --warning: #f1c40f;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: var(--text-light);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a202c;
+    line-height: 1.6;
     padding: 20px;
   }
-
-  .author-box {
-    position: fixed;
-    top: 20px;
-    right: 25px;
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
     background: #ffffff;
-    color: #2c3e50;
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 30px 40px;
   }
+  h1 { text-align: center; color: #2b6cb0; font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #718096; font-size: 1rem; margin-bottom: 25px; }
 
-  .main-card {
-    background: rgba(26, 26, 46, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    padding: 30px;
-    max-width: 900px;
-    width: 100%;
-    margin-top: 50px;
+  /* BLOGGER NOTICE */
+  .blogger-notice {
+    background: #fefcbf; border-left: 6px solid #d69e2e;
+    padding: 16px 20px; border-radius: 10px; margin-bottom: 25px;
+    color: #744210; font-size: 0.98rem;
   }
+  .blogger-notice strong { color: #975a16; }
+  .blogger-notice ul { margin: 8px 0 0 20px; }
+  .blogger-notice li { margin-bottom: 4px; }
 
+  /* TABS */
   .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
+    display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;
+    border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
   }
   .tab-btn {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.95rem;
+    padding: 10px 14px; font-size: 0.9rem; font-weight: 600;
+    background: #edf2f7; color: #4a5568; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.3s;
   }
-  .tab-btn:hover { background: rgba(255,255,255,0.2); }
-  .tab-btn.active {
-    background: var(--primary);
-    box-shadow: 0 0 15px rgba(155, 89, 182, 0.5);
-  }
-
-  .tab-content { display: none; animation: fadeIn 0.4s ease; }
+  .tab-btn:hover { background: #bee3f8; color: #2c5282; }
+  .tab-btn.active { background: #2b6cb0; color: white; }
+  .tab-content { display: none; }
   .tab-content.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  h1 { font-size: 2rem; text-align: center; color: var(--warning); margin-bottom: 10px; }
-  h2 { font-size: 1.4rem; text-align: center; margin-bottom: 20px; color: #fff; }
-  .subtitle { text-align: center; color: #bdc3c7; margin-bottom: 20px; }
+  /* SECTION */
+  .section-box {
+    background: #f7fafc; border: 2px solid #e2e8f0;
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 25px;
+  }
+  .section-box h2 {
+    color: #2b6cb0; font-size: 1.2rem; margin-bottom: 12px;
+    border-bottom: 2px dashed #bee3f8; padding-bottom: 8px;
+  }
+  .instruction { color: #4a5568; margin-bottom: 12px; font-size: 0.98rem; }
 
-  /* Estilos del juego */
-  .game-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    font-weight: bold;
-    background: rgba(255,255,255,0.1);
-    padding: 10px 20px;
-    border-radius: 15px;
+  .grammar-tip {
+    background: #ebf8ff; border-left: 5px solid #4299e1;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #2c5282; font-size: 0.95rem;
   }
-  .game-area {
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sentence-text {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-  .sentence-text .blank {
-    color: var(--warning);
-    border-bottom: 2px dashed var(--warning);
-    padding: 0 10px;
-  }
-  .sentence-text .wrong-word {
-    color: var(--error);
-    text-decoration: line-through;
+  .grammar-tip strong { color: #2b6cb0; }
+
+  .note-box {
+    background: #fffaf0; border-left: 5px solid #ed8936;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #7b341e; font-size: 0.95rem;
   }
 
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
+  /* QUESTION */
+  .question {
+    background: #ffffff; border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 14px; border: 1px solid #e2e8f0;
   }
-  .option-btn {
-    background: #fff;
-    color: #2c3e50;
-    border: 2px solid transparent;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
+  .question .q-num {
+    font-weight: 700; color: #2b6cb0; margin-right: 6px;
   }
-  .option-btn:hover:not(:disabled) { border-color: var(--primary); transform: scale(1.02); }
-  .option-btn.correct { background: #d5f5e3; border-color: var(--success); color: #1e8449; }
-  .option-btn.wrong { background: #fadbd8; border-color: var(--error); color: #922b21; }
+  .question .q-prompt {
+    font-size: 1.02rem; color: #2d3748; margin-bottom: 8px;
+    font-weight: 600;
+  }
 
-  .input-answer {
-    width: 100%;
-    max-width: 500px;
-    padding: 15px;
-    border-radius: 12px;
-    border: 2px solid rgba(255,255,255,0.2);
-    background: rgba(0,0,0,0.2);
-    color: #fff;
-    font-size: 1.1rem;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 15px;
-    outline: none;
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .options label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer;
+    background: #f7fafc; border: 1px solid #e2e8f0;
+    transition: background 0.2s, border 0.2s;
+    font-size: 0.98rem;
   }
-  .input-answer:focus { border-color: var(--primary); }
-  .input-answer.correct { border-color: var(--success); background: rgba(46, 204, 113, 0.1); }
-  .input-answer.wrong { border-color: var(--error); background: rgba(231, 76, 60, 0.1); }
+  .options label:hover { background: #ebf8ff; border-color: #bee3f8; }
+  .options input[type="radio"] { accent-color: #2b6cb0; width: 18px; height: 18px; cursor: pointer; }
 
-  .action-btn {
-    background: var(--success);
-    color: #fff;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  /* INPUT (para escribir) */
+  .write-input {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 2px solid #cbd5e0; font-size: 1rem; outline: none;
+    font-family: inherit; background: #fff; color: #1a202c;
+    transition: border 0.2s;
+    margin-top: 6px;
   }
-  .action-btn:hover { background: #27ae60; transform: scale(1.05); }
-  .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .write-input:focus { border-color: #2b6cb0; }
+  .write-input.correct { border-color: #38a169; background: #f0fff4; }
+  .write-input.wrong { border-color: #e53e3e; background: #fff5f5; }
 
-  .feedback { margin-top: 15px; font-size: 1.1rem; font-weight: bold; min-height: 30px; }
-  .feedback.ok { color: var(--success); }
-  .feedback.bad { color: var(--error); }
-
-  .start-screen { text-align: center; padding: 40px 20px; }
-  .btn-start {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+  /* CHECK BUTTON */
+  .check-btn {
+    background: #ed8936; color: white; border: none;
+    padding: 8px 18px; border-radius: 8px; cursor: pointer;
+    font-weight: 600; font-size: 0.92rem; margin-top: 8px;
+    transition: background 0.2s;
   }
-  .btn-start:hover { background: var(--secondary); transform: translateY(-3px); }
+  .check-btn:hover { background: #dd6b20; }
+  .check-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+  .feedback {
+    margin-top: 8px; font-weight: 600; font-size: 0.95rem;
+    min-height: 22px;
+  }
+  .feedback.ok { color: #2f855a; }
+  .feedback.bad { color: #c53030; }
+
+  /* BTN */
+  .btn {
+    display: inline-block; padding: 12px 35px; font-size: 1rem;
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: background 0.3s, transform 0.1s; font-weight: 600;
+  }
+  .btn-success { background: #38a169; color: white; }
+  .btn-success:hover { background: #2f855a; transform: scale(1.02); }
+  .btn-primary { background: #2b6cb0; color: white; }
+  .btn-primary:hover { background: #2c5282; transform: scale(1.02); }
+  .btn-center { text-align: center; margin: 25px 0 10px; }
+
+  /* RESULTS */
+  #resultsScreen { display: none; text-align: center; padding: 30px 20px; }
+  #resultsScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
+  .score-box {
+    background: #ebf8ff; border-radius: 14px; padding: 25px;
+    margin: 20px auto; max-width: 600px; text-align: left;
+  }
+  .score-item {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    border-bottom: 1px solid #bee3f8; font-size: 1.02rem;
+  }
+  .score-item:last-child { border-bottom: none; font-weight: 700; color: #2b6cb0; font-size: 1.12rem; }
+  .feedback-final { margin-top: 15px; font-weight: 600; font-size: 1.1rem; text-align: center; }
 
   @media (max-width: 600px) {
-    .options-grid { grid-template-columns: 1fr; }
-    .main-card { padding: 20px 15px; }
+    .container { padding: 20px 16px; }
+    h1 { font-size: 1.35rem; }
+    .tab-btn { font-size: 0.8rem; padding: 8px 10px; }
+    .section-box { padding: 16px; }
   }
 </style>
 </head>
 <body translate="no" class="notranslate">
 
-<div class="author-box" translate="no">FPB with AI</div>
+<div class="container" translate="no">
 
-<div class="main-card" translate="no">
-  
-  <h1>Future Grammar Practice</h1>
-  <p class="subtitle">Will vs. Going To</p>
+  <div id="mainContent">
 
-  <!-- MENÚ DE PESTAÑAS -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="openTab('tab1')">1. Multiple Choice</button>
-    <button class="tab-btn" onclick="openTab('tab2')">2. Fill in the Blanks</button>
-    <button class="tab-btn" onclick="openTab('tab3')">3. Correct the Mistake</button>
+    <div class="blogger-notice">
+      📝 <strong>Instrucciones importantes:</strong>
+      <ul>
+        <li>Contesta este ejercicio en el <strong>blog de Blogger</strong>.</li>
+        <li><strong>Todas las actividades se realizan en tu cuaderno</strong> con <strong>tinta azul</strong>.</li>
+        <li>Anota la <strong>fecha</strong> y tu <strong>nombre</strong> antes de comenzar.</li>
+        <li><strong>Actividad 1:</strong> elige la regla gramatical o estructura correcta.</li>
+        <li><strong>Actividad 2:</strong> completa la oración con la forma correcta (will / going to).</li>
+        <li><strong>Actividad 3:</strong> corrige las oraciones incorrectas.</li>
+        <li><strong>Actividad 4:</strong> ordena las palabras para formar la oración correcta.</li>
+        <li><strong>Actividad 5:</strong> escribe la oración completa usando la forma correcta del futuro.</li>
+        <li>Al terminar las actividades, presiona <strong>"VER RESULTADOS"</strong>.</li>
+      </ul>
+    </div>
+
+    <h1>🚀 FUTURE GRAMMAR — WILL & GOING TO</h1>
+    <p class="subtitle">Rules · Fill in the Blanks · Correct · Order · Transform</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(1, this)">📖 Act 1 — Rules</button>
+      <button class="tab-btn" onclick="switchTab(2, this)">✍️ Act 2 — Fill in the Blanks</button>
+      <button class="tab-btn" onclick="switchTab(3, this)">🛠️ Act 3 — Correct the Mistake</button>
+      <button class="tab-btn" onclick="switchTab(4, this)">🧩 Act 4 — Order the Words</button>
+      <button class="tab-btn" onclick="switchTab(5, this)">🔄 Act 5 — Transform</button>
+    </div>
+
+    <!-- ============ ACTIVIDAD 1 ============ -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-box">
+        <h2>📖 ACTIVIDAD 1 — Rules & Structure</h2>
+        <p class="instruction">Elige la opción correcta que completa la regla gramatical. (15 ejercicios)</p>
+        <div class="grammar-tip">
+          💡 <strong>Grammar Tip:</strong> <em>Will + infinitive</em> · <em>Am/Is/Are + going to + infinitive</em>
+        </div>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la regla completa con tu respuesta.
+        </div>
+        <div id="actividad1"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 2 ============ -->
+    <div id="tab2" class="tab-content">
+      <div class="section-box">
+        <h2>✍️ ACTIVIDAD 2 — Fill in the Blanks</h2>
+        <p class="instruction">Escribe la forma correcta del futuro (<strong>will, am/is/are going to</strong>) para completar la oración. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración completa con tu respuesta.
+        </div>
+        <div id="actividad2"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 3 ============ -->
+    <div id="tab3" class="tab-content">
+      <div class="section-box">
+        <h2>🛠️ ACTIVIDAD 3 — Correct the Mistake</h2>
+        <p class="instruction">Lee la oración incorrecta y <strong>escríbela correctamente</strong>. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración corregida.
+        </div>
+        <div id="actividad3"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 4 ============ -->
+    <div id="tab4" class="tab-content">
+      <div class="section-box">
+        <h2>🧩 ACTIVIDAD 4 — Order the Words</h2>
+        <p class="instruction">Ordena las palabras y <strong>escribe</strong> la oración completa. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración ordenada completa.
+        </div>
+        <div id="actividad4"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 5 ============ -->
+    <div id="tab5" class="tab-content">
+      <div class="section-box">
+        <h2>🔄 ACTIVIDAD 5 — Transform to Future</h2>
+        <p class="instruction">Transforma la oración base al futuro usando <strong>will</strong> o <strong>going to</strong> según el contexto. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración transformada completa.
+        </div>
+        <div id="actividad5"></div>
+      </div>
+    </div>
+
+    <div class="btn-center">
+      <button class="btn btn-success" onclick="showResults()">✅ VER RESULTADOS</button>
+    </div>
+
   </div>
 
-  <!-- ================= APARTADO 1: MULTIPLE CHOICE ================= -->
-  <div id="tab1" class="tab-content active">
-    <div id="g1-start" class="start-screen">
-      <h2>🔘 Multiple Choice</h2>
-      <p>Elige la opción correcta (will o going to) para completar la oración.</p>
-      <button class="btn-start" onclick="startGame1()">▶ Start Activity</button>
-    </div>
-    <div id="g1-play" style="display:none;">
-      <div class="game-header">
-        <span>Question: <span id="g1-current">1</span>/15</span>
-        <span>Score: <span id="g1-score">0</span></span>
-      </div>
-      <div class="game-area">
-        <p class="sentence-text" id="g1-question">Question text</p>
-        <div class="options-grid" id="g1-options"></div>
-        <div class="feedback" id="g1-feedback"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APARTADO 2: FILL IN THE BLANKS ================= -->
-  <div id="tab2" class="tab-content">
-    <div id="g2-start" class="start-screen">
-      <h2>✍️ Fill in the Blanks</h2>
-      <p>Escribe la forma correcta del futuro (will, am/is/are going to).</p>
-      <button class="btn-start" onclick="startGame2()">▶ Start Activity</button>
-    </div>
-    <div id="g2-play" style="display:none;">
-      <div class="game-header">
-        <span>Question: <span id="g2-current">1</span>/15</span>
-        <span>Score: <span id="g2-score">0</span></span>
-      </div>
-      <div class="game-area">
-        <p class="sentence-text" id="g2-question">Question text</p>
-        <p style="font-size:0.9rem; color:#bdc3c7; margin-bottom:10px;" id="g2-hint">💡 Pista</p>
-        <input type="text" class="input-answer" id="g2-input" placeholder="Escribe tu respuesta..." autocomplete="off">
-        <button class="action-btn" id="g2-checkBtn" onclick="checkGame2()">✔ Check Answer</button>
-        <div class="feedback" id="g2-feedback"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APARTADO 3: CORRECT THE MISTAKE ================= -->
-  <div id="tab3" class="tab-content">
-    <div id="g3-start" class="start-screen">
-      <h2>🛠️ Correct the Mistake</h2>
-      <p>Lee la oración incorrecta y reescríbela correctamente.</p>
-      <button class="btn-start" onclick="startGame3()">▶ Start Activity</button>
-    </div>
-    <div id="g3-play" style="display:none;">
-      <div class="game-header">
-        <span>Question: <span id="g3-current">1</span>/15</span>
-        <span>Score: <span id="g3-score">0</span></span>
-      </div>
-      <div class="game-area">
-        <p style="color:var(--error); font-weight:bold; margin-bottom:5px;">❌ Wrong sentence:</p>
-        <p class="sentence-text" id="g3-wrong">Wrong sentence here.</p>
-        
-        <p style="color:var(--success); font-weight:bold; margin-top:15px; margin-bottom:5px;">✅ Correct it:</p>
-        <input type="text" class="input-answer" id="g3-input" placeholder="Escribe la oración correcta..." autocomplete="off">
-        <button class="action-btn" id="g3-checkBtn" onclick="checkGame3()">✔ Check Answer</button>
-        <div class="feedback" id="g3-feedback"></div>
-      </div>
+  <!-- ============ RESULTADOS ============ -->
+  <div id="resultsScreen">
+    <h2>🏆 Resultados — Future Grammar</h2>
+    <div class="score-box" id="scoreBox"></div>
+    <div class="btn-center">
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Volver al inicio</button>
     </div>
   </div>
 
 </div>
 
 <script>
-// =====================================================================
-//  UTILIDADES
-// =====================================================================
-function shuffleArray(arr) {
+/* ============ TABS ============ */
+function switchTab(num, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab' + num).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ============ UTIL ============ */
+function shuffleArr(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -302,62 +293,58 @@ function shuffleArray(arr) {
   }
   return a;
 }
-
 function normalize(str) {
-  return str.toLowerCase().trim().replace(/\s+/g, ' ').replace(/[.,!?;:]/g, '');
+  return (str || '').toLowerCase().trim()
+    .replace(/[.,!?;:¿¡"']/g, '')
+    .replace(/\s+/g, ' ');
 }
 
-function openTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
-}
-
-// =====================================================================
-//  DATOS: 15 PREGUNTAS POR APARTADO
-// =====================================================================
-
-// 1. MULTIPLE CHOICE
-const G1_QUESTIONS = [
-  { q: "Look at those clouds! It ___ rain.", correct: "is going to", options: ["will", "is going to"] },
-  { q: "I'm hungry. I think I ___ make a sandwich.", correct: "will", options: ["will", "am going to"] },
-  { q: "She ___ travel to Paris next month. She has the tickets.", correct: "is going to", options: ["will", "is going to"] },
-  { q: "Don't worry, I ___ call you when I arrive.", correct: "will", options: ["will", "am going to"] },
-  { q: "They ___ buy a new house. They saved money for years.", correct: "are going to", options: ["will", "are going to"] },
-  { q: "Wait! I ___ open the door for you.", correct: "will", options: ["will", "am going to"] },
-  { q: "Watch out! You ___ fall!", correct: "are going to", options: ["will", "are going to"] },
-  { q: "I promise I ___ study for the exam.", correct: "will", options: ["will", "am going to"] },
-  { q: "We ___ watch a movie tonight. We have the tickets.", correct: "are going to", options: ["will", "are going to"] },
-  { q: "I think she ___ love this gift.", correct: "will", options: ["will", "is going to"] },
-  { q: "The phone is ringing. I ___ answer it.", correct: "will", options: ["will", "am going to"] },
-  { q: "He ___ study medicine next year. He already enrolled.", correct: "is going to", options: ["will", "is going to"] },
-  { q: "Be careful! That glass ___ fall off the table.", correct: "is going to", options: ["will", "is going to"] },
-  { q: "I forgot my wallet. I ___ pay you back tomorrow.", correct: "will", options: ["will", "am going to"] },
-  { q: "We ___ buy a new car next year. We are saving money.", correct: "are going to", options: ["will", "are going to"] }
+/* =====================================================================
+   ACTIVIDAD 1 — 15 Rules
+   ===================================================================== */
+const ACTIVIDAD1 = [
+  { sentence: "We use 'will' for...", correct: "spontaneous decisions and promises", wrong: ["plans and intentions", "predictions based on evidence", "past actions"] },
+  { sentence: "We use 'going to' for...", correct: "plans and intentions", wrong: ["spontaneous decisions", "promises", "habits in the past"] },
+  { sentence: "The structure of 'will' is...", correct: "Subject + will + verb", wrong: ["Subject + will + verb-ing", "Subject + will + to + verb", "Subject + will + past participle"] },
+  { sentence: "The structure of 'going to' is...", correct: "Subject + am/is/are + going to + verb", wrong: ["Subject + going to + verb", "Subject + am/is/are + go to + verb", "Subject + will + going to + verb"] },
+  { sentence: "Which sentence uses 'will' correctly?", correct: "I will call you tonight.", wrong: ["I will calling you tonight.", "I will to call you tonight.", "I will called you tonight."] },
+  { sentence: "Which sentence uses 'going to' correctly?", correct: "She is going to travel tomorrow.", wrong: ["She going to travel tomorrow.", "She is go to travel tomorrow.", "She is going travel tomorrow."] },
+  { sentence: "We use 'will' for...", correct: "predictions based on opinion", wrong: ["predictions based on evidence", "plans", "schedules"] },
+  { sentence: "We use 'going to' for...", correct: "predictions based on evidence", wrong: ["promises", "spontaneous decisions", "offers"] },
+  { sentence: "The negative of 'will' is...", correct: "won't", wrong: ["will not to", "don't will", "not will"] },
+  { sentence: "The negative of 'going to' is...", correct: "am/is/are not going to", wrong: ["don't going to", "not going to", "will not going to"] },
+  { sentence: "The question form of 'will' is...", correct: "Will + subject + verb?", wrong: ["Do + subject + will + verb?", "Subject + will + verb?", "Will + subject + to + verb?"] },
+  { sentence: "The question form of 'going to' is...", correct: "Am/Is/Are + subject + going to + verb?", wrong: ["Do + subject + going to + verb?", "Subject + am/is/are + going to + verb?", "Will + subject + going to + verb?"] },
+  { sentence: "Which is a spontaneous decision?", correct: "I'll have the chicken, please.", wrong: ["I'm going to have the chicken.", "I'm going to study tonight.", "I will visit my grandma next week."] },
+  { sentence: "Which is a plan?", correct: "We are going to buy a house.", wrong: ["We'll help you with that.", "I'll answer the phone.", "I think it will rain."] },
+  { sentence: "'Will' and 'going to' are used for...", correct: "future actions", wrong: ["past actions", "present continuous", "habits"] }
 ];
 
-// 2. FILL IN THE BLANKS
-const G2_QUESTIONS = [
-  { q: "Look at the sky! It ___ rain soon.", a: "is going to" },
-  { q: "I forgot my pen. I ___ borrow one from my friend.", a: "will" },
-  { q: "They ___ play soccer tomorrow. The match is confirmed.", a: "are going to" },
-  { q: "Don't worry, I ___ help you with your homework.", a: "will" },
-  { q: "She ___ visit her grandmother next weekend. She bought the bus ticket.", a: "is going to" },
-  { q: "I think he ___ win the competition.", a: "will" },
-  { q: "Watch out! You ___ spill the coffee.", a: "are going to" },
-  { q: "I promise I ___ be on time.", a: "will" },
-  { q: "We ___ travel to London next summer. We have already booked the hotel.", a: "are going to" },
-  { q: "It's too hot. I ___ open the window.", a: "will" },
-  { q: "I ___ visit the doctor tomorrow. I made an appointment.", a: "am going to" },
-  { q: "If you eat all that cake, you ___ feel sick.", a: "will" },
-  { q: "The train ___ arrive at 8:00 pm.", a: "is going to" },
-  { q: "I don't think they ___ come to the party.", a: "will" },
-  { q: "She ___ study for the exam tonight. She has all her books ready.", a: "is going to" }
+/* =====================================================================
+   ACTIVIDAD 2 — 15 Fill in the Blanks
+   ===================================================================== */
+const ACTIVIDAD2 = [
+  { sentence: "The phone is ringing. I ___ answer it.", correct: "will" },
+  { sentence: "She ___ travel to Paris next month. She bought the tickets.", correct: "is going to" },
+  { sentence: "Watch out! That glass ___ fall off the table.", correct: "is going to" },
+  { sentence: "I forgot my wallet. I ___ pay you back tomorrow.", correct: "will" },
+  { sentence: "We ___ buy a new car next year. We are saving money.", correct: "are going to" },
+  { sentence: "It's too hot in here. I ___ open the window.", correct: "will" },
+  { sentence: "Look at the sky! It ___ rain soon.", correct: "is going to" },
+  { sentence: "I promise I ___ call you when I arrive.", correct: "will" },
+  { sentence: "They ___ play soccer tomorrow. The match is confirmed.", correct: "are going to" },
+  { sentence: "I think he ___ win the competition.", correct: "will" },
+  { sentence: "I ___ visit the doctor tomorrow. I made an appointment.", correct: "am going to" },
+  { sentence: "If you eat all that cake, you ___ feel sick.", correct: "will" },
+  { sentence: "The train ___ arrive at 8:00 pm.", correct: "is going to" },
+  { sentence: "I don't think they ___ come to the party.", correct: "will" },
+  { sentence: "She ___ study for the exam tonight. She has all her books ready.", correct: "is going to" }
 ];
 
-// 3. CORRECT THE MISTAKE
-const G3_QUESTIONS = [
+/* =====================================================================
+   ACTIVIDAD 3 — 15 Correct the Mistake
+   ===================================================================== */
+const ACTIVIDAD3 = [
   { wrong: "Look at those clouds! It will rain.", correct: "Look at those clouds! It is going to rain." },
   { wrong: "I am going to help you with that bag. It looks heavy.", correct: "I will help you with that bag. It looks heavy." },
   { wrong: "She will travel to Paris next month. She has the tickets.", correct: "She is going to travel to Paris next month. She has the tickets." },
@@ -375,209 +362,300 @@ const G3_QUESTIONS = [
   { wrong: "We will buy a new car next year. We are saving money.", correct: "We are going to buy a new car next year. We are saving money." }
 ];
 
-// =====================================================================
-//  LÓGICA APARTADO 1 (MULTIPLE CHOICE)
-// =====================================================================
-let g1Questions, g1Index, g1Score, g1Locked;
+/* =====================================================================
+   ACTIVIDAD 4 — 15 Order the Words
+   ===================================================================== */
+const ACTIVIDAD4 = [
+  { words: ["will", "I", "help", "you"], correct: "I will help you" },
+  { words: ["is", "going", "to", "rain", "It"], correct: "It is going to rain" },
+  { words: ["are", "going", "to", "They", "travel"], correct: "They are going to travel" },
+  { words: ["will", "She", "call", "you"], correct: "She will call you" },
+  { words: ["am", "going", "to", "I", "study"], correct: "I am going to study" },
+  { words: ["will", "We", "watch", "a", "movie"], correct: "We will watch a movie" },
+  { words: ["are", "going", "to", "We", "buy", "a", "car"], correct: "We are going to buy a car" },
+  { words: ["will", "He", "not", "come"], correct: "He will not come" },
+  { words: ["is", "not", "going", "to", "She", "rain"], correct: "She is not going to rain" },
+  { words: ["Will", "you", "help", "me"], correct: "Will you help me" },
+  { words: ["Are", "they", "going", "to", "play"], correct: "Are they going to play" },
+  { words: ["will", "I", "open", "the", "window"], correct: "I will open the window" },
+  { words: ["going", "to", "is", "He", "study"], correct: "He is going to study" },
+  { words: ["will", "They", "arrive", "soon"], correct: "They will arrive soon" },
+  { words: ["going", "to", "are", "We", "eat"], correct: "We are going to eat" }
+];
 
-function startGame1() {
-  document.getElementById('g1-start').style.display = 'none';
-  document.getElementById('g1-play').style.display = 'block';
-  g1Questions = shuffleArray(G1_QUESTIONS);
-  g1Index = 0; g1Score = 0;
-  loadG1();
+/* =====================================================================
+   ACTIVIDAD 5 — 15 Transform
+   ===================================================================== */
+const ACTIVIDAD5 = [
+  { base: "I / call / you / tonight", correct: "I will call you tonight." },
+  { base: "She / travel / to London / next month", correct: "She is going to travel to London next month." },
+  { base: "They / play / soccer / tomorrow", correct: "They are going to play soccer tomorrow." },
+  { base: "I / help / you / with / your homework", correct: "I will help you with your homework." },
+  { base: "We / buy / a new house / next year", correct: "We are going to buy a new house next year." },
+  { base: "He / study / medicine / next year", correct: "He is going to study medicine next year." },
+  { base: "I / open / the window", correct: "I will open the window." },
+  { base: "It / rain / soon", correct: "It is going to rain soon." },
+  { base: "You / fall / if you're not careful", correct: "You will fall if you're not careful." },
+  { base: "She / study / for the exam / tonight", correct: "She is going to study for the exam tonight." },
+  { base: "I / pay / you / back / tomorrow", correct: "I will pay you back tomorrow." },
+  { base: "They / buy / a car / next month", correct: "They are going to buy a car next month." },
+  { base: "We / watch / a movie / tonight", correct: "We are going to watch a movie tonight." },
+  { base: "I / visit / the doctor / tomorrow", correct: "I am going to visit the doctor tomorrow." },
+  { base: "He / win / the competition", correct: "He will win the competition." }
+];
+
+/* =====================================================================
+   RENDER ACTIVIDAD 1 (Opciones)
+   ===================================================================== */
+function renderActividad1() {
+  const c = document.getElementById('actividad1');
+  c.innerHTML = ACTIVIDAD1.map((q, i) => {
+    const options = shuffleArr([q.correct, ...q.wrong]);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">${q.sentence}</div>
+        <div class="options">
+          ${options.map(opt => `
+            <label>
+              <input type="radio" name="a1_${i}" value="${opt.replace(/"/g, '&quot;')}">
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-function loadG1() {
-  if (g1Index >= g1Questions.length) {
-    document.getElementById('g1-play').innerHTML = `<div class="game-area"><h2>🎉 Completed!</h2><p>Your score: ${g1Score}/15</p><button class="btn-start" style="margin-top:20px;" onclick="startGame1()">🔄 Try Again</button></div>`;
-    return;
-  }
-  g1Locked = false;
-  const q = g1Questions[g1Index];
-  document.getElementById('g1-current').textContent = g1Index + 1;
-  document.getElementById('g1-score').textContent = g1Score;
-  document.getElementById('g1-question').innerHTML = q.q.replace('___', '<span class="blank">___</span>');
-  document.getElementById('g1-feedback').textContent = '';
-  document.getElementById('g1-feedback').className = 'feedback';
-
-  const optsDiv = document.getElementById('g1-options');
-  optsDiv.innerHTML = '';
-  const opts = shuffleArray(q.options);
-  opts.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = opt;
-    btn.onclick = () => checkG1(btn, opt, q.correct);
-    optsDiv.appendChild(btn);
-  });
+/* =====================================================================
+   RENDER ACTIVIDAD 2 (Escribir)
+   ===================================================================== */
+function renderActividad2() {
+  const c = document.getElementById('actividad2');
+  c.innerHTML = ACTIVIDAD2.map((q, i) => {
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">${q.sentence}</div>
+        <input type="text" class="write-input" id="a2_input_${i}"
+               placeholder="Escribe tu respuesta aquí..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA2(${i})">✔ Verificar escritura</button>
+        <div class="feedback" id="a2_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
 }
 
-function checkG1(btn, selected, correct) {
-  if (g1Locked) return;
-  g1Locked = true;
-  document.querySelectorAll('#g1-options .option-btn').forEach(b => b.disabled = true);
-  const fb = document.getElementById('g1-feedback');
+function checkWriteA2(i) {
+  const q = ACTIVIDAD2[i];
+  const input = document.getElementById(`a2_input_${i}`);
+  const fb = document.getElementById(`a2_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
   
-  if (selected === correct) {
-    btn.classList.add('correct');
-    g1Score++;
-    fb.textContent = '✅ Correct!';
-    fb.className = 'feedback ok';
-  } else {
-    btn.classList.add('wrong');
-    document.querySelectorAll('#g1-options .option-btn').forEach(b => {
-      if (b.textContent === correct) b.classList.add('correct');
-    });
-    fb.textContent = `❌ Correct answer: ${correct}`;
-    fb.className = 'feedback bad';
-  }
-  document.getElementById('g1-score').textContent = g1Score;
-  g1Index++;
-  setTimeout(loadG1, 1500);
-}
-
-// =====================================================================
-//  LÓGICA APARTADO 2 (FILL IN THE BLANKS)
-// =====================================================================
-let g2Questions, g2Index, g2Score, g2Locked;
-
-function startGame2() {
-  document.getElementById('g2-start').style.display = 'none';
-  document.getElementById('g2-play').style.display = 'block';
-  g2Questions = shuffleArray(G2_QUESTIONS);
-  g2Index = 0; g2Score = 0;
-  loadG2();
-}
-
-function loadG2() {
-  if (g2Index >= g2Questions.length) {
-    document.getElementById('g2-play').innerHTML = `<div class="game-area"><h2>🎉 Completed!</h2><p>Your score: ${g2Score}/15</p><button class="btn-start" style="margin-top:20px;" onclick="startGame2()">🔄 Try Again</button></div>`;
-    return;
-  }
-  g2Locked = false;
-  const q = g2Questions[g2Index];
-  document.getElementById('g2-current').textContent = g2Index + 1;
-  document.getElementById('g2-score').textContent = g2Score;
-  document.getElementById('g2-question').innerHTML = q.q.replace('___', '<span class="blank">___</span>');
-  
-  const input = document.getElementById('g2-input');
-  input.value = '';
-  input.disabled = false;
-  input.className = 'input-answer';
-  document.getElementById('g2-checkBtn').disabled = false;
-  document.getElementById('g2-feedback').textContent = '';
-  document.getElementById('g2-feedback').className = 'feedback';
-  setTimeout(() => input.focus(), 100);
-}
-
-function checkGame2() {
-  if (g2Locked) return;
-  const input = document.getElementById('g2-input');
   const ans = normalize(input.value);
-  if (!ans) return;
+  const correct = normalize(q.correct);
   
-  g2Locked = true;
-  input.disabled = true;
-  document.getElementById('g2-checkBtn').disabled = true;
-  
-  const q = g2Questions[g2Index];
-  const correctAns = normalize(q.a);
-  const fb = document.getElementById('g2-feedback');
-  
-  // Aceptar variaciones como "is going to" o "'s going to"
-  let isCorrect = (ans === correctAns);
-  if (correctAns === "is going to" && (ans === "is going to" || ans === "'s going to")) isCorrect = true;
-  if (correctAns === "are going to" && (ans === "are going to" || ans === "'re going to")) isCorrect = true;
+  let isCorrect = (ans === correct);
+  if (correct === "is going to" && (ans === "is going to" || ans === "'s going to")) isCorrect = true;
+  if (correct === "are going to" && (ans === "are going to" || ans === "'re going to")) isCorrect = true;
 
   if (isCorrect) {
-    input.classList.add('correct');
-    g2Score++;
-    fb.textContent = '✅ Correct!';
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Correcto.';
     fb.className = 'feedback ok';
   } else {
-    input.classList.add('wrong');
-    fb.textContent = `❌ Correct: ${q.a}`;
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
     fb.className = 'feedback bad';
   }
-  
-  document.getElementById('g2-score').textContent = g2Score;
-  g2Index++;
-  setTimeout(loadG2, 2000);
 }
 
-document.getElementById('g2-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkGame2();
-});
-
-// =====================================================================
-//  LÓGICA APARTADO 3 (CORRECT THE MISTAKE)
-// =====================================================================
-let g3Questions, g3Index, g3Score, g3Locked;
-
-function startGame3() {
-  document.getElementById('g3-start').style.display = 'none';
-  document.getElementById('g3-play').style.display = 'block';
-  g3Questions = shuffleArray(G3_QUESTIONS);
-  g3Index = 0; g3Score = 0;
-  loadG3();
+/* =====================================================================
+   RENDER ACTIVIDAD 3 (Corregir)
+   ===================================================================== */
+function renderActividad3() {
+  const c = document.getElementById('actividad3');
+  c.innerHTML = ACTIVIDAD3.map((q, i) => {
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt" style="color:#e53e3e;">❌ Wrong: ${q.wrong}</div>
+        <input type="text" class="write-input" id="a3_input_${i}"
+               placeholder="Escribe la oración correcta..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA3(${i})">✔ Verificar corrección</button>
+        <div class="feedback" id="a3_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
 }
 
-function loadG3() {
-  if (g3Index >= g3Questions.length) {
-    document.getElementById('g3-play').innerHTML = `<div class="game-area"><h2>🎉 Completed!</h2><p>Your score: ${g3Score}/15</p><button class="btn-start" style="margin-top:20px;" onclick="startGame3()">🔄 Try Again</button></div>`;
-    return;
-  }
-  g3Locked = false;
-  const q = g3Questions[g3Index];
-  document.getElementById('g3-current').textContent = g3Index + 1;
-  document.getElementById('g3-score').textContent = g3Score;
-  document.getElementById('g3-wrong').textContent = q.wrong;
+function checkWriteA3(i) {
+  const q = ACTIVIDAD3[i];
+  const input = document.getElementById(`a3_input_${i}`);
+  const fb = document.getElementById(`a3_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
   
-  const input = document.getElementById('g3-input');
-  input.value = '';
-  input.disabled = false;
-  input.className = 'input-answer';
-  document.getElementById('g3-checkBtn').disabled = false;
-  document.getElementById('g3-feedback').textContent = '';
-  document.getElementById('g3-feedback').className = 'feedback';
-  setTimeout(() => input.focus(), 100);
-}
-
-function checkGame3() {
-  if (g3Locked) return;
-  const input = document.getElementById('g3-input');
-  const ans = normalize(input.value);
-  if (!ans) return;
-  
-  g3Locked = true;
-  input.disabled = true;
-  document.getElementById('g3-checkBtn').disabled = true;
-  
-  const q = g3Questions[g3Index];
-  const correctAns = normalize(q.correct);
-  const fb = document.getElementById('g3-feedback');
-
-  if (ans === correctAns) {
-    input.classList.add('correct');
-    g3Score++;
-    fb.textContent = '✅ Perfect correction!';
+  if (normalize(input.value) === normalize(q.correct)) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Corrección perfecta.';
     fb.className = 'feedback ok';
   } else {
-    input.classList.add('wrong');
-    fb.innerHTML = `❌ Correct sentence: <span style="color:var(--warning);">${q.correct}</span>`;
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
     fb.className = 'feedback bad';
   }
-  
-  document.getElementById('g3-score').textContent = g3Score;
-  g3Index++;
-  setTimeout(loadG3, 2500);
 }
 
-document.getElementById('g3-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkGame3();
-});
+/* =====================================================================
+   RENDER ACTIVIDAD 4 (Ordenar)
+   ===================================================================== */
+function renderActividad4() {
+  const c = document.getElementById('actividad4');
+  c.innerHTML = ACTIVIDAD4.map((q, i) => {
+    const words = shuffleArr(q.words);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">Palabras: <em>${words.join(' · ')}</em></div>
+        <input type="text" class="write-input" id="a4_input_${i}"
+               placeholder="Escribe la oración ordenada..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA4(${i})">✔ Verificar</button>
+        <div class="feedback" id="a4_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
+}
 
+function checkWriteA4(i) {
+  const q = ACTIVIDAD4[i];
+  const input = document.getElementById(`a4_input_${i}`);
+  const fb = document.getElementById(`a4_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
+  
+  if (normalize(input.value) === normalize(q.correct)) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Oración correcta.';
+    fb.className = 'feedback ok';
+  } else {
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
+    fb.className = 'feedback bad';
+  }
+}
+
+/* =====================================================================
+   RENDER ACTIVIDAD 5 (Transformar)
+   ===================================================================== */
+function renderActividad5() {
+  const c = document.getElementById('actividad5');
+  c.innerHTML = ACTIVIDAD5.map((q, i) => {
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">Words: <em>${q.base}</em></div>
+        <input type="text" class="write-input" id="a5_input_${i}"
+               placeholder="Escribe la oración completa en futuro..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA5(${i})">✔ Verificar</button>
+        <div class="feedback" id="a5_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function checkWriteA5(i) {
+  const q = ACTIVIDAD5[i];
+  const input = document.getElementById(`a5_input_${i}`);
+  const fb = document.getElementById(`a5_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
+  
+  if (normalize(input.value) === normalize(q.correct)) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Oración transformada correctamente.';
+    fb.className = 'feedback ok';
+  } else {
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
+    fb.className = 'feedback bad';
+  }
+}
+
+/* ============ INIT ============ */
+renderActividad1();
+renderActividad2();
+renderActividad3();
+renderActividad4();
+renderActividad5();
+
+/* =====================================================================
+   RESULTADOS
+   ===================================================================== */
+function showResults() {
+  let score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0;
+
+  ACTIVIDAD1.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="a1_${i}"]:checked`);
+    if (sel && normalize(sel.value) === normalize(q.correct)) score1++;
+  });
+  
+  ACTIVIDAD2.forEach((q, i) => {
+    const inp = document.getElementById(`a2_input_${i}`);
+    if (inp) {
+      const ans = normalize(inp.value);
+      const correct = normalize(q.correct);
+      let isCorrect = (ans === correct);
+      if (correct === "is going to" && (ans === "is going to" || ans === "'s going to")) isCorrect = true;
+      if (correct === "are going to" && (ans === "are going to" || ans === "'re going to")) isCorrect = true;
+      if (isCorrect) score2++;
+    }
+  });
+  
+  ACTIVIDAD3.forEach((q, i) => {
+    const inp = document.getElementById(`a3_input_${i}`);
+    if (inp && normalize(inp.value) === normalize(q.correct)) score3++;
+  });
+  
+  ACTIVIDAD4.forEach((q, i) => {
+    const inp = document.getElementById(`a4_input_${i}`);
+    if (inp && normalize(inp.value) === normalize(q.correct)) score4++;
+  });
+  
+  ACTIVIDAD5.forEach((q, i) => {
+    const inp = document.getElementById(`a5_input_${i}`);
+    if (inp && normalize(inp.value) === normalize(q.correct)) score5++;
+  });
+
+  const total = score1 + score2 + score3 + score4 + score5;
+  const max = 15 * 5;
+  const pct = Math.round((total / max) * 100);
+
+  let msg = '';
+  if (pct >= 90) msg = '🏆 Outstanding! Dominas la gramática del futuro.';
+  else if (pct >= 75) msg = '🌟 Great job! Sigue practicando.';
+  else if (pct >= 60) msg = '👍 Good. Repasa will & going to.';
+  else msg = '📚 Keep practicing. Repasa las reglas del futuro.';
+
+  document.getElementById('scoreBox').innerHTML = `
+    <div class="score-item"><span>📖 Actividad 1 (Rules)</span><span>${score1} / 15</span></div>
+    <div class="score-item"><span>✍️ Actividad 2 (Fill in the Blanks)</span><span>${score2} / 15</span></div>
+    <div class="score-item"><span>🛠️ Actividad 3 (Correct the Mistake)</span><span>${score3} / 15</span></div>
+    <div class="score-item"><span>🧩 Actividad 4 (Order the Words)</span><span>${score4} / 15</span></div>
+    <div class="score-item"><span>🔄 Actividad 5 (Transform)</span><span>${score5} / 15</span></div>
+    <div class="score-item"><span>TOTAL</span><span>${total} / ${max} (${pct}%)</span></div>
+    <div class="feedback-final">${msg}</div>
+    <p style="margin-top:12px; color:#718096; font-size:0.9rem; text-align:center;">
+      ⚠️ Recuerda copiar todas tus respuestas en el cuaderno con tinta azul.
+    </p>
+  `;
+
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body>
