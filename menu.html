@@ -1,173 +1,131 @@
 <!DOCTYPE html>
 <html lang="en" translate="no" class="notranslate">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<title>Class 13 - Future Dialogues</title>
-<style>
-  :root { --primary: #e67e22; --success: #2ecc71; --error: #e74c3c; --warning: #f1c40f; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { min-height: 100vh; background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); font-family: 'Segoe UI', sans-serif; color: #ecf0f1; display: flex; justify-content: center; align-items: flex-start; padding: 20px; }
-  .author-box { position: fixed; top: 20px; right: 25px; background: #fff; color: #2c3e50; padding: 8px 16px; border-radius: 10px; font-weight: bold; z-index: 10; }
-  .main-card { background: rgba(26, 26, 46, 0.9); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); padding: 30px; max-width: 850px; width: 100%; margin-top: 50px; }
-  h1 { font-size: 2rem; text-align: center; color: var(--warning); margin-bottom: 20px; }
-  .dialogue-container { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-  .dialogue-header { position: absolute; top: -12px; left: 20px; background: var(--primary); color: white; padding: 4px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
-  .dialogue-line { margin-bottom: 12px; font-size: 1.1rem; line-height: 1.8; display: flex; align-items: flex-start; }
-  .speaker { font-weight: bold; color: #3498db; margin-right: 10px; min-width: 45px; }
-  .blank-select { appearance: none; background: rgba(255,255,255,0.1); border: 2px solid #7f8c8d; color: #fff; font-size: 1.1rem; font-weight: bold; padding: 4px 8px; border-radius: 8px; cursor: pointer; outline: none; text-align: center; min-width: 120px; margin: 0 5px; }
-  .blank-select:focus { border-color: var(--primary); }
-  .blank-select option { background: #2c3e50; color: #fff; }
-  .blank-select.correct { border-color: var(--success); background: rgba(46, 204, 113, 0.2); }
-  .blank-select.wrong { border-color: var(--error); background: rgba(231, 76, 60, 0.2); }
-  .actions { text-align: center; margin-top: 30px; }
-  .btn { padding: 12px 35px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin: 0 10px; }
-  .btn-check { background: var(--success); color: white; }
-  .btn-check:hover { background: #27ae60; }
-  .btn-reset { background: rgba(255,255,255,0.1); color: white; }
-  .btn-reset:hover { background: rgba(255,255,255,0.2); }
-  .result-box { display: none; text-align: center; margin-top: 25px; padding: 20px; border-radius: 15px; background: rgba(255,255,255,0.1); border: 2px solid var(--warning); }
-  .result-box h2 { color: var(--warning); margin-bottom: 10px; }
-  .final-score { font-size: 2.5rem; font-weight: bold; color: var(--success); }
-  @media (max-width: 600px) { .dialogue-line { flex-direction: column; gap: 5px; } .blank-select { width: 100%; margin: 5px 0; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <title>CEB Games - Semester 3</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { margin:0; padding:20px; min-height:100vh; display:flex; justify-content:center; align-items:center; font-family:sans-serif; background: linear-gradient(135deg, #e0eafc, #cfdef3); }
+        .floating-words { position:fixed; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:0; overflow:hidden; }
+        .word { position:absolute; color:rgba(255,255,255,0.6); font-weight:900; font-size:4.5rem; transform:rotate(-15deg); user-select:none; }
+        .w1 { top:5%; left:2%; } .w2 { bottom:10%; left:5%; font-size:3.5rem; } .w3 { top:15%; right:2%; } .w4 { bottom:15%; right:5%; }
+        .icon { position:absolute; font-size:5rem; opacity:0.2; user-select:none; }
+        .i1 { top:2%; left:45%; } .i2 { bottom:2%; left:40%; }
+
+        .container { position:relative; z-index:1; background:rgba(255,255,255,0.85); backdrop-filter:blur(10px); padding:40px; border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.12); max-width:1000px; width:100%; text-align:center; }
+
+        .page-title {
+            font-size:3.5rem;
+            font-weight:900;
+            background:linear-gradient(135deg, #1c3d3b, #2980b9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle-sm { font-size:1.2rem; color:#6c757d; margin-bottom:20px; }
+        .section-title { font-size:1.5rem; color:#2c3e50; margin:20px 0 10px 0; font-weight:bold; text-align:left; border-bottom:2px solid #eee; padding-bottom:5px; }
+
+        .grid-cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px; margin-bottom:15px; }
+
+        .game-card { padding:15px 8px; border-radius:15px; display:flex; flex-direction:column; align-items:center; min-height:130px; transition:0.3s; color:white; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+        .game-card:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+
+        .card-icon { font-size:2.5rem; margin-bottom:5px; }
+        .game-card h3 { font-size:0.9rem; font-weight:800; margin:5px 0; text-align:center; }
+        .game-card p { font-size:0.7rem; opacity:0.9; margin:0 0 10px 0; text-align:center; }
+
+        .play-btn { background:rgba(255,255,255,0.3); border:2px solid rgba(255,255,255,0.8); color:white; padding:5px 18px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:0.8rem; transition:0.3s; }
+        .play-btn:hover { background:white; color:#333; }
+
+        .card-voc1 { background:linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .card-voc2 { background:linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .card-voc3 { background:linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+        .card-voc4 { background:linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .card-voc5 { background:linear-gradient(135deg, #fddb92, #d1fdff); }
+        .card-voc6 { background:linear-gradient(135deg, #667eea, #764ba2); }
+        .card-voc7 { background:linear-gradient(135deg, #f093fb, #f5576c); }
+        .card-voc8 { background:linear-gradient(135deg, #4facfe, #00f2fe); }
+        .card-verb1 { background:linear-gradient(135deg, #43e97b, #38f9d7); }
+        .card-verb2 { background:linear-gradient(135deg, #fa709a, #fee140); }
+        .card-verb3 { background:linear-gradient(135deg, #30cfd0, #330867); }
+        .card-verb4 { background:linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .card-verb5 { background:linear-gradient(135deg, #fccb90, #d57eeb); }
+        .card-verb6 { background:linear-gradient(135deg, #e0c3fc, #8ec5fc); }
+        .card-verb7 { background:linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+        .card-verb8 { background:linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .card-verb9 { background:linear-gradient(135deg, #f7971e, #ffd200); }
+        .card-gra1 { background:linear-gradient(135deg, #fddb92, #d1fdff); }
+        .card-gra2 { background:linear-gradient(135deg, #667eea, #764ba2); }
+        .card-gra3 { background:linear-gradient(135deg, #ff9a9e, #fad0c4); }
+        .card-gra4 { background:linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .card-gra5 { background:linear-gradient(135deg, #4facfe, #00f2fe); }
+        .card-gra6 { background:linear-gradient(135deg, #43e97b, #38f9d7); }
+        .card-gra7 { background:linear-gradient(135deg, #fa709a, #fee140); }
+
+        .back-button { display:inline-block; text-decoration:none; background:#e9ecef; color:#495057; padding:12px 35px; border-radius:30px; font-weight:bold; border:1px solid #ced4da; transition:0.3s; margin-top:10px; }
+        .back-button:hover { background:#ced4da; }
+        .report-button { display:inline-block; text-decoration:none; background:#e67e22; color:white; padding:15px 40px; border-radius:30px; font-weight:bold; font-size:1.2rem; box-shadow:0 4px 0 #b85e19; transition:0.3s; margin-top:25px; }
+        .report-button:hover { transform:translateY(-2px); }
+    </style>
 </head>
 <body translate="no" class="notranslate">
-<div class="author-box">FPB with AI</div>
-<div class="main-card">
-  <h1>Class 13: Future Dialogues</h1>
-  <p style="text-align:center; margin-bottom:20px; color:#bdc3c7;">Complete the conversations using <strong>will</strong> or <strong>going to</strong>.</p>
+    <div class="floating-words">
+        <div class="word w1">LEARN</div> <div class="word w2">ENGLISH</div> <div class="word w3">GRAMMAR</div> <div class="word w4">FUN</div>
+        <div class="icon i1">📚</div> <div class="icon i2">🎯</div>
+    </div>
 
-  <!-- DIÁLOGO 1 -->
-  <div class="dialogue-container">
-    <div class="dialogue-header">Dialogue 1: At the Travel Agency</div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> Have you decided where to go for your holidays?
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> Yes! We 
-      <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      visit Italy.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> That sounds great! I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      help you pack your bags.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> Thanks! I promise I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      bring you a souvenir.
-    </div>
-  </div>
+    <div class="container">
+        <h1 class="page-title">CEB GAMES</h1>
+        <p class="subtitle-sm">Semester 3 - Choose your game</p>
 
-  <!-- DIÁLOGO 2 -->
-  <div class="dialogue-container">
-    <div class="dialogue-header">Dialogue 2: At the Office</div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> Look at the weather outside. It's getting very dark.
+        <!-- BLOQUE 1: VOCABULARIO -->
+        <h3 class="section-title">📖 Vocabulary</h3>
+        <div class="grid-cards">
+            <div class="game-card card-voc1"><div class="card-icon">🏙️</div><h3>Places & Tech</h3><p>Lugares y tecnología</p><button class="play-btn" onclick="window.location.href='vocabulario_places.html'">Play</button></div>
+            <div class="game-card card-voc2"><div class="card-icon">💼</div><h3>Professions</h3><p>Profesiones y oficios</p><button class="play-btn" onclick="window.location.href='vocabulario_professions.html'">Play</button></div>
+            <div class="game-card card-voc3"><div class="card-icon">☀️</div><h3>Routines</h3><p>Rutinas diarias</p><button class="play-btn" onclick="window.location.href='vocabulario_routines.html'">Play</button></div>
+            <div class="game-card card-voc4"><div class="card-icon">🎮</div><h3>Hobbies</h3><p>Pasatiempos y deportes</p><button class="play-btn" onclick="window.location.href='vocabulario_hobbies.html'">Play</button></div>
+            <div class="game-card card-voc5"><div class="card-icon">😊</div><h3>Emotions</h3><p>Emociones y personalidad</p><button class="play-btn" onclick="window.location.href='vocabulario_emotions.html'">Play</button></div>
+            <div class="game-card card-voc6"><div class="card-icon">🍕</div><h3>Food</h3><p>Comida y bebidas</p><button class="play-btn" onclick="window.location.href='vocabulario_food.html'">Play</button></div>
+            <div class="game-card card-voc7"><div class="card-icon">👕</div><h3>Clothes</h3><p>Ropa y accesorios</p><button class="play-btn" onclick="window.location.href='vocabulario_clothes.html'">Play</button></div>
+            <div class="game-card card-voc8"><div class="card-icon">✈️</div><h3>Travel</h3><p>Viajes y transporte</p><button class="play-btn" onclick="window.location.href='vocabulario_travel.html'">Play</button></div>
+        </div>
+
+        <!-- BLOQUE 2: VERBOS -->
+        <h3 class="section-title">⚡ Verbs</h3>
+        <div class="grid-cards">
+            <div class="game-card card-verb1"><div class="card-icon">🔁</div><h3>Irregular 1</h3><p>Verbos irregulares básicos</p><button class="play-btn" onclick="window.location.href='verbs_irregular_1.html'">Play</button></div>
+            <div class="game-card card-verb2"><div class="card-icon">🔄</div><h3>Irregular 2</h3><p>Verbos irregulares intermedios</p><button class="play-btn" onclick="window.location.href='verbs_irregular_2.html'">Play</button></div>
+            <div class="game-card card-verb3"><div class="card-icon">🔃</div><h3>Irregular 3</h3><p>Verbos irregulares avanzados</p><button class="play-btn" onclick="window.location.href='verbs_irregular_3.html'">Play</button></div>
+            <div class="game-card card-verb4"><div class="card-icon">📝</div><h3>Regular 1</h3><p>Verbos regulares básicos</p><button class="play-btn" onclick="window.location.href='verbs_regular_1.html'">Play</button></div>
+            <div class="game-card card-verb5"><div class="card-icon">✏️</div><h3>Regular 2</h3><p>Verbos regulares intermedios</p><button class="play-btn" onclick="window.location.href='verbs_regular_2.html'">Play</button></div>
+            <div class="game-card card-verb6"><div class="card-icon">📖</div><h3>Regular 3</h3><p>Verbos regulares avanzados</p><button class="play-btn" onclick="window.location.href='verbs_regular_3.html'">Play</button></div>
+            <div class="game-card card-verb7"><div class="card-icon">🧩</div><h3>Mixed</h3><p>Mezcla Regulares/Irregulares</p><button class="play-btn" onclick="window.location.href='verbs_past_simple_mixed.html'">Play</button></div>
+            <div class="game-card card-verb8"><div class="card-icon">⚙️</div><h3>Can / Must</h3><p>Verbos modales (Can, Must)</p><button class="play-btn" onclick="window.location.href='verbs_can_must.html'">Play</button></div>
+            <div class="game-card card-verb9"><div class="card-icon">🎧</div><h3>ED Pronunciation</h3><p>Sonidos de -ed (/t/, /d/, /id/)</p><button class="play-btn" onclick="window.location.href='verbs_ed_pronunciation.html'">Play</button></div>
+        </div>
+
+        <!-- BLOQUE 3: GRAMÁTICA -->
+        <h3 class="section-title">🧠 Grammar</h3>
+        <div class="grid-cards">
+            <div class="game-card card-gra1"><div class="card-icon">➕</div><h3>There is / Are</h3><p>Comida y cantidades (+, -, ?)</p><button class="play-btn" onclick="window.location.href='there_is_are.html'">Play</button></div>
+            <div class="game-card card-gra2"><div class="card-icon">🧠</div><h3>Present Perf. 1</h3><p>Afirmativo (Have/Has)</p><button class="play-btn" onclick="window.location.href='present_perfect_1.html'">Play</button></div>
+            <div class="game-card card-gra3"><div class="card-icon">❓</div><h3>Present Perf. 2</h3><p>Negativo / Interrogativo</p><button class="play-btn" onclick="window.location.href='present_perfect_2.html'">Play</button></div>
+            <div class="game-card card-gra4"><div class="card-icon">⚖️</div><h3>Comparatives</h3><p>Comparativos y superlativos</p><button class="play-btn" onclick="window.location.href='comparatives_superlatives.html'">Play</button></div>
+            
+            <!-- TARJETAS DE FUTURE -->
+            <div class="game-card card-gra5"><div class="card-icon">🚀</div><h3>Future (Intro)</h3><p>Will & Going To</p><button class="play-btn" onclick="window.location.href='future.html'">Play</button></div>
+            <div class="game-card card-gra6"><div class="card-icon">✍️</div><h3>Future Grammar</h3><p>Fill in the blanks</p><button class="play-btn" onclick="window.location.href='future_grammar.html'">Play</button></div>
+            <div class="game-card card-gra7"><div class="card-icon">💬</div><h3>Future Dialogues</h3><p>Conversations</p><button class="play-btn" onclick="window.location.href='future_dialog.html'">Play</button></div>
+        </div>
+
+        <!-- BOTONES DE NAVEGACIÓN -->
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <a href="reporte_puntos.html" class="report-button">🏆 View My Total Score</a>
+        </div>
     </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> Yes, it 
-      <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      rain very soon.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> I don't have an umbrella. I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      wait here until it stops.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> Don't worry, I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      lend you mine.
-    </div>
-  </div>
-
-  <!-- DIÁLOGO 3 -->
-  <div class="dialogue-container">
-    <div class="dialogue-header">Dialogue 3: At School</div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> What are your plans for next weekend?
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> My friends and I 
-      <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      study for the exam together.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">A:</span> That's a good idea. If you need help, I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      join you.
-    </div>
-    <div class="dialogue-line">
-      <span class="speaker">B:</span> Perfect! I 
-      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
-      send you a message with the details.
-    </div>
-  </div>
-
-  <div class="actions">
-    <button class="btn btn-check" onclick="checkAnswers()">✅ Check Answers</button>
-    <button class="btn btn-reset" onclick="resetGame()">🔄 Try Again</button>
-  </div>
-
-  <div class="result-box" id="result-box">
-    <h2>🎉 Activity Completed!</h2>
-    <p>You got <span class="final-score" id="final-score">0</span> out of 12 correct.</p>
-    <p id="result-message" style="margin-top:10px; font-size:1.1rem;"></p>
-  </div>
-</div>
-
-<script>
-  function checkAnswers() {
-    const selects = document.querySelectorAll('.blank-select');
-    let correctCount = 0;
-    let total = selects.length;
-    let allAnswered = true;
-
-    selects.forEach(select => {
-      if (select.value === "") allAnswered = false;
-    });
-
-    if (!allAnswered) {
-      alert("Please fill in all the blanks before checking.");
-      return;
-    }
-
-    selects.forEach(select => {
-      select.disabled = true;
-      if (select.value === select.dataset.answer) {
-        select.classList.add('correct');
-        correctCount++;
-      } else {
-        select.classList.add('wrong');
-      }
-    });
-
-    document.getElementById('result-box').style.display = 'block';
-    document.getElementById('final-score').textContent = correctCount;
-    
-    const resultMsg = document.getElementById('result-message');
-    if (correctCount === total) {
-      resultMsg.innerHTML = "🌟 Perfect! You are a future master! 🌟";
-      resultMsg.style.color = "#2ecc71";
-    } else {
-      resultMsg.innerHTML = "📖 Review the rules and try again.";
-      resultMsg.style.color = "#e74c3c";
-    }
-  }
-
-  function resetGame() {
-    document.querySelectorAll('.blank-select').forEach(select => {
-      select.value = "";
-      select.disabled = false;
-      select.classList.remove('correct', 'wrong');
-    });
-    document.getElementById('result-box').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-</script>
 </body>
 </html>
