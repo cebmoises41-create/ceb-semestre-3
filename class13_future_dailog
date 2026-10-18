@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" class="notranslate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>Class 13 - Future Dialogues</title>
+<style>
+  :root {
+    --primary: #e67e22;
+    --success: #2ecc71;
+    --error: #e74c3c;
+    --warning: #f1c40f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .author-box {
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    background: #ffffff;
+    color: #2c3e50;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  .main-card {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    padding: 35px;
+    max-width: 850px;
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  h1 { font-size: 2rem; text-align: center; color: var(--warning); margin-bottom: 10px; }
+  .subtitle { text-align: center; color: #bdc3c7; margin-bottom: 25px; font-size: 1.05rem; }
+
+  .instructions {
+    background: rgba(230, 126, 34, 0.1);
+    border-left: 5px solid var(--primary);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+  }
+
+  .dialogue-container {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  
+  .dialogue-header {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 4px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .dialogue-title {
+    color: var(--warning);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    font-style: italic;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+  }
+
+  .dialogue-line {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .speaker { 
+    font-weight: bold; 
+    color: #3498db; 
+    margin-right: 10px;
+    min-width: 45px;
+  }
+  
+  .blank-select {
+    appearance: none;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #7f8c8d;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+    min-width: 120px;
+    margin: 0 5px;
+  }
+  .blank-select:focus { border-color: var(--primary); }
+  .blank-select option { background: #2c3e50; color: #fff; }
+  
+  .blank-select.correct { border-color: var(--success); background: rgba(46, 204, 113, 0.2); color: var(--success); }
+  .blank-select.wrong { border-color: var(--error); background: rgba(231, 76, 60, 0.2); color: var(--error); }
+
+  .actions { text-align: center; margin-top: 30px; }
+  .btn {
+    padding: 14px 35px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0 10px;
+  }
+  .btn-check { background: var(--success); color: white; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4); }
+  .btn-check:hover { background: #27ae60; transform: translateY(-2px); }
+  
+  .btn-reset { background: rgba(255,255,255,0.1); color: white; }
+  .btn-reset:hover { background: rgba(255,255,255,0.2); }
+
+  .btn-audio { background: #9b59b6; color: white; box-shadow: 0 4px 10px rgba(155, 89, 182, 0.4); margin-top: 15px; font-size: 0.95rem; padding: 10px 20px; }
+  .btn-audio:hover { background: #8e44ad; }
+
+  .result-box {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid var(--warning);
+  }
+  .result-box h2 { color: var(--warning); margin-bottom: 10px; }
+  .final-score { font-size: 2.5rem; font-weight: bold; color: var(--success); }
+
+  @media (max-width: 600px) {
+    .main-card { padding: 20px 15px; }
+    .dialogue-line { font-size: 1rem; flex-direction: column; gap: 5px; }
+    .speaker { margin-bottom: 5px; }
+    .btn { font-size: 1rem; padding: 12px 20px; width: 100%; margin-bottom: 10px; }
+    .blank-select { font-size: 1rem; padding: 4px 8px; width: 100%; margin: 5px 0; }
+  }
+</style>
+</head>
+<body translate="no" class="notranslate">
+
+<div class="author-box" translate="no">FPB with AI</div>
+
+<div class="main-card" translate="no">
+  
+  <h1>Class 13: Future Dialogues</h1>
+  <p class="subtitle">Complete the conversations using <strong>will</strong> or <strong>going to</strong>.</p>
+
+  <div class="instructions">
+    <strong>Instructions:</strong> Read the 3 dialogues. Click on each blank space and select the correct future form. 
+    <br>There are <strong>15 blanks</strong> in total. Good luck! 🍀
+  </div>
+
+  <!-- DIÁLOGO 1 -->
+  <div class="dialogue-container">
+    <div class="dialogue-header">Dialogue 1: At the Travel Agency</div>
+    
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> Have you decided where to go for your holidays?
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Yes! We 
+      <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      visit Italy.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> That sounds great! I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      help you pack your bags.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Thanks! I promise I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      bring you a souvenir.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> I'm sure you 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      have a fantastic time. Send me a postcard!
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      send one from Rome. Goodbye!
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button class="btn btn-audio" onclick="speakDialogue(1)">🔊 Listen to Dialogue 1</button>
+    </div>
+  </div>
+
+  <!-- DIÁLOGO 2 -->
+  <div class="dialogue-container">
+    <div class="dialogue-header">Dialogue 2: At the Office</div>
+    
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> Look at the weather outside. It's getting very dark.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Yes, it 
+      <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      rain very soon.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> I don't have an umbrella. I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      wait here until it stops.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Don't worry, I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      lend you mine.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> You are very kind. I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      return it tomorrow.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Okay, see you tomorrow!
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button class="btn btn-audio" onclick="speakDialogue(2)">🔊 Listen to Dialogue 2</button>
+    </div>
+  </div>
+
+  <!-- DIÁLOGO 3 -->
+  <div class="dialogue-container">
+    <div class="dialogue-header">Dialogue 3: At School</div>
+    
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> What are your plans for next weekend?
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> My friends and I 
+      <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      study for the exam together.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> That's a good idea. If you need help, I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      join you.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Perfect! I 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      send you a message with the details.
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> By the way, do you think the exam 
+      <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      be difficult?
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> I don't know, but we 
+      <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="are going to">are going to</option><option value="is going to">is going to</option></select> 
+      do our best to pass.
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button class="btn btn-audio" onclick="speakDialogue(3)">🔊 Listen to Dialogue 3</button>
+    </div>
+  </div>
+
+  <!-- ACCIONES FINALES -->
+  <div class="actions">
+    <button class="btn btn-check" onclick="checkAnswers()">✅ Check Answers</button>
+    <button class="btn btn-reset" onclick="resetGame()">🔄 Try Again</button>
+  </div>
+
+  <div class="result-box" id="result-box">
+    <h2>🎉 Activity Completed!</h2>
+    <p>You got <span class="final-score" id="final-score">0</span> out of 15 correct.</p>
+    <p id="result-message" style="margin-top:10px; font-size:1.1rem;"></p>
+  </div>
+
+</div>
+
+<script>
+  const dialogueAudios = {
+    1: "A: Have you decided where to go for your holidays? B: Yes! We are going to visit Italy. A: That sounds great! I will help you pack your bags. B: Thanks! I promise I will bring you a souvenir. A: I'm sure you will have a fantastic time. Send me a postcard! B: I will send one from Rome. Goodbye!",
+    2: "A: Look at the weather outside. It's getting very dark. B: Yes, it is going to rain very soon. A: I don't have an umbrella. I will wait here until it stops. B: Don't worry, I will lend you mine. A: You are very kind. I will return it tomorrow. B: Okay, see you tomorrow!",
+    3: "A: What are your plans for next weekend? B: My friends and I are going to study for the exam together. A: That's a good idea. If you need help, I will join you. B: Perfect! I will send you a message with the details. A: By the way, do you think the exam will be difficult? B: I don't know, but we are going to do our best to pass."
+  };
+
+  function speakDialogue(id) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(dialogueAudios[id]);
+    u.lang = 'en-US';
+    u.rate = 0.9;
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoice = voices.find(v => v.lang.startsWith('en'));
+    if(englishVoice) u.voice = englishVoice;
+    window.speechSynthesis.speak(u);
+  }
+
+  function checkAnswers() {
+    const selects = document.querySelectorAll('.blank-select');
+    let correctCount = 0;
+    let total = selects.length;
+    let allAnswered = true;
+
+    selects.forEach(select => {
+      if (select.value === "") allAnswered = false;
+    });
+
+    if (!allAnswered) {
+      alert("Please fill in all the blanks before checking.");
+      return;
+    }
+
+    selects.forEach(select => {
+      select.disabled = true;
+      if (select.value === select.dataset.answer) {
+        select.classList.add('correct');
+        correctCount++;
+      } else {
+        select.classList.add('wrong');
+      }
+    });
+
+    document.getElementById('result-box').style.display = 'block';
+    document.getElementById('final-score').textContent = correctCount;
+    
+    const resultMsg = document.getElementById('result-message');
+    if (correctCount === total) {
+      resultMsg.innerHTML = "🌟 Perfect! You are a future master! 🌟";
+      resultMsg.style.color = "#2ecc71";
+    } else if (correctCount >= total * 0.7) {
+      resultMsg.innerHTML = "👏 Great job! Keep practicing!";
+      resultMsg.style.color = "#f1c40f";
+    } else {
+      resultMsg.innerHTML = "📖 Review the rules and try again.";
+      resultMsg.style.color = "#e74c3c";
+    }
+    
+    document.getElementById('result-box').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetGame() {
+    document.querySelectorAll('.blank-select').forEach(select => {
+      select.value = "";
+      select.disabled = false;
+      select.classList.remove('correct', 'wrong');
+    });
+    document.getElementById('result-box').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
