@@ -21,7 +21,6 @@
             background: linear-gradient(135deg, #e0eafc, #cfdef3); 
         }
         
-        /* Palabras flotantes de fondo */
         .floating-words { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; overflow: hidden; }
         .word { position: absolute; color: rgba(255,255,255,0.6); font-weight: 900; font-size: 4.5rem; transform: rotate(-15deg); user-select: none; }
         .w1 { top: 5%; left: 2%; } 
@@ -32,7 +31,6 @@
         .i1 { top: 2%; left: 45%; } 
         .i2 { bottom: 2%; left: 40%; }
 
-        /* Contenedor principal */
         .container { 
             position: relative; 
             z-index: 1; 
@@ -46,7 +44,6 @@
             text-align: center; 
         }
 
-        /* Títulos */
         .page-title {
             font-size: 3.5rem;
             font-weight: 900;
@@ -58,10 +55,8 @@
         .subtitle-sm { font-size: 1.2rem; color: #6c757d; margin-bottom: 20px; }
         .section-title { font-size: 1.5rem; color: #2c3e50; margin: 20px 0 10px 0; font-weight: bold; text-align: left; border-bottom: 2px solid #eee; padding-bottom: 5px; }
 
-        /* Rejilla de tarjetas */
         .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 15px; }
 
-        /* Tarjeta individual */
         .game-card { 
             padding: 15px 8px; 
             border-radius: 15px; 
@@ -116,12 +111,10 @@
         .card-gra2 { background: linear-gradient(135deg, #667eea, #764ba2); }
         .card-gra3 { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
         .card-gra4 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        /* Colores para Future */
         .card-gra5 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
         .card-gra6 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
         .card-gra7 { background: linear-gradient(135deg, #fa709a, #fee140); }
 
-        /* Botones inferiores */
         .back-button { display: inline-block; text-decoration: none; background: #e9ecef; color: #495057; padding: 12px 35px; border-radius: 30px; font-weight: bold; border: 1px solid #ced4da; transition: 0.3s; margin-top: 10px; }
         .back-button:hover { background: #ced4da; }
         
@@ -131,7 +124,6 @@
 </head>
 <body translate="no" class="notranslate">
 
-    <!-- Fondo decorativo -->
     <div class="floating-words">
         <div class="word w1">LEARN</div> 
         <div class="word w2">ENGLISH</div> 
@@ -180,7 +172,7 @@
             <div class="game-card card-gra3"><div class="card-icon">❓</div><h3>Present Perf. 2</h3><p>Negativo / Interrogativo</p><button class="play-btn" onclick="window.location.href='present_perfect_2.html'">Play</button></div>
             <div class="game-card card-gra4"><div class="card-icon">⚖️</div><h3>Comparatives</h3><p>Comparativos y superlativos</p><button class="play-btn" onclick="window.location.href='comparatives_superlatives.html'">Play</button></div>
             
-            <!-- NUEVAS CLASES DE FUTURE -->
+            <!-- TARJETAS DE FUTURE -->
             <div class="game-card card-gra5"><div class="card-icon">🚀</div><h3>Future (Intro)</h3><p>Will & Going To</p><button class="play-btn" onclick="window.location.href='future.html'">Play</button></div>
             <div class="game-card card-gra6"><div class="card-icon">✍️</div><h3>Future Grammar</h3><p>Fill in the blanks</p><button class="play-btn" onclick="window.location.href='future_grammar.html'">Play</button></div>
             <div class="game-card card-gra7"><div class="card-icon">💬</div><h3>Future Dialogues</h3><p>Conversations</p><button class="play-btn" onclick="window.location.href='future_dialog.html'">Play</button></div>
