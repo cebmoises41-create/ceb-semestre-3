@@ -1,262 +1,686 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="notranslate">
+<html lang="es" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-<title>Future - Will & Going To</title>
+<meta name="robots" content="notranslate">
+<title>FUTURE CLASS — Will & Going To</title>
 <style>
-  :root {
-    --primary: #2980b9;
-    --secondary: #1abc9c;
-    --dark-bg: #2c3e50;
-    --card-bg: rgba(44, 62, 80, 0.95);
-    --text-light: #ecf0f1;
-    --success: #2ecc71;
-    --error: #e74c3c;
-    --warning: #f1c40f;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: var(--text-light);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-  }
-
-  .author-box {
-    position: fixed;
-    top: 20px;
-    right: 25px;
-    background: #ffffff;
-    color: #2c3e50;
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 10;
-  }
-
-  .main-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    padding: 30px;
-    max-width: 900px;
-    width: 100%;
-    margin-top: 50px;
-  }
-
-  h1 { font-size: 2rem; text-align: center; color: var(--warning); margin-bottom: 10px; }
-  h2 { font-size: 1.4rem; text-align: center; margin-bottom: 20px; color: #fff; }
-  .subtitle { text-align: center; color: #bdc3c7; margin-bottom: 20px; line-height: 1.6; }
-
-  .explanation-box {
-    background: rgba(255,255,255,0.05);
-    border-left: 5px solid var(--primary);
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a202c;
     line-height: 1.6;
-    font-size: 1.05rem;
+    padding: 20px;
   }
-  .explanation-box strong { color: var(--warning); }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 30px 40px;
+  }
+  h1 { text-align: center; color: #2b6cb0; font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #718096; font-size: 1rem; margin-bottom: 25px; }
 
-  .game-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    font-weight: bold;
-    background: rgba(255,255,255,0.1);
-    padding: 10px 20px;
-    border-radius: 15px;
+  /* BLOGGER NOTICE */
+  .blogger-notice {
+    background: #fefcbf; border-left: 6px solid #d69e2e;
+    padding: 16px 20px; border-radius: 10px; margin-bottom: 25px;
+    color: #744210; font-size: 0.98rem;
   }
-  .game-area {
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-  }
-  .option-btn {
-    background: #fff;
-    color: #2c3e50;
-    border: 2px solid transparent;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .option-btn:hover:not(:disabled) { border-color: var(--primary); transform: scale(1.02); }
-  .option-btn.correct { background: #d5f5e3; border-color: var(--success); color: #1e8449; }
-  .option-btn.wrong { background: #fadbd8; border-color: var(--error); color: #922b21; }
+  .blogger-notice strong { color: #975a16; }
+  .blogger-notice ul { margin: 8px 0 0 20px; }
+  .blogger-notice li { margin-bottom: 4px; }
 
-  .btn-start {
-    background: var(--success);
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+  /* TABS */
+  .tabs {
+    display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;
+    border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
   }
-  .btn-start:hover { background: #27ae60; transform: translateY(-3px); }
+  .tab-btn {
+    padding: 10px 14px; font-size: 0.9rem; font-weight: 600;
+    background: #edf2f7; color: #4a5568; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.3s;
+  }
+  .tab-btn:hover { background: #bee3f8; color: #2c5282; }
+  .tab-btn.active { background: #2b6cb0; color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
 
-  .feedback { margin-top: 15px; font-size: 1.2rem; font-weight: bold; min-height: 30px; }
-  .feedback.ok { color: var(--success); }
-  .feedback.bad { color: var(--error); }
+  /* SECTION */
+  .section-box {
+    background: #f7fafc; border: 2px solid #e2e8f0;
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 25px;
+  }
+  .section-box h2 {
+    color: #2b6cb0; font-size: 1.2rem; margin-bottom: 12px;
+    border-bottom: 2px dashed #bee3f8; padding-bottom: 8px;
+  }
+  .instruction { color: #4a5568; margin-bottom: 12px; font-size: 0.98rem; }
 
-  .start-screen { text-align: center; padding: 40px 20px; }
+  .grammar-tip {
+    background: #ebf8ff; border-left: 5px solid #4299e1;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #2c5282; font-size: 0.95rem;
+  }
+  .grammar-tip strong { color: #2b6cb0; }
+
+  .note-box {
+    background: #fffaf0; border-left: 5px solid #ed8936;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #7b341e; font-size: 0.95rem;
+  }
+
+  /* QUESTION */
+  .question {
+    background: #ffffff; border-radius: 10px; padding: 16px 18px;
+    margin-bottom: 14px; border: 1px solid #e2e8f0;
+  }
+  .question .q-num {
+    font-weight: 700; color: #2b6cb0; margin-right: 6px;
+  }
+  .question .q-prompt {
+    font-size: 1.02rem; color: #2d3748; margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .options label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer;
+    background: #f7fafc; border: 1px solid #e2e8f0;
+    transition: background 0.2s, border 0.2s;
+    font-size: 0.98rem;
+  }
+  .options label:hover { background: #ebf8ff; border-color: #bee3f8; }
+  .options input[type="radio"] { accent-color: #2b6cb0; width: 18px; height: 18px; cursor: pointer; }
+
+  /* INPUT (para escribir) */
+  .write-input {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 2px solid #cbd5e0; font-size: 1rem; outline: none;
+    font-family: inherit; background: #fff; color: #1a202c;
+    transition: border 0.2s;
+    margin-top: 6px;
+  }
+  .write-input:focus { border-color: #2b6cb0; }
+  .write-input.correct { border-color: #38a169; background: #f0fff4; }
+  .write-input.wrong { border-color: #e53e3e; background: #fff5f5; }
+
+  /* CHECK BUTTON */
+  .check-btn {
+    background: #ed8936; color: white; border: none;
+    padding: 8px 18px; border-radius: 8px; cursor: pointer;
+    font-weight: 600; font-size: 0.92rem; margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: #dd6b20; }
+  .check-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+  .feedback {
+    margin-top: 8px; font-weight: 600; font-size: 0.95rem;
+    min-height: 22px;
+  }
+  .feedback.ok { color: #2f855a; }
+  .feedback.bad { color: #c53030; }
+
+  /* BTN */
+  .btn {
+    display: inline-block; padding: 12px 35px; font-size: 1rem;
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: background 0.3s, transform 0.1s; font-weight: 600;
+  }
+  .btn-success { background: #38a169; color: white; }
+  .btn-success:hover { background: #2f855a; transform: scale(1.02); }
+  .btn-primary { background: #2b6cb0; color: white; }
+  .btn-primary:hover { background: #2c5282; transform: scale(1.02); }
+  .btn-center { text-align: center; margin: 25px 0 10px; }
+
+  /* RESULTS */
+  #resultsScreen { display: none; text-align: center; padding: 30px 20px; }
+  #resultsScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
+  .score-box {
+    background: #ebf8ff; border-radius: 14px; padding: 25px;
+    margin: 20px auto; max-width: 600px; text-align: left;
+  }
+  .score-item {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    border-bottom: 1px solid #bee3f8; font-size: 1.02rem;
+  }
+  .score-item:last-child { border-bottom: none; font-weight: 700; color: #2b6cb0; font-size: 1.12rem; }
+  .feedback-final { margin-top: 15px; font-weight: 600; font-size: 1.1rem; text-align: center; }
 
   @media (max-width: 600px) {
-    .options-grid { grid-template-columns: 1fr; }
-    .main-card { padding: 20px 15px; }
+    .container { padding: 20px 16px; }
+    h1 { font-size: 1.35rem; }
+    .tab-btn { font-size: 0.8rem; padding: 8px 10px; }
+    .section-box { padding: 16px; }
   }
 </style>
 </head>
 <body translate="no" class="notranslate">
 
-<div class="author-box" translate="no">FPB with AI</div>
+<div class="container" translate="no">
 
-<div class="main-card" translate="no">
-  
-  <h1>Future: Will & Going To</h1>
-  <p class="subtitle">Learn how to talk about the future in English.</p>
+  <div id="mainContent">
 
-  <div class="explanation-box">
-    <h3>📖 Explanation</h3>
-    <p><strong>WILL:</strong> Usamos <em>will</em> para decisiones espontáneas, promesas o predicciones sin pruebas. <br> 
-    <em>Example: I will help you with your homework.</em></p>
-    <p style="margin-top:10px;"><strong>GOING TO:</strong> Usamos <em>going to</em> para planes ya decididos o predicciones basadas en lo que vemos. <br> 
-    <em>Example: I am going to visit my grandmother tomorrow.</em></p>
-  </div>
-
-  <div id="game-start" class="start-screen">
-    <h2>🎯 Practice Time</h2>
-    <p>Choose the correct future form (will or going to).</p>
-    <button class="btn-start" onclick="startGame()">▶ Start Activity</button>
-  </div>
-
-  <div id="game-play" style="display:none;">
-    <div class="game-header">
-      <span>Question: <span id="current">1</span>/10</span>
-      <span>Score: <span id="score">0</span></span>
+    <div class="blogger-notice">
+      📝 <strong>Instrucciones importantes:</strong>
+      <ul>
+        <li>Contesta este ejercicio en el <strong>blog de Blogger</strong>.</li>
+        <li><strong>Todas las actividades se realizan en tu cuaderno</strong> con <strong>tinta azul</strong>.</li>
+        <li>Anota la <strong>fecha</strong> y tu <strong>nombre</strong> antes de comenzar.</li>
+        <li><strong>Actividad 1:</strong> elige la opción correcta para completar las oraciones.</li>
+        <li><strong>Actividad 2:</strong> escribe la oración completa con la forma correcta del futuro.</li>
+        <li><strong>Actividad 3:</strong> corrige las oraciones que tienen errores gramaticales.</li>
+        <li><strong>Actividad 4:</strong> ordena las palabras y escribe la oración completa.</li>
+        <li><strong>Actividad 5:</strong> escucha el audio y elige la oración correcta.</li>
+        <li>Al terminar las actividades, presiona <strong>"VER RESULTADOS"</strong>.</li>
+      </ul>
     </div>
-    <div class="game-area">
-      <h3 style="margin-bottom:20px; font-size:1.3rem;" id="question">Question text</h3>
-      <div class="options-grid" id="options"></div>
-      <div class="feedback" id="feedback"></div>
+
+    <h1>🚀 FUTURE — WILL & GOING TO</h1>
+    <p class="subtitle">Multiple Choice · Fill in the blanks · Correct · Order · Listening</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(1, this)">🔘 Act 1 — Multiple Choice</button>
+      <button class="tab-btn" onclick="switchTab(2, this)">✍️ Act 2 — Fill in the Blanks</button>
+      <button class="tab-btn" onclick="switchTab(3, this)">🛠️ Act 3 — Correct the Mistake</button>
+      <button class="tab-btn" onclick="switchTab(4, this)">🧩 Act 4 — Order</button>
+      <button class="tab-btn" onclick="switchTab(5, this)">🎧 Act 5 — Listening</button>
+    </div>
+
+    <!-- ============ ACTIVIDAD 1 ============ -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-box">
+        <h2>🔘 ACTIVIDAD 1 — Multiple Choice</h2>
+        <p class="instruction">Elige la opción correcta (<strong>will</strong> o <strong>going to</strong>) para completar cada oración. (15 ejercicios)</p>
+        <div class="grammar-tip">
+          💡 <strong>Grammar Tip:</strong> Usa <em>will</em> para decisiones espontáneas o promesas. Usa <em>going to</em> para planes e intenciones.
+        </div>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración completa con tu respuesta.
+        </div>
+        <div id="actividad1"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 2 ============ -->
+    <div id="tab2" class="tab-content">
+      <div class="section-box">
+        <h2>✍️ ACTIVIDAD 2 — Fill in the Blanks</h2>
+        <p class="instruction">Escribe la forma correcta del futuro (<strong>will, am/is/are going to</strong>) para completar la oración. (15 ejercicios)</p>
+        <div class="grammar-tip">
+          💡 <strong>Grammar Tip:</strong> <em>Will + verb</em> · <em>Am/Is/Are + going to + verb</em>
+        </div>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración completa con tu respuesta.
+        </div>
+        <div id="actividad2"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 3 ============ -->
+    <div id="tab3" class="tab-content">
+      <div class="section-box">
+        <h2>🛠️ ACTIVIDAD 3 — Correct the Mistake</h2>
+        <p class="instruction">Lee la oración incorrecta y <strong>escríbela correctamente</strong>. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración corregida.
+        </div>
+        <div id="actividad3"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 4 ============ -->
+    <div id="tab4" class="tab-content">
+      <div class="section-box">
+        <h2>🧩 ACTIVIDAD 4 — Order the Words</h2>
+        <p class="instruction">Ordena las palabras y <strong>escribe</strong> la oración completa. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe la oración ordenada completa.
+        </div>
+        <div id="actividad4"></div>
+      </div>
+    </div>
+
+    <!-- ============ ACTIVIDAD 5 ============ -->
+    <div id="tab5" class="tab-content">
+      <div class="section-box">
+        <h2>🎧 ACTIVIDAD 5 — Listen & Choose</h2>
+        <p class="instruction">Escucha la oración y elige la opción correcta. (15 ejercicios)</p>
+        <div class="note-box">
+          ✏️ <strong>En tu cuaderno:</strong> escribe lo que escuchas y luego la opción correcta.
+        </div>
+        <div id="actividad5"></div>
+      </div>
+    </div>
+
+    <div class="btn-center">
+      <button class="btn btn-success" onclick="showResults()">✅ VER RESULTADOS</button>
+    </div>
+
+  </div>
+
+  <!-- ============ RESULTADOS ============ -->
+  <div id="resultsScreen">
+    <h2>🏆 Resultados — Future Class</h2>
+    <div class="score-box" id="scoreBox"></div>
+    <div class="btn-center">
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Volver al inicio</button>
     </div>
   </div>
 
 </div>
 
 <script>
-  const QUESTIONS = [
-    { q: "Look at those dark clouds! It ___ rain.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "I'm hungry. I think I ___ make a sandwich.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "She ___ travel to London next summer. She already bought the tickets.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "Don't worry, I ___ call you when I arrive.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "They ___ buy a new house. They saved money for years.", opts: ["will", "is going to", "are going to", "am going to"], a: "are going to" },
-    { q: "Wait! I ___ open the door for you.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "Watch out! You ___ fall!", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "I promise I ___ study for the exam.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "We ___ watch a movie tonight. We have the tickets.", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "I think she ___ love this gift.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" }
-  ];
+/* ============ TABS ============ */
+function switchTab(num, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab' + num).classList.add('active');
+  btn.classList.add('active');
+}
 
-  let currentIndex = 0;
-  let score = 0;
-  let locked = false;
-
-  function startGame() {
-    document.getElementById('game-start').style.display = 'none';
-    document.getElementById('game-play').style.display = 'block';
-    currentIndex = 0;
-    score = 0;
-    loadQuestion();
+/* ============ SPEECH ============ */
+function speak(text, btnElement, lang = 'en-US') {
+  if (!('speechSynthesis' in window)) {
+    alert('Tu navegador no soporta síntesis de voz. Usa Chrome, Edge o Safari.');
+    return;
   }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang;
+  utter.rate = 0.85;
+  const voices = window.speechSynthesis.getVoices();
+  const v = voices.find(x => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  if (v) utter.voice = v;
+  if (btnElement) {
+    btnElement.disabled = true;
+    const original = btnElement.textContent;
+    utter.onend = () => { btnElement.disabled = false; btnElement.textContent = original; };
+  }
+  window.speechSynthesis.speak(utter);
+}
+if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
 
-  function loadQuestion() {
-    if (currentIndex >= QUESTIONS.length) {
-      document.getElementById('game-play').innerHTML = `<div class="game-area"><h2>🏆 Completed!</h2><p>Your score: ${score}/10</p><button class="btn-start" style="margin-top:20px;" onclick="location.reload()">🔄 Try Again</button></div>`;
-      return;
+/* ============ UTIL ============ */
+function shuffleArr(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function normalize(str) {
+  return (str || '').toLowerCase().trim()
+    .replace(/[.,!?;:¿¡"']/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+/* =====================================================================
+   ACTIVIDAD 1 — 15 Multiple Choice
+   ===================================================================== */
+const ACTIVIDAD1 = [
+  { sentence: "Look at those dark clouds! It ___ rain.", correct: "is going to", wrong: ["will", "are going to", "am going to"] },
+  { sentence: "I'm hungry. I think I ___ make a sandwich.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "She ___ travel to London next summer. She already bought the tickets.", correct: "is going to", wrong: ["will", "are going to", "am going to"] },
+  { sentence: "Don't worry, I ___ call you when I arrive.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "They ___ buy a new house. They saved money for years.", correct: "are going to", wrong: ["will", "is going to", "am going to"] },
+  { sentence: "Wait! I ___ open the door for you.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "Watch out! You ___ fall!", correct: "are going to", wrong: ["will", "is going to", "am going to"] },
+  { sentence: "I promise I ___ study for the exam.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "We ___ watch a movie tonight. We have the tickets.", correct: "are going to", wrong: ["will", "is going to", "am going to"] },
+  { sentence: "I think she ___ love this gift.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "The phone is ringing. I ___ answer it.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "He ___ study medicine next year. He already enrolled.", correct: "is going to", wrong: ["will", "are going to", "am going to"] },
+  { sentence: "Be careful! That glass ___ fall off the table.", correct: "is going to", wrong: ["will", "are going to", "am going to"] },
+  { sentence: "I forgot my wallet. I ___ pay you back tomorrow.", correct: "will", wrong: ["am going to", "is going to", "are going to"] },
+  { sentence: "We ___ buy a new car next year. We are saving money.", correct: "are going to", wrong: ["will", "is going to", "am going to"] }
+];
+
+/* =====================================================================
+   ACTIVIDAD 2 — 15 Fill in the blanks
+   ===================================================================== */
+const ACTIVIDAD2 = [
+  { sentence: "Look at the sky! It ___ rain soon.", correct: "is going to" },
+  { sentence: "I forgot my pen. I ___ borrow one from my friend.", correct: "will" },
+  { sentence: "They ___ play soccer tomorrow. The match is confirmed.", correct: "are going to" },
+  { sentence: "Don't worry, I ___ help you with your homework.", correct: "will" },
+  { sentence: "She ___ visit her grandmother next weekend. She bought the bus ticket.", correct: "is going to" },
+  { sentence: "I think he ___ win the competition.", correct: "will" },
+  { sentence: "Watch out! You ___ spill the coffee.", correct: "are going to" },
+  { sentence: "I promise I ___ be on time.", correct: "will" },
+  { sentence: "We ___ travel to London next summer. We have already booked the hotel.", correct: "are going to" },
+  { sentence: "It's too hot. I ___ open the window.", correct: "will" },
+  { sentence: "I ___ visit the doctor tomorrow. I made an appointment.", correct: "am going to" },
+  { sentence: "If you eat all that cake, you ___ feel sick.", correct: "will" },
+  { sentence: "The train ___ arrive at 8:00 pm.", correct: "is going to" },
+  { sentence: "I don't think they ___ come to the party.", correct: "will" },
+  { sentence: "She ___ study for the exam tonight. She has all her books ready.", correct: "is going to" }
+];
+
+/* =====================================================================
+   ACTIVIDAD 3 — 15 Correct the Mistake
+   ===================================================================== */
+const ACTIVIDAD3 = [
+  { wrong: "Look at those clouds! It will rain.", correct: "Look at those clouds! It is going to rain." },
+  { wrong: "I am going to help you with that bag. It looks heavy.", correct: "I will help you with that bag. It looks heavy." },
+  { wrong: "She will travel to Paris next month. She has the tickets.", correct: "She is going to travel to Paris next month. She has the tickets." },
+  { wrong: "Don't worry, I am going to call you when I arrive.", correct: "Don't worry, I will call you when I arrive." },
+  { wrong: "They will buy a new house. They saved money for years.", correct: "They are going to buy a new house. They saved money for years." },
+  { wrong: "Wait! I am going to open the door for you.", correct: "Wait! I will open the door for you." },
+  { wrong: "Watch out! You will fall!", correct: "Watch out! You are going to fall!" },
+  { wrong: "I promise I am going to study for the exam.", correct: "I promise I will study for the exam." },
+  { wrong: "We will watch a movie tonight. We have the tickets.", correct: "We are going to watch a movie tonight. We have the tickets." },
+  { wrong: "I think she is going to love this gift.", correct: "I think she will love this gift." },
+  { wrong: "The phone is ringing. I am going to answer it.", correct: "The phone is ringing. I will answer it." },
+  { wrong: "He will study medicine next year. He already enrolled.", correct: "He is going to study medicine next year. He already enrolled." },
+  { wrong: "Be careful! That glass will fall off the table.", correct: "Be careful! That glass is going to fall off the table." },
+  { wrong: "I forgot my wallet. I am going to pay you back tomorrow.", correct: "I forgot my wallet. I will pay you back tomorrow." },
+  { wrong: "We will buy a new car next year. We are saving money.", correct: "We are going to buy a new car next year. We are saving money." }
+];
+
+/* =====================================================================
+   ACTIVIDAD 4 — 15 Order the Words
+   ===================================================================== */
+const ACTIVIDAD4 = [
+  { words: ["will", "I", "help", "you"], correct: "I will help you" },
+  { words: ["is", "going", "to", "rain", "It"], correct: "It is going to rain" },
+  { words: ["are", "going", "to", "They", "travel"], correct: "They are going to travel" },
+  { words: ["will", "She", "call", "you"], correct: "She will call you" },
+  { words: ["am", "going", "to", "I", "study"], correct: "I am going to study" },
+  { words: ["will", "We", "watch", "a", "movie"], correct: "We will watch a movie" },
+  { words: ["are", "going", "to", "We", "buy", "a", "car"], correct: "We are going to buy a car" },
+  { words: ["will", "He", "not", "come"], correct: "He will not come" },
+  { words: ["is", "not", "going", "to", "She", "rain"], correct: "She is not going to rain" },
+  { words: ["Will", "you", "help", "me"], correct: "Will you help me" },
+  { words: ["Are", "they", "going", "to", "play"], correct: "Are they going to play" },
+  { words: ["will", "I", "open", "the", "window"], correct: "I will open the window" },
+  { words: ["going", "to", "is", "He", "study"], correct: "He is going to study" },
+  { words: ["will", "They", "arrive", "soon"], correct: "They will arrive soon" },
+  { words: ["going", "to", "are", "We", "eat"], correct: "We are going to eat" }
+];
+
+/* =====================================================================
+   ACTIVIDAD 5 — 15 Listen & Choose
+   ===================================================================== */
+const ACTIVIDAD5 = [
+  { audio: "I will help you with your homework.", correct: "I will help you with your homework.",
+    options: ["I will help you with your homework.", "I am going to help you with your homework.", "I will helped you with your homework.", "I am going help you with your homework."] },
+  { audio: "Look at the clouds! It is going to rain.", correct: "Look at the clouds! It is going to rain.",
+    options: ["Look at the clouds! It is going to rain.", "Look at the clouds! It will rain.", "Look at the clouds! It is going rain.", "Look at the clouds! It going to rain."] },
+  { audio: "She is going to visit her grandmother.", correct: "She is going to visit her grandmother.",
+    options: ["She is going to visit her grandmother.", "She will visit her grandmother.", "She is going visit her grandmother.", "She going to visit her grandmother."] },
+  { audio: "I promise I will be on time.", correct: "I promise I will be on time.",
+    options: ["I promise I will be on time.", "I promise I am going to be on time.", "I promise I will been on time.", "I promise I going to be on time."] },
+  { audio: "We are going to buy a new car next year.", correct: "We are going to buy a new car next year.",
+    options: ["We are going to buy a new car next year.", "We will buy a new car next year.", "We are going buy a new car next year.", "We going to buy a new car next year."] },
+  { audio: "The phone is ringing. I will answer it.", correct: "The phone is ringing. I will answer it.",
+    options: ["The phone is ringing. I will answer it.", "The phone is ringing. I am going to answer it.", "The phone is ringing. I will answered it.", "The phone is ringing. I going to answer it."] },
+  { audio: "He is going to study medicine.", correct: "He is going to study medicine.",
+    options: ["He is going to study medicine.", "He will study medicine.", "He is going study medicine.", "He going to study medicine."] },
+  { audio: "Watch out! You are going to fall!", correct: "Watch out! You are going to fall!",
+    options: ["Watch out! You are going to fall!", "Watch out! You will fall!", "Watch out! You going to fall!", "Watch out! You are going fall!"] },
+  { audio: "We will watch a movie tonight.", correct: "We will watch a movie tonight.",
+    options: ["We will watch a movie tonight.", "We are going to watch a movie tonight.", "We will watched a movie tonight.", "We will watch a movie tonight."] },
+  { audio: "They are going to play soccer tomorrow.", correct: "They are going to play soccer tomorrow.",
+    options: ["They are going to play soccer tomorrow.", "They will play soccer tomorrow.", "They are going play soccer tomorrow.", "They going to play soccer tomorrow."] },
+  { audio: "I think she will love this gift.", correct: "I think she will love this gift.",
+    options: ["I think she will love this gift.", "I think she is going to love this gift.", "I think she will loved this gift.", "I think she going to love this gift."] },
+  { audio: "Be careful! That glass is going to break.", correct: "Be careful! That glass is going to break.",
+    options: ["Be careful! That glass is going to break.", "Be careful! That glass will break.", "Be careful! That glass is going break.", "Be careful! That glass going to break."] },
+  { audio: "I forgot my wallet. I will pay you tomorrow.", correct: "I forgot my wallet. I will pay you tomorrow.",
+    options: ["I forgot my wallet. I will pay you tomorrow.", "I forgot my wallet. I am going to pay you tomorrow.", "I forgot my wallet. I will paid you tomorrow.", "I forgot my wallet. I going to pay you tomorrow."] },
+  { audio: "She is going to travel to London.", correct: "She is going to travel to London.",
+    options: ["She is going to travel to London.", "She will travel to London.", "She is going travel to London.", "She going to travel to London."] },
+  { audio: "Will you help me with this?", correct: "Will you help me with this?",
+    options: ["Will you help me with this?", "Are you going to help me with this?", "Will you helped me with this?", "You will help me with this?"] }
+];
+
+/* =====================================================================
+   RENDER ACTIVIDAD 1
+   ===================================================================== */
+function renderActividad1() {
+  const c = document.getElementById('actividad1');
+  c.innerHTML = ACTIVIDAD1.map((q, i) => {
+    const options = shuffleArr([q.correct, ...q.wrong]);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">${q.sentence}</div>
+        <div class="options">
+          ${options.map(opt => `
+            <label>
+              <input type="radio" name="a1_${i}" value="${opt.replace(/"/g, '&quot;')}">
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* =====================================================================
+   RENDER ACTIVIDAD 2 (Escribir)
+   ===================================================================== */
+function renderActividad2() {
+  const c = document.getElementById('actividad2');
+  c.innerHTML = ACTIVIDAD2.map((q, i) => {
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">${q.sentence}</div>
+        <input type="text" class="write-input" id="a2_input_${i}"
+               placeholder="Escribe tu respuesta aquí..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA2(${i})">✔ Verificar escritura</button>
+        <div class="feedback" id="a2_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function checkWriteA2(i) {
+  const q = ACTIVIDAD2[i];
+  const input = document.getElementById(`a2_input_${i}`);
+  const fb = document.getElementById(`a2_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
+  
+  const ans = normalize(input.value);
+  const correct = normalize(q.correct);
+  
+  let isCorrect = (ans === correct);
+  if (correct === "is going to" && (ans === "is going to" || ans === "'s going to")) isCorrect = true;
+  if (correct === "are going to" && (ans === "are going to" || ans === "'re going to")) isCorrect = true;
+
+  if (isCorrect) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Correcto.';
+    fb.className = 'feedback ok';
+  } else {
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
+    fb.className = 'feedback bad';
+  }
+}
+
+/* =====================================================================
+   RENDER ACTIVIDAD 3 (Corregir oraciones)
+   ===================================================================== */
+function renderActividad3() {
+  const c = document.getElementById('actividad3');
+  c.innerHTML = ACTIVIDAD3.map((q, i) => {
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt" style="color:#e53e3e;">❌ Wrong: ${q.wrong}</div>
+        <input type="text" class="write-input" id="a3_input_${i}"
+               placeholder="Escribe la oración correcta..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA3(${i})">✔ Verificar corrección</button>
+        <div class="feedback" id="a3_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function checkWriteA3(i) {
+  const q = ACTIVIDAD3[i];
+  const input = document.getElementById(`a3_input_${i}`);
+  const fb = document.getElementById(`a3_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
+  
+  if (normalize(input.value) === normalize(q.correct)) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Corrección perfecta.';
+    fb.className = 'feedback ok';
+  } else {
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
+    fb.className = 'feedback bad';
+  }
+}
+
+/* =====================================================================
+   RENDER ACTIVIDAD 4 (Ordenar)
+   ===================================================================== */
+function renderActividad4() {
+  const c = document.getElementById('actividad4');
+  c.innerHTML = ACTIVIDAD4.map((q, i) => {
+    const words = shuffleArr(q.words);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <div class="q-prompt">Palabras: <em>${words.join(' · ')}</em></div>
+        <input type="text" class="write-input" id="a4_input_${i}"
+               placeholder="Escribe la oración ordenada..." autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false" translate="no">
+        <button class="check-btn" onclick="checkWriteA4(${i})">✔ Verificar</button>
+        <div class="feedback" id="a4_fb_${i}"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function checkWriteA4(i) {
+  const q = ACTIVIDAD4[i];
+  const input = document.getElementById(`a4_input_${i}`);
+  const fb = document.getElementById(`a4_fb_${i}`);
+  if (!input.value.trim()) { input.focus(); return; }
+  
+  if (normalize(input.value) === normalize(q.correct)) {
+    input.classList.add('correct'); input.classList.remove('wrong');
+    fb.textContent = '✅ ¡Excelente! Oración correcta.';
+    fb.className = 'feedback ok';
+  } else {
+    input.classList.add('wrong'); input.classList.remove('correct');
+    fb.innerHTML = `❌ Correcto: <strong>${q.correct}</strong>`;
+    fb.className = 'feedback bad';
+  }
+}
+
+/* =====================================================================
+   RENDER ACTIVIDAD 5 (Audio y opciones)
+   ===================================================================== */
+function renderActividad5() {
+  const c = document.getElementById('actividad5');
+  c.innerHTML = ACTIVIDAD5.map((q, i) => {
+    const options = shuffleArr(q.options);
+    return `
+      <div class="question">
+        <span class="q-num">${i + 1}.</span>
+        <button class="audio-btn" onclick="speak('${q.audio.replace(/'/g, "\\'")}', this)">
+          🔊 Escuchar oración
+        </button>
+        <div class="options">
+          ${options.map(opt => `
+            <label>
+              <input type="radio" name="a5_${i}" value="${opt.replace(/"/g, '&quot;')}">
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ============ INIT ============ */
+renderActividad1();
+renderActividad2();
+renderActividad3();
+renderActividad4();
+renderActividad5();
+
+/* =====================================================================
+   RESULTADOS
+   ===================================================================== */
+function showResults() {
+  let score1 = 0, score2 = 0, score3 = 0, score4 = 0, score5 = 0;
+
+  ACTIVIDAD1.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="a1_${i}"]:checked`);
+    if (sel && normalize(sel.value) === normalize(q.correct)) score1++;
+  });
+  ACTIVIDAD2.forEach((q, i) => {
+    const inp = document.getElementById(`a2_input_${i}`);
+    if (inp) {
+      const ans = normalize(inp.value);
+      const correct = normalize(q.correct);
+      let isCorrect = (ans === correct);
+      if (correct === "is going to" && (ans === "is going to" || ans === "'s going to")) isCorrect = true;
+      if (correct === "are going to" && (ans === "are going to" || ans === "'re going to")) isCorrect = true;
+      if (isCorrect) score2++;
     }
+  });
+  ACTIVIDAD3.forEach((q, i) => {
+    const inp = document.getElementById(`a3_input_${i}`);
+    if (inp && normalize(inp.value) === normalize(q.correct)) score3++;
+  });
+  ACTIVIDAD4.forEach((q, i) => {
+    const inp = document.getElementById(`a4_input_${i}`);
+    if (inp && normalize(inp.value) === normalize(q.correct)) score4++;
+  });
+  ACTIVIDAD5.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="a5_${i}"]:checked`);
+    if (sel && normalize(sel.value) === normalize(q.correct)) score5++;
+  });
 
-    locked = false;
-    const q = QUESTIONS[currentIndex];
-    document.getElementById('current').textContent = currentIndex + 1;
-    document.getElementById('score').textContent = score;
-    document.getElementById('question').textContent = q.q;
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('feedback').className = 'feedback';
+  const total = score1 + score2 + score3 + score4 + score5;
+  const max = 15 * 5;
+  const pct = Math.round((total / max) * 100);
 
-    const optsContainer = document.getElementById('options');
-    optsContainer.innerHTML = '';
+  let msg = '';
+  if (pct >= 90) msg = '🏆 Outstanding! Eres un experto en el futuro.';
+  else if (pct >= 75) msg = '🌟 Great job! Sigue practicando.';
+  else if (pct >= 60) msg = '👍 Good. Repasa will & going to.';
+  else msg = '📚 Keep practicing. Repasa el futuro.';
 
-    // Mezclar opciones
-    const shuffledOpts = [...q.opts].sort(() => Math.random() - 0.5);
+  document.getElementById('scoreBox').innerHTML = `
+    <div class="score-item"><span>🔘 Actividad 1 (Multiple Choice)</span><span>${score1} / 15</span></div>
+    <div class="score-item"><span>✍️ Actividad 2 (Fill in the Blanks)</span><span>${score2} / 15</span></div>
+    <div class="score-item"><span>🛠️ Actividad 3 (Correct the Mistake)</span><span>${score3} / 15</span></div>
+    <div class="score-item"><span>🧩 Actividad 4 (Order the Words)</span><span>${score4} / 15</span></div>
+    <div class="score-item"><span>🎧 Actividad 5 (Listening)</span><span>${score5} / 15</span></div>
+    <div class="score-item"><span>TOTAL</span><span>${total} / ${max} (${pct}%)</span></div>
+    <div class="feedback-final">${msg}</div>
+    <p style="margin-top:12px; color:#718096; font-size:0.9rem; text-align:center;">
+      ⚠️ Recuerda copiar todas tus respuestas en el cuaderno con tinta azul.
+    </p>
+  `;
 
-    shuffledOpts.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt;
-      btn.onclick = () => checkAnswer(btn, opt, q.a);
-      optsContainer.appendChild(btn);
-    });
-  }
-
-  function checkAnswer(btn, selected, correct) {
-    if (locked) return;
-    locked = true;
-    const allBtns = document.querySelectorAll('#options .option-btn');
-    allBtns.forEach(b => b.disabled = true);
-
-    const fb = document.getElementById('feedback');
-    if (selected === correct) {
-      btn.classList.add('correct');
-      score++;
-      fb.textContent = '✅ Correct!';
-      fb.className = 'feedback ok';
-    } else {
-      btn.classList.add('wrong');
-      allBtns.forEach(b => { if (b.textContent === correct) b.classList.add('correct'); });
-      fb.textContent = `❌ Correct answer: ${correct}`;
-      fb.className = 'feedback bad';
-    }
-
-    document.getElementById('score').textContent = score;
-    currentIndex++;
-    setTimeout(loadQuestion, 1500);
-  }
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body>
