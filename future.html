@@ -1,137 +1,633 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="notranslate">
+<html lang="es" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google" content="notranslate">
-<title>Class 11 - Future: Will & Going To</title>
+<meta name="robots" content="notranslate">
+<title>FUTURE DIALOGUES — Will & Going To</title>
 <style>
-  :root { --primary: #2980b9; --dark-bg: #2c3e50; --card-bg: rgba(44, 62, 80, 0.95); --success: #2ecc71; --error: #e74c3c; --warning: #f1c40f; }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { min-height: 100vh; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); font-family: 'Segoe UI', Tahoma, sans-serif; color: #ecf0f1; display: flex; justify-content: center; align-items: flex-start; padding: 20px; }
-  .author-box { position: fixed; top: 20px; right: 25px; background: #ffffff; color: #2c3e50; padding: 8px 16px; border-radius: 10px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10; }
-  .main-card { background: var(--card-bg); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); padding: 30px; max-width: 800px; width: 100%; margin-top: 50px; text-align: center; }
-  h1 { font-size: 2rem; color: var(--warning); margin-bottom: 10px; }
-  .explanation-box { background: rgba(255,255,255,0.05); border-left: 5px solid var(--primary); padding: 20px; border-radius: 12px; margin-bottom: 25px; text-align: left; line-height: 1.6; }
-  .explanation-box strong { color: var(--warning); }
-  .btn-start { background: var(--success); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); }
-  .btn-start:hover { background: #27ae60; transform: translateY(-3px); }
-  .game-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 15px; }
-  .game-area { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 600px; margin-top: 20px; }
-  .option-btn { background: #fff; color: #2c3e50; border: 2px solid transparent; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
-  .option-btn:hover:not(:disabled) { border-color: var(--primary); transform: scale(1.02); }
-  .option-btn.correct { background: #d5f5e3; border-color: var(--success); color: #1e8449; }
-  .option-btn.wrong { background: #fadbd8; border-color: var(--error); color: #922b21; }
-  .feedback { margin-top: 15px; font-size: 1.2rem; font-weight: bold; min-height: 30px; }
-  .feedback.ok { color: var(--success); }
-  .feedback.bad { color: var(--error); }
-  @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a202c;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 30px 40px;
+  }
+  h1 { text-align: center; color: #2b6cb0; font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #718096; font-size: 1rem; margin-bottom: 25px; }
+
+  /* BLOGGER NOTICE */
+  .blogger-notice {
+    background: #fefcbf; border-left: 6px solid #d69e2e;
+    padding: 16px 20px; border-radius: 10px; margin-bottom: 25px;
+    color: #744210; font-size: 0.98rem;
+  }
+  .blogger-notice strong { color: #975a16; }
+  .blogger-notice ul { margin: 8px 0 0 20px; }
+  .blogger-notice li { margin-bottom: 4px; }
+
+  /* TABS */
+  .tabs {
+    display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;
+    border-bottom: 3px solid #e2e8f0; padding-bottom: 10px;
+  }
+  .tab-btn {
+    padding: 10px 14px; font-size: 0.9rem; font-weight: 600;
+    background: #edf2f7; color: #4a5568; border: none;
+    border-radius: 10px; cursor: pointer; transition: all 0.3s;
+  }
+  .tab-btn:hover { background: #bee3f8; color: #2c5282; }
+  .tab-btn.active { background: #2b6cb0; color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* SECTION */
+  .section-box {
+    background: #f7fafc; border: 2px solid #e2e8f0;
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 25px;
+  }
+  .section-box h2 {
+    color: #2b6cb0; font-size: 1.2rem; margin-bottom: 12px;
+    border-bottom: 2px dashed #bee3f8; padding-bottom: 8px;
+  }
+  .instruction { color: #4a5568; margin-bottom: 12px; font-size: 0.98rem; }
+
+  .grammar-tip {
+    background: #ebf8ff; border-left: 5px solid #4299e1;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 15px;
+    color: #2c5282; font-size: 0.95rem;
+  }
+  .grammar-tip strong { color: #2b6cb0; }
+
+  /* DIALOGUE STYLING */
+  .dialogue-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  
+  .line {
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .speaker {
+    font-weight: 700;
+    color: #2b6cb0;
+    min-width: 30px;
+    margin-right: 10px;
+  }
+
+  /* SELECT INPUTS */
+  .blank-select {
+    appearance: none;
+    background: #ebf8ff;
+    border: 2px solid #90cdf4;
+    color: #2c5282;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s;
+    margin: 0 4px;
+  }
+  .blank-select:focus { border-color: #2b6cb0; }
+  
+  .blank-select.correct { border-color: #38a169; background: #f0fff4; color: #2f855a; }
+  .blank-select.wrong { border-color: #e53e3e; background: #fff5f5; color: #c53030; }
+
+  /* BTN */
+  .btn {
+    display: inline-block; padding: 10px 25px; font-size: 1rem;
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: background 0.3s, transform 0.1s; font-weight: 600;
+  }
+  .btn-primary { background: #2b6cb0; color: white; }
+  .btn-primary:hover { background: #2c5282; transform: scale(1.02); }
+  .btn-audio { background: #4299e1; color: white; margin-top: 10px; }
+  .btn-audio:hover { background: #3182ce; }
+  .btn-success { background: #38a169; color: white; margin-top: 20px; font-size: 1.1rem; padding: 12px 35px; }
+  .btn-success:hover { background: #2f855a; transform: scale(1.02); }
+  .btn-center { text-align: center; margin: 25px 0 10px; }
+  .btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+  /* RESULTS */
+  #resultsScreen { display: none; text-align: center; padding: 30px 20px; }
+  #resultsScreen h2 { color: #2b6cb0; margin-bottom: 15px; }
+  .score-box {
+    background: #ebf8ff; border-radius: 14px; padding: 25px;
+    margin: 20px auto; max-width: 600px; text-align: left;
+  }
+  .score-item {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    border-bottom: 1px solid #bee3f8; font-size: 1.02rem;
+  }
+  .score-item:last-child { border-bottom: none; font-weight: 700; color: #2b6cb0; font-size: 1.12rem; }
+  .feedback-final { margin-top: 15px; font-weight: 600; font-size: 1.1rem; text-align: center; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    h1 { font-size: 1.35rem; }
+    .tab-btn { font-size: 0.8rem; padding: 8px 10px; }
+    .line { flex-direction: column; gap: 5px; }
+    .blank-select { width: 100%; margin: 5px 0; }
+  }
 </style>
 </head>
 <body translate="no" class="notranslate">
-<div class="author-box">FPB with AI</div>
-<div class="main-card">
-  <h1>Future: Will & Going To</h1>
-  <div class="explanation-box">
-    <h3>📖 Explanation</h3>
-    <p><strong>WILL:</strong> Usamos <em>will</em> para decisiones espontáneas, promesas o predicciones sin pruebas.<br><em>Example: I will help you.</em></p>
-    <p style="margin-top:10px;"><strong>GOING TO:</strong> Usamos <em>going to</em> para planes ya decididos o predicciones basadas en lo que vemos.<br><em>Example: Look at those clouds! It is going to rain.</em></p>
-  </div>
-  <div id="game-start">
-    <h2>🎯 Practice Time (20 Questions)</h2>
-    <p>Choose the correct future form.</p>
-    <button class="btn-start" onclick="startGame()">▶ Start Activity</button>
-  </div>
-  <div id="game-play" style="display:none;">
-    <div class="game-header">
-      <span>Question: <span id="current">1</span>/20</span>
-      <span>Score: <span id="score">0</span></span>
+
+<div class="container" translate="no">
+
+  <div id="mainContent">
+
+    <div class="blogger-notice">
+      📝 <strong>Instrucciones importantes:</strong>
+      <ul>
+        <li>Completa los diálogos eligiendo <strong>will</strong> o <strong>going to</strong> en cada espacio.</li>
+        <li><strong>Todas las actividades se realizan en tu cuaderno</strong> con <strong>tinta azul</strong>.</li>
+        <li>Anota la <strong>fecha</strong> y tu <strong>nombre</strong> antes de comenzar.</li>
+        <li>Puedes usar el botón de <strong>Escuchar</strong> para repasar el audio.</li>
+        <li>Al terminar todas las pestañas, presiona <strong>"VER RESULTADOS"</strong>.</li>
+      </ul>
     </div>
-    <div class="game-area">
-      <h3 style="margin-bottom:20px; font-size:1.3rem;" id="question">Question text</h3>
-      <div class="options-grid" id="options"></div>
-      <div class="feedback" id="feedback"></div>
+
+    <h1>💬 FUTURE DIALOGUES — WILL & GOING TO</h1>
+    <p class="subtitle">Complete the conversations with the missing words</p>
+
+    <!-- PESTAÑAS DE DIÁLOGOS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(1, this)">💬 Diálogo 1 (2 personas)</button>
+      <button class="tab-btn" onclick="switchTab(2, this)">💬 Diálogo 2 (2 personas)</button>
+      <button class="tab-btn" onclick="switchTab(3, this)">💬 Diálogo 3 (2 personas)</button>
+      <button class="tab-btn" onclick="switchTab(4, this)">💬 Diálogo 4 (2 personas)</button>
+    </div>
+
+    <!-- ============ DIÁLOGO 1 ============ -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-box">
+        <h2>💬 DIÁLOGO 1 — Two people (A & B)</h2>
+        <p class="instruction">Completa cada espacio con la forma correcta del futuro. (15 participaciones)</p>
+        <div class="grammar-tip">
+          💡 <strong>Grammar Tip:</strong> Usa <em>will</em> para decisiones espontáneas y <em>going to</em> para planes ya decididos.
+        </div>
+        
+        <div style="text-align:center; margin-bottom: 20px;">
+          <button class="btn btn-audio" onclick="speakDialogue(1)">🔊 Escuchar el diálogo completo</button>
+        </div>
+
+        <div class="dialogue-box">
+          <p style="text-align:center; font-weight:bold; color:#2b6cb0; margin-bottom:15px;">Dialogue 1 — Planning a weekend trip</p>
+          
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Hey! Do you have any plans for the weekend? I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              visit my grandparents.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>That sounds nice! I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              stay home and relax.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Look at the sky, it's getting dark. I think it 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              rain soon.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>You're right. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              take an umbrella just in case.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Good idea. My parents 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              pick me up at 5 PM.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              call you later tonight.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Okay. We 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              watch a movie together next week.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Perfect! I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              buy the tickets.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Thanks. What time 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              we meet?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Let's meet at 7. I promise I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              not be late!</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Look at that car! It 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              crash!</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>No, don't worry. The driver 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              stop in time.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I hope so. I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              go home now. See you next week!</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Wait! I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              walk with you to the bus stop.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Thanks! Bye!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DIÁLOGO 2 ============ -->
+    <div id="tab2" class="tab-content">
+      <div class="section-box">
+        <h2>💬 DIÁLOGO 2 — Two people (A & B)</h2>
+        <p class="instruction">Completa cada espacio con la forma correcta del futuro. (15 participaciones)</p>
+        
+        <div style="text-align:center; margin-bottom: 20px;">
+          <button class="btn btn-audio" onclick="speakDialogue(2)">🔊 Escuchar el diálogo completo</button>
+        </div>
+
+        <div class="dialogue-box">
+          <p style="text-align:center; font-weight:bold; color:#2b6cb0; margin-bottom:15px;">Dialogue 2 — At the restaurant</p>
+          
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Good evening! What 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              you order tonight?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>I think I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              have the chicken, please.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Great choice. And to drink?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              try the lemonade. I heard it's good.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Yes, it is. We 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              bring it right away.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Thank you. By the way, is it going to be busy tonight?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Yes, there's a big party later. But don't worry, I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              find you a quiet table.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>That's very kind. My wife 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              join me in a few minutes.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>No problem. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              bring an extra menu for her.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Thanks. I think we 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              enjoy this dinner very much.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I'm sure you will. Here is your lemonade. Enjoy!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DIÁLOGO 3 ============ -->
+    <div id="tab3" class="tab-content">
+      <div class="section-box">
+        <h2>💬 DIÁLOGO 3 — Two people (A & B)</h2>
+        <p class="instruction">Completa cada espacio con la forma correcta del futuro. (15 participaciones)</p>
+        
+        <div style="text-align:center; margin-bottom: 20px;">
+          <button class="btn btn-audio" onclick="speakDialogue(3)">🔊 Escuchar el diálogo completo</button>
+        </div>
+
+        <div class="dialogue-box">
+          <p style="text-align:center; font-weight:bold; color:#2b6cb0; margin-bottom:15px;">Dialogue 3 — At the doctor's office</p>
+          
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Good morning, doctor. I feel terrible.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Good morning. What's wrong? I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              check your temperature.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I have a headache and a sore throat.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Okay. I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              prescribe you some medicine.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Do I need to stay home?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Yes. You 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              rest for at least two days.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I have a lot of work. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              call my boss right now.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Good idea. I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              write a note for your boss.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Thank you, doctor. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              take the medicine every 8 hours.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Exactly. And drink lots of water. You 
+              <select class="blank-select" data-answer="are going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              feel better soon.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I hope so. Goodbye!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DIÁLOGO 4 ============ -->
+    <div id="tab4" class="tab-content">
+      <div class="section-box">
+        <h2>💬 DIÁLOGO 4 — Two people (A & B)</h2>
+        <p class="instruction">Completa cada espacio con la forma correcta del futuro. (15 participaciones)</p>
+        
+        <div style="text-align:center; margin-bottom: 20px;">
+          <button class="btn btn-audio" onclick="speakDialogue(4)">🔊 Escuchar el diálogo completo</button>
+        </div>
+
+        <div class="dialogue-box">
+          <p style="text-align:center; font-weight:bold; color:#2b6cb0; margin-bottom:15px;">Dialogue 4 — At the airport</p>
+          
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Excuse me, what time 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              the plane take off?</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>The flight 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              leave at 3:00 PM.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>I'm a bit nervous. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              try to relax.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Don't worry, I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              sit next to you.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Thanks. My family 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              pick us up at the airport.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>That's great. I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              call my hotel when we arrive.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Look at those clouds. I think it 
+              <select class="blank-select" data-answer="is going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              rain when we land.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Maybe. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              pack an umbrella in my bag.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>Good idea. I 
+              <select class="blank-select" data-answer="will"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              buy some snacks for the flight.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">B:</span> 
+            <span>Perfect. I 
+              <select class="blank-select" data-answer="am going to"><option value="">___</option><option value="will">will</option><option value="am going to">am going to</option><option value="is going to">is going to</option><option value="are going to">are going to</option></select> 
+              wait for you at the gate.</span>
+          </div>
+          <div class="line">
+            <span class="speaker">A:</span> 
+            <span>See you there!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-center">
+      <button class="btn btn-success" onclick="showResults()">✅ VER RESULTADOS</button>
+    </div>
+
+  </div>
+
+  <!-- ============ RESULTADOS ============ -->
+  <div id="resultsScreen">
+    <h2>🏆 Resultados — Future Dialogues</h2>
+    <div class="score-box" id="scoreBox"></div>
+    <div class="btn-center">
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Volver al inicio</button>
     </div>
   </div>
+
 </div>
+
 <script>
-  // Se amplió a 20 preguntas
-  const QUESTIONS = [
-    { q: "Look at those dark clouds! It ___ rain.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "I'm hungry. I think I ___ make a sandwich.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "She ___ travel to London next summer. She already bought the tickets.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "Don't worry, I ___ call you when I arrive.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "They ___ buy a new house. They saved money for years.", opts: ["will", "is going to", "are going to", "am going to"], a: "are going to" },
-    { q: "Wait! I ___ open the door for you.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "Watch out! You ___ fall!", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "I promise I ___ study for the exam.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "We ___ watch a movie tonight. We have the tickets.", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "I think she ___ love this gift.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "The phone is ringing. I ___ answer it.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "He ___ study medicine next year. He already enrolled.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "Be careful! That glass ___ fall off the table.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "I forgot my wallet. I ___ pay you back tomorrow.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "We ___ buy a new car next year. We are saving money.", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "It's too hot in here. I ___ open the window.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "Look at the sky! It ___ rain soon.", opts: ["will", "is going to", "are going to", "am going to"], a: "is going to" },
-    { q: "I promise I ___ be on time.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" },
-    { q: "They ___ play soccer tomorrow. The match is confirmed.", opts: ["will", "are going to", "is going to", "am going to"], a: "are going to" },
-    { q: "I think he ___ win the competition.", opts: ["will", "am going to", "is going to", "are going to"], a: "will" }
-  ];
-  
-  let currentIndex = 0, score = 0, locked = false;
-  
-  function startGame() {
-    document.getElementById('game-start').style.display = 'none';
-    document.getElementById('game-play').style.display = 'block';
-    currentIndex = 0; score = 0; loadQuestion();
+/* ============ TABS ============ */
+function switchTab(num, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab' + num).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ============ SPEECH ============ */
+function speak(text, btnElement, lang = 'en-US') {
+  if (!('speechSynthesis' in window)) {
+    alert('Tu navegador no soporta síntesis de voz. Usa Chrome, Edge o Safari.');
+    return;
   }
-  
-  function loadQuestion() {
-    if (currentIndex >= QUESTIONS.length) {
-      document.getElementById('game-play').innerHTML = `<div class="game-area"><h2>🏆 Completed!</h2><p>Your score: ${score}/${QUESTIONS.length}</p><button class="btn-start" style="margin-top:20px;" onclick="location.reload()">🔄 Try Again</button></div>`;
-      return;
-    }
-    locked = false;
-    const q = QUESTIONS[currentIndex];
-    document.getElementById('current').textContent = currentIndex + 1;
-    document.getElementById('score').textContent = score;
-    document.getElementById('question').textContent = q.q;
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('feedback').className = 'feedback';
-    
-    const optsContainer = document.getElementById('options');
-    optsContainer.innerHTML = '';
-    
-    // Mezclar opciones
-    const shuffledOpts = [...q.opts].sort(() => Math.random() - 0.5);
-    
-    shuffledOpts.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt;
-      btn.onclick = () => checkAnswer(btn, opt, q.a);
-      optsContainer.appendChild(btn);
-    });
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang;
+  utter.rate = 0.85;
+  const voices = window.speechSynthesis.getVoices();
+  const v = voices.find(x => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  if (v) utter.voice = v;
+  if (btnElement) {
+    btnElement.disabled = true;
+    const original = btnElement.textContent;
+    utter.onend = () => { btnElement.disabled = false; btnElement.textContent = original; };
   }
+  window.speechSynthesis.speak(utter);
+}
+if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
+
+// Función para escuchar diálogos completos
+function speakDialogue(id) {
+  let text = "";
+  if (id === 1) text = "A: Hey! Do you have any plans for the weekend? I am going to visit my grandparents. B: That sounds nice! I will stay home and relax. A: Look at the sky, it's getting dark. I think it is going to rain soon. B: You're right. I will take an umbrella just in case. A: Good idea. My parents are going to pick me up at 5 PM. B: I will call you later tonight. A: Okay. We are going to watch a movie together next week. B: Perfect! I will buy the tickets. A: Thanks. What time are we going to meet? B: Let's meet at 7. I promise I will not be late! A: Look at that car! It is going to crash! B: No, don't worry. The driver will stop in time. A: I hope so. I am going to go home now. See you next week! B: Wait! I will walk with you to the bus stop. A: Thanks! Bye!";
+  else if (id === 2) text = "A: Good evening! What will you order tonight? B: I think I will have the chicken, please. A: Great choice. And to drink? B: I am going to try the lemonade. I heard it's good. A: Yes, it is. We are going to bring it right away. B: Thank you. By the way, is it going to be busy tonight? A: Yes, there's a big party later. But don't worry, I will find you a quiet table. B: That's very kind. My wife is going to join me in a few minutes. A: No problem. I will bring an extra menu for her. B: Thanks. I think we are going to enjoy this dinner very much. A: I'm sure you will. Here is your lemonade. Enjoy!";
+  else if (id === 3) text = "A: Good morning, doctor. I feel terrible. B: Good morning. What's wrong? I will check your temperature. A: I have a headache and a sore throat. B: Okay. I am going to prescribe you some medicine. A: Do I need to stay home? B: Yes. You are going to rest for at least two days. A: I have a lot of work. I will call my boss right now. B: Good idea. I am going to write a note for your boss. A: Thank you, doctor. I will take the medicine every 8 hours. B: Exactly. And drink lots of water. You are going to feel better soon. A: I hope so. Goodbye!";
+  else if (id === 4) text = "A: Excuse me, what time is going to the plane take off? B: The flight is going to leave at 3:00 PM. A: I'm a bit nervous. I will try to relax. B: Don't worry, I will sit next to you. A: Thanks. My family is going to pick us up at the airport. B: That's great. I am going to call my hotel when we arrive. A: Look at those clouds. I think it is going to rain when we land. B: Maybe. I will pack an umbrella in my bag. A: Good idea. I will buy some snacks for the flight. B: Perfect. I am going to wait for you at the gate. A: See you there!";
   
-  function checkAnswer(btn, selected, correct) {
-    if (locked) return;
-    locked = true;
-    document.querySelectorAll('#options .option-btn').forEach(b => b.disabled = true);
-    const fb = document.getElementById('feedback');
-    
-    if (selected === correct) {
-      btn.classList.add('correct'); score++; fb.textContent = '✅ Correct!'; fb.className = 'feedback ok';
+  speak(text);
+}
+
+/* ============ RESULTADOS ============ */
+function showResults() {
+  const selects = document.querySelectorAll('.blank-select');
+  let correctCount = 0;
+  let total = selects.length;
+  let allAnswered = true;
+
+  selects.forEach(select => {
+    if (select.value === "") allAnswered = false;
+  });
+
+  if (!allAnswered) {
+    alert("Please fill in all the blanks before checking.");
+    return;
+  }
+
+  selects.forEach(select => {
+    select.disabled = true;
+    if (select.value === select.dataset.answer) {
+      select.classList.add('correct');
+      correctCount++;
     } else {
-      btn.classList.add('wrong');
-      document.querySelectorAll('#options .option-btn').forEach(b => { if (b.textContent === correct) b.classList.add('correct'); });
-      fb.textContent = `❌ Correct answer: ${correct}`; fb.className = 'feedback bad';
+      select.classList.add('wrong');
     }
-    document.getElementById('score').textContent = score;
-    currentIndex++; setTimeout(loadQuestion, 1500);
-  }
+  });
+
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  
+  const pct = Math.round((correctCount / total) * 100);
+  let msg = '';
+  if (pct >= 90) msg = '🏆 Outstanding! Eres un experto en el futuro.';
+  else if (pct >= 75) msg = '🌟 Great job! Sigue practicando.';
+  else if (pct >= 60) msg = '👍 Good. Repasa will & going to.';
+  else msg = '📚 Keep practicing. Repasa el futuro.';
+
+  document.getElementById('scoreBox').innerHTML = `
+    <div class="score-item"><span>Total correct answers</span><span>${correctCount} / ${total}</span></div>
+    <div class="score-item"><span>Percentage</span><span>${pct}%</span></div>
+    <div class="feedback-final">${msg}</div>
+    <p style="margin-top:12px; color:#718096; font-size:0.9rem; text-align:center;">
+      ⚠️ Recuerda copiar todas tus respuestas en el cuaderno con tinta azul.
+    </p>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
+
 </body>
 </html>
