@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Continuous 3 - Master Challenge</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            margin: 0; padding: 20px; min-height: 100vh; display: flex; justify-content: center; align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .game-container { 
+            background: rgba(255,255,255,0.95); padding: 40px; border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); max-width: 850px; width: 100%; text-align: center; 
+            position: relative; min-height: 600px;
+        }
+        
+        .title { font-size: 2.5rem; font-weight: 900; color: #1a1a2e; margin: 0; letter-spacing: -1px; }
+        .title span { color: #e67e22; }
+        .sub { color: #6c757d; margin-bottom: 25px; font-size: 1rem; }
+        
+        /* PESTAÑAS / NAVEGACIÓN */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 10px 20px; border: 2px solid #ced4da; background: white; border-radius: 20px;
+            font-weight: bold; cursor: pointer; transition: 0.3s; color: #6c757d; font-family: inherit;
+        }
+        .tab-btn.active { background: #e67e22; color: white; border-color: #e67e22; box-shadow: 0 3px 0 #b85e19; }
+        .tab-btn:hover:not(.active) { border-color: #e67e22; color: #e67e22; }
+        
+        .screen { display: none; animation: fadeIn 0.4s; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* VOCABULARIO */
+        .vocab-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;
+            max-height: 350px; overflow-y: auto; padding: 10px; background: #f8f9fa; border-radius: 15px;
+        }
+        .vocab-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 10px 15px; border-radius: 10px; border: 1px solid #e9ecef;
+        }
+        .vocab-text { text-align: left; }
+        .vocab-text strong { color: #1a1a2e; font-size: 1.1rem; }
+        .vocab-text span { color: #6c757d; font-size: 0.85rem; display: block; }
+        .vocab-text .pron { color: #e67e22; font-weight: bold; }
+        .speak-btn { background: #3498db; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; box-shadow: 0 3px 0 #2980b9; }
+        
+        /* LECTURA Y DIÁLOGO */
+        .content-box {
+            text-align: left; background: #f8f9fa; padding: 25px; border-radius: 15px;
+            border-left: 5px solid #e67e22; margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6;
+        }
+        .content-box h3 { color: #e67e22; margin-bottom: 15px; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
+        .highlight { color: #e67e22; font-weight: bold; background: #fdf2e9; padding: 0 4px; border-radius: 4px; }
+        
+        .dialogue-line { margin-bottom: 12px; }
+        .speaker { font-weight: bold; color: #1a1a2e; display: inline-block; min-width: 70px; }
+        
+        /* JUEGO */
+        .question-box { background: #f8f9fa; border-radius: 20px; padding: 25px; border: 2px solid #e9ecef; }
+        #question-text { font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 20px; line-height: 1.4; }
+        #hint-text { font-size: 0.9rem; color: #6c757d; margin-bottom: 10px; font-style: italic; }
+        
+        .input-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .input-row label { font-weight: bold; color: #e67e22; width: 140px; text-align: right; }
+        .input-row input {
+            padding: 12px 15px; font-size: 1.1rem; border: 2px solid #ced4da; border-radius: 10px; 
+            width: 100%; max-width: 250px; outline: none; text-align: center;
+        }
+        .input-row input.correct { border-color: #28a745; background: #e8f8f5; color: #28a745; font-weight: bold; }
+        .input-row input.wrong { border-color: #dc3545; background: #fde8e8; color: #dc3545; }
+        
+        .btn-check { 
+            background: #e67e22; color: white; border: none; padding: 14px 40px; border-radius: 30px; 
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; 
+            box-shadow: 0 4px 0 #b85e19; transition: 0.3s;
+        }
+        .btn-check:hover { transform: translateY(-2px); }
+        #game-result { font-size: 1.1rem; font-weight: bold; margin-top: 15px; min-height: 30px; }
+        
+        .score-display { font-weight: bold; font-size: 1.2rem; color: #2980b9; margin-top: 15px; }
+        
+        /* BOTONES NAV */
+        .nav-btns { margin-top: 30px; display: flex; justify-content: center; gap: 10px; }
+        .btn-nav {
+            padding: 12px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; border: none; font-family: inherit; transition: 0.3s;
+        }
+        .btn-next { background: #e67e22; color: white; box-shadow: 0 4px 0 #b85e19; }
+        .btn-next:hover { transform: translateY(-2px); }
+        .btn-menu { background: #e9ecef; color: #495057; border: 1px solid #ced4da; text-decoration: none; }
+        
+        @media (max-width: 600px) {
+            .game-container { padding: 20px; }
+            .input-row { flex-direction: column; gap: 5px; }
+            .input-row label { text-align: center; width: 100%; }
+            .vocab-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="title">⏳ Past <span>Continuous 3</span></h1>
+    <p class="sub">Complete the Master Challenge</p>
+
+    <!-- PESTAÑAS -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showScreen('screen-vocab', this)">1. Vocabulary</button>
+        <button class="tab-btn" onclick="showScreen('screen-reading', this)">2. Reading & Dialogue</button>
+        <button class="tab-btn" onclick="showScreen('screen-game', this)">3. Practice (40)</button>
+    </div>
+
+    <!-- ================= PANTALLA 1: VOCABULARIO ================= -->
+    <div id="screen-vocab" class="screen active">
+        <h3 style="color: #e67e22; margin-bottom: 15px;">📖 Learn 15 New Verbs</h3>
+        <p style="color:#6c757d; font-size: 0.9rem; margin-bottom: 15px;">Click 🔊 to listen to the pronunciation.</p>
+        <div class="vocab-grid" id="vocab-list"></div>
+        <div class="nav-btns">
+            <button class="btn-nav btn-next" onclick="showScreen('screen-reading', document.querySelectorAll('.tab-btn')[1])">Next: Reading →</button>
+        </div>
+    </div>
+
+    <!-- ================= PANTALLA 2: LECTURA Y DIÁLOGO ================= -->
+    <div id="screen-reading" class="screen">
+        
+        <div class="content-box">
+            <h3>📖 Reading: A Bad Day for Alex</h3>
+            <p>Yesterday was a terrible day for Alex. At 8 AM, he <span class="highlight">was riding</span> his bike to work when it <span class="highlight">started</span> to rain heavily. He didn't have an umbrella! While he <span class="highlight">was running</span> to find shelter, he <span class="highlight">dropped</span> his phone in a puddle. Later, at 10 AM, he <span class="highlight">was sitting</span> in a café feeling sad when a stranger <span class="highlight">bought</span> him a hot coffee. That made him smile!</p>
+        </div>
+
+        <div class="content-box">
+            <h3>💬 Dialogue: At the Police Station</h3>
+            <div class="dialogue-line"><span class="speaker">Officer:</span> What <span class="highlight">were you doing</span> at 9 PM last night?</div>
+            <div class="dialogue-line"><span class="speaker">Alex:</span> I <span class="highlight">was walking</span> my dog in the park.</div>
+            <div class="dialogue-line"><span class="speaker">Officer:</span> Did you see anything strange?</div>
+            <div class="dialogue-line"><span class="speaker">Alex:</span> Yes! While I <span class="highlight">was walking</span>, a man <span class="highlight">ran</span> past me very fast!</div>
+            <div class="dialogue-line"><span class="speaker">Officer:</span> What <span class="highlight">was he wearing</span>?</div>
+            <div class="dialogue-line"><span class="speaker">Alex:</span> He <span class="highlight">was wearing</span> a black jacket and he <span class="highlight">was carrying</span> a red bag.</div>
+        </div>
+
+        <div class="nav-btns">
+            <button class="btn-nav btn-next" onclick="showScreen('screen-game', document.querySelectorAll('.tab-btn')[2])">Next: Practice →</button>
+        </div>
+    </div>
+
+    <!-- ================= PANTALLA 3: JUEGO (40 ORACIONES) ================= -->
+    <div id="screen-game" class="screen">
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;">
+            <span id="progress-text" style="color:#6c757d;">Question 1 / 40</span>
+            <span id="game-score" style="color:#2980b9;">Score: 0</span>
+        </div>
+
+        <div class="question-box">
+            <p id="question-text">Loading...</p>
+            <p id="hint-text">Write the verbs in the correct tense.</p>
+            
+            <div class="input-row">
+                <label id="label-cont">Past Continuous:</label>
+                <input type="text" id="input-continuous" placeholder="was/were + -ing" autocomplete="off">
+            </div>
+            <div class="input-row" id="row-simple">
+                <label id="label-simple">Past Simple:</label>
+                <input type="text" id="input-simple" placeholder="verb in past" autocomplete="off">
+            </div>
+            
+            <button class="btn-check" onclick="checkAnswer()">Check Answer</button>
+        </div>
+
+        <p id="game-result"></p>
+
+        <div class="nav-btns">
+            <a href="menu.html" class="btn-nav btn-menu">← Back to Menu</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ============================================================
+    // 1. VOCABULARIO (15 verbos nuevos)
+    // ============================================================
+    const VOCABULARIO = [
+        { en: 'Ride', es: 'Montar (bici)', pron: 'Raid' },
+        { en: 'Drop', es: 'Dejar caer', pron: 'Drop' },
+        { en: 'Sit', es: 'Sentarse', pron: 'Sit' },
+        { en: 'Buy', es: 'Comprar', pron: 'Bai' },
+        { en: 'Walk', es: 'Caminar', pron: 'Uok' },
+        { en: 'Run', es: 'Correr', pron: 'Ron' },
+        { en: 'Wear', es: 'Llevar puesto', pron: 'Uer' },
+        { en: 'Carry', es: 'Cargar/Llevar', pron: 'Kari' },
+        { en: 'Cry', es: 'Llorar', pron: 'Krai' },
+        { en: 'Laugh', es: 'Reír', pron: 'Laf' },
+        { en: 'Drive', es: 'Conducir', pron: 'Draiv' },
+        { en: 'Sleep', es: 'Dormir', pron: 'Slip' },
+        { en: 'Break', es: 'Romper', pron: 'Breik' },
+        { en: 'Swim', es: 'Nadar', pron: 'Suim' },
+        { en: 'Sing', es: 'Cantar', pron: 'Sing' }
+    ];
+
+    const vocabList = document.getElementById('vocab-list');
+    VOCABULARIO.forEach(v => {
+        const div = document.createElement('div');
+        div.className = 'vocab-item';
+        div.innerHTML = `
+            <div class="vocab-text">
+                <strong>${v.en}</strong>
+                <span>${v.es}</span>
+                <span class="pron">/${v.pron}/</span>
+            </div>
+            <button class="speak-btn" onclick="speak('${v.en}')">🔊</button>
+        `;
+        vocabList.appendChild(div);
+    });
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    // ============================================================
+    // 2. NAVEGACIÓN DE PESTAÑAS
+    // ============================================================
+    function showScreen(screenId, btn) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+        
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (screenId === 'screen-game' && currentIndex === 0 && score === 0) {
+            loadQuestion(); // Iniciar juego si es la primera vez
+        }
+    }
+
+    // ============================================================
+    // 3. BANCO DE 40 PREGUNTAS (20 Solo Continuo, 20 Mixtas)
+    // ============================================================
+    const QUESTIONS = [
+        // --- PARTE 1: SOLO PAST CONTINUOUS (20) ---
+        { es: 'Yo estaba montando en bici.', cont: 'was riding', simple: null },
+        { es: 'Él estaba dejando caer la pelota.', cont: 'was dropping', simple: null },
+        { es: 'Ellos estaban sentándose en el parque.', cont: 'were sitting', simple: null },
+        { es: 'Ella estaba comprando ropa.', cont: 'was buying', simple: null },
+        { es: 'Nosotros estábamos caminando a la escuela.', cont: 'were walking', simple: null },
+        { es: 'Tú estabas corriendo muy rápido.', cont: 'were running', simple: null },
+        { es: 'Él estaba llevando una chaqueta.', cont: 'was wearing', simple: null },
+        { es: 'Ellos estaban cargando cajas.', cont: 'were carrying', simple: null },
+        { es: 'El bebé estaba llorando.', cont: 'was crying', simple: null },
+        { es: 'Los niños estaban riendo.', cont: 'were laughing', simple: null },
+        { es: 'Yo estaba conduciendo un auto.', cont: 'was driving', simple: null },
+        { es: 'Ella estaba durmiendo en el sofá.', cont: 'was sleeping', simple: null },
+        { es: 'Él estaba rompiendo el papel.', cont: 'was breaking', simple: null },
+        { es: 'Nosotros estábamos nadando en el mar.', cont: 'were swimming', simple: null },
+        { es: 'Ellos estaban cantando una canción.', cont: 'were singing', simple: null },
+        { es: 'Yo estaba montando un caballo.', cont: 'was riding', simple: null },
+        { es: 'Ella estaba caminando en la playa.', cont: 'was walking', simple: null },
+        { es: 'Ellos estaban comprando comida.', cont: 'were buying', simple: null },
+        { es: 'Él estaba durmiendo temprano.', cont: 'was sleeping', simple: null },
+        { es: 'Nosotros estábamos riendo mucho.', cont: 'were laughing', simple: null },
+
+        // --- PARTE 2: MIXTO (CONTINUO + SIMPLE) (20) ---
+        { es: 'Yo estaba montando cuando empezó a llover.', cont: 'was riding', simple: 'started' },
+        { es: 'Él estaba dejando caer el vaso cuando lo vi.', cont: 'was dropping', simple: 'saw' },
+        { es: 'Ellos estaban sentándose cuando el profesor entró.', cont: 'were sitting', simple: 'entered' },
+        { es: 'Ella estaba comprando cuando se quedó sin dinero.', cont: 'was buying', simple: 'ran out' },
+        { es: 'Nosotros estábamos caminando cuando encontramos un perro.', cont: 'were walking', simple: 'found' },
+        { es: 'Tú estabas corriendo cuando te caíste.', cont: 'were running', simple: 'fell' },
+        { es: 'Él estaba llevando un abrigo cuando hacía frío.', cont: 'was wearing', simple: 'was' }, // Was como simple del verbo Be
+        { es: 'Ellos estaban cargando cajas cuando se rompió la bolsa.', cont: 'were carrying', simple: 'broke' },
+        { es: 'El bebé estaba llorando cuando su mamá llegó.', cont: 'was crying', simple: 'arrived' },
+        { es: 'Los niños estaban riendo cuando el payaso cayó.', cont: 'were laughing', simple: 'fell' },
+        { es: 'Yo estaba conduciendo cuando vi el accidente.', cont: 'was driving', simple: 'saw' },
+        { es: 'Ella estaba durmiendo cuando sonó la alarma.', cont: 'was sleeping', simple: 'rang' },
+        { es: 'Él estaba rompiendo el papel cuando lo detuve.', cont: 'was breaking', simple: 'stopped' },
+        { es: 'Nosotros estábamos nadando cuando vimos un pez.', cont: 'were swimming', simple: 'saw' },
+        { es: 'Ellos estaban cantando cuando se apagó la luz.', cont: 'were singing', simple: 'went out' },
+        { es: 'Yo estaba montando cuando me caí.', cont: 'was riding', simple: 'fell' },
+        { es: 'Ella estaba caminando cuando la llamaste.', cont: 'was walking', simple: 'called' },
+        { es: 'Ellos estaban comprando cuando cerró la tienda.', cont: 'were buying', simple: 'closed' },
+        { es: 'Él estaba durmiendo cuando el perro ladró.', cont: 'was sleeping', simple: 'barked' },
+        { es: 'Nosotros estábamos riendo cuando la profesora entró.', cont: 'were laughing', simple: 'entered' }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+
+    // ============================================================
+    // 4. CARGAR PREGUNTA
+    // ============================================================
+    function loadQuestion() {
+        if (currentIndex >= QUESTIONS.length) {
+            finishGame();
+            return;
+        }
+
+        const q = QUESTIONS[currentIndex];
+        document.getElementById('question-text').innerHTML = q.es;
+        document.getElementById('progress-text').innerHTML = `Question ${currentIndex + 1} / 40`;
+        
+        document.getElementById('input-continuous').value = '';
+        document.getElementById('input-simple').value = '';
+        document.getElementById('input-continuous').className = '';
+        document.getElementById('input-simple').className = '';
+        document.getElementById('game-result').innerHTML = '';
+        
+        document.getElementById('input-continuous').disabled = false;
+        document.getElementById('input-simple').disabled = false;
+        document.querySelector('.btn-check').style.display = 'inline-block';
+
+        if (q.simple === null) {
+            // Solo Pasado Continuo
+            document.getElementById('row-simple').style.display = 'none';
+            document.getElementById('label-cont').innerText = "Past Continuous:";
+        } else {
+            // Mixto
+            document.getElementById('row-simple').style.display = 'flex';
+            document.getElementById('label-cont').innerText = "Action in progress:";
+            document.getElementById('label-simple').innerText = "Interrupting action:";
+        }
+        
+        document.getElementById('input-continuous').focus();
+    }
+
+    // ============================================================
+    // 5. VERIFICAR RESPUESTA
+    // ============================================================
+    function checkAnswer() {
+        const q = QUESTIONS[currentIndex];
+        const userCont = document.getElementById('input-continuous').value.trim().toLowerCase();
+        const userSimple = document.getElementById('input-simple').value.trim().toLowerCase();
+        
+        // Validar que no esté vacío
+        if (userCont === "" || (q.simple !== null && userSimple === "")) {
+            document.getElementById('game-result').innerHTML = "⚠️ Please fill in all fields.";
+            document.getElementById('game-result').style.color = "#f39c12";
+            return;
+        }
+
+        let isContCorrect = (userCont === q.cont.toLowerCase());
+        let isSimpleCorrect = true;
+
+        if (q.simple !== null) {
+            isSimpleCorrect = (userSimple === q.simple.toLowerCase());
+            // Validaciones especiales
+            if (q.simple === 'ran out' && userSimple === 'run out') isSimpleCorrect = true;
+            if (q.simple === 'went out' && userSimple === 'go out') isSimpleCorrect = true;
+        }
+
+        const inputCont = document.getElementById('input-continuous');
+        const inputSimple = document.getElementById('input-simple');
+        const result = document.getElementById('game-result');
+
+        inputCont.className = isContCorrect ? 'correct' : 'wrong';
+        if (q.simple !== null) {
+            inputSimple.className = isSimpleCorrect ? 'correct' : 'wrong';
+        }
+        
+        inputCont.disabled = true;
+        if (q.simple !== null) inputSimple.disabled = true;
+        document.querySelector('.btn-check').style.display = 'none';
+
+        if (isContCorrect && isSimpleCorrect) {
+            score++;
+            result.innerHTML = '✅ Perfect!';
+            result.style.color = '#28a745';
+        } else {
+            let feedback = '❌ Incorrect. ';
+            if (!isContCorrect) feedback += `[Cont: "${q.cont}"] `;
+            if (q.simple !== null && !isSimpleCorrect) feedback += `[Simple: "${q.simple}"]`;
+            result.innerHTML = feedback;
+            result.style.color = '#dc3545';
+        }
+
+        document.getElementById('game-score').innerHTML = `Score: ${score}`;
+        
+        currentIndex++;
+        setTimeout(loadQuestion, 2000); // 2 segundos para leer
+    }
+
+    // ============================================================
+    // 6. FINALIZAR JUEGO
+    // ============================================================
+    function finishGame() {
+        document.querySelector('.question-box').style.display = 'none';
+        
+        const percentage = Math.round((score / 40) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You mastered this!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the tenses.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! You can do it.'; }
+        
+        document.getElementById('question-text').innerHTML = `🏁 Challenge Complete!`;
+        document.getElementById('hint-text').innerHTML = `${emoji} ${message}`;
+        document.getElementById('progress-text').innerHTML = `Final Score: ${score} / 40`;
+        document.getElementById('game-score').innerHTML = `${percentage}% Correct`;
+        document.getElementById('progress-text').style.color = '#28a745';
+        document.getElementById('game-score').style.color = '#28a745';
+        document.getElementById('game-result').innerHTML = '';
+        
+        document.querySelector('.nav-btns').innerHTML = `
+            <button class="btn-nav btn-next" onclick="location.reload()">🔄 Play Again</button>
+            <a href="menu.html" class="btn-nav btn-menu">← Back to Menu</a>
+        `;
+    }
+
+    // ============================================================
+    // 7. PRESIONAR ENTER
+    // ============================================================
+    document.getElementById('input-simple').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') checkAnswer();
+    });
+    document.getElementById('input-continuous').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            if (QUESTIONS[currentIndex].simple !== null) {
+                document.getElementById('input-simple').focus();
+            } else {
+                checkAnswer();
+            }
+        }
+    });
+</script>
+</body>
+</html>
