@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Continuous 1 - Master Class</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #e0eafc, #cfdef3); 
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .container { 
+            background: rgba(255,255,255,0.95); padding: 40px; border-radius: 25px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); max-width: 800px; width: 100%; text-align: center;
+            position: relative;
+        }
+        h1 { color: #1c3d3b; margin-bottom: 10px; font-size: 2.5rem; }
+        .subtitle { color: #6c757d; margin-bottom: 30px; font-size: 1.1rem; }
+        
+        /* MENÚ PRINCIPAL */
+        .menu-btn {
+            display: block; width: 100%; padding: 18px; margin-bottom: 15px;
+            background: #2980b9; color: white; border: none; border-radius: 15px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 4px 0 #1c5980;
+        }
+        .menu-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 0 #1c5980; }
+        .menu-btn.theory { background: #8e44ad; box-shadow: 0 4px 0 #6c3483; }
+        .menu-btn.theory:hover { box-shadow: 0 6px 0 #6c3483; }
+        
+        /* PANTALLAS */
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TEORÍA */
+        .theory-box { text-align: left; background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 5px solid #8e44ad; margin-bottom: 20px; }
+        .theory-box h3 { color: #1c3d3b; margin-bottom: 10px; }
+        .theory-box p { color: #2c3e50; line-height: 1.6; margin-bottom: 10px; }
+        .example { background: white; padding: 10px 15px; border-radius: 8px; margin-top: 5px; border: 1px solid #e9ecef; font-family: monospace; font-size: 1.05rem; }
+        .highlight { color: #8e44ad; font-weight: bold; }
+
+        /* JUEGOS */
+        .question-box { font-size: 1.4rem; font-weight: bold; color: #1c3d3b; margin: 20px 0; min-height: 60px; line-height: 1.5; }
+        .input-answer { padding: 12px 20px; font-size: 1.2rem; border: 2px solid #ced4da; border-radius: 10px; width: 100%; max-width: 400px; text-align: center; outline: none; }
+        .input-answer:focus { border-color: #2980b9; }
+        
+        .btn-check { background: #28a745; color: white; border: none; padding: 12px 30px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 0 #1e7e34; }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #1e7e34; }
+        
+        .feedback { font-size: 1.2rem; font-weight: bold; margin-top: 15px; min-height: 30px; }
+        .progress-bar { font-size: 1rem; color: #6c757d; margin-bottom: 10px; font-weight: bold; }
+        
+        /* EJERCICIO 2 (ORDENAR) */
+        .words-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; min-height: 50px; padding: 15px; background: #f1f3f5; border-radius: 10px; border: 2px dashed #ced4da; }
+        .word-btn { background: #2980b9; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; font-weight: bold; transition: 0.2s; box-shadow: 0 3px 0 #1c5980; }
+        .word-btn:hover { background: #3498db; }
+        .word-btn:disabled { background: #bdc3c7; box-shadow: 0 3px 0 #95a5a6; cursor: default; }
+
+        .btn-back { background: #e9ecef; color: #495057; border: 1px solid #ced4da; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-back:hover { background: #ced4da; }
+
+        .final-score { display: none; margin-top: 20px; padding: 20px; background: #e8f8f5; border: 2px solid #1abc9c; border-radius: 15px; }
+        .final-score h2 { color: #16a085; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- ================= PANTALLA DE INICIO ================= -->
+    <div id="screen-menu" class="screen active">
+        <h1>⏳ Past Continuous 1</h1>
+        <p class="subtitle">Master Class: Learn, Practice, and Translate</p>
+        
+        <button class="menu-btn theory" onclick="showScreen('screen-theory')">📘 1. Explanation & Examples</button>
+        <button class="menu-btn" onclick="startEx1()">✍️ 2. Exercise 1: Complete the sentence</button>
+        <button class="menu-btn" onclick="startEx2()">🧩 3. Exercise 2: Order the sentence</button>
+        <button class="menu-btn" onclick="startEx3()">🇪🇸 4. Exercise 3: Translate to English</button>
+    </div>
+
+    <!-- ================= PANTALLA DE TEORÍA ================= -->
+    <div id="screen-theory" class="screen">
+        <h2 style="color:#8e44ad; margin-bottom:15px;">📘 Past Continuous</h2>
+        
+        <div class="theory-box">
+            <h3>🔹 What is it?</h3>
+            <p>It is used for actions that were in progress at a specific time in the past.</p>
+            <p><strong>Formula:</strong> Subject + <span class="highlight">was/were</span> + Verb <span class="highlight">(-ing)</span></p>
+            
+            <div class="example">✅ I <strong>was studying</strong> at 8 PM.</div>
+            <div class="example">✅ They <strong>were playing</strong> soccer.</div>
+            <div class="example">❌ He <strong>wasn't sleeping</strong>.</div>
+            <div class="example">❓ <strong>Were</strong> you <strong>reading</strong>?</div>
+        </div>
+        
+        <div class="theory-box">
+            <h3>🔹 When to use WAS vs WERE?</h3>
+            <p><strong>WAS:</strong> I, He, She, It.</p>
+            <p><strong>WERE:</strong> You, We, They.</p>
+        </div>
+
+        <button class="btn-back" onclick="showScreen('screen-menu')">← Back to Menu</button>
+    </div>
+
+    <!-- ================= EJERCICIO 1 (COMPLETAR) ================= -->
+    <div id="screen-ex1" class="screen">
+        <h2 style="color:#2980b9;">✍️ Exercise 1: Complete</h2>
+        <p class="progress-bar" id="ex1-progress">Question 1 / 15</p>
+        
+        <div class="question-box" id="ex1-question">Loading...</div>
+        <input type="text" id="ex1-input" class="input-answer" placeholder="Write the verb here..." autocomplete="off">
+        <br>
+        <button class="btn-check" onclick="checkEx1()">Check Answer</button>
+        <p class="feedback" id="ex1-feedback"></p>
+        
+        <div class="final-score" id="ex1-score">
+            <h2>🎉 Exercise 1 Complete!</h2>
+            <p id="ex1-final-text"></p>
+        </div>
+        <button class="btn-back" onclick="showScreen('screen-menu')">← Back to Menu</button>
+    </div>
+
+    <!-- ================= EJERCICIO 2 (ORDENAR) ================= -->
+    <div id="screen-ex2" class="screen">
+        <h2 style="color:#2980b9;">🧩 Exercise 2: Order the sentence</h2>
+        <p class="progress-bar" id="ex2-progress">Question 1 / 15</p>
+        
+        <div class="question-box" id="ex2-question">Click the words in the correct order:</div>
+        <div class="words-container" id="ex2-options"></div>
+        <div class="words-container" id="ex2-answer" style="border-color:#28a745; background:#f0fff4; min-height:60px;"></div>
+        
+        <p class="feedback" id="ex2-feedback"></p>
+        
+        <div class="final-score" id="ex2-score">
+            <h2>🎉 Exercise 2 Complete!</h2>
+            <p id="ex2-final-text"></p>
+        </div>
+        <button class="btn-back" onclick="showScreen('screen-menu')">← Back to Menu</button>
+    </div>
+
+    <!-- ================= EJERCICIO 3 (TRADUCIR) ================= -->
+    <div id="screen-ex3" class="screen">
+        <h2 style="color:#2980b9;">🇪🇸 Exercise 3: Translate</h2>
+        <p class="progress-bar" id="ex3-progress">Question 1 / 15</p>
+        
+        <div class="question-box" id="ex3-question">Loading...</div>
+        <input type="text" id="ex3-input" class="input-answer" placeholder="Type in English..." autocomplete="off">
+        <br>
+        <button class="btn-check" onclick="checkEx3()">Check Answer</button>
+        <p class="feedback" id="ex3-feedback"></p>
+        
+        <div class="final-score" id="ex3-score">
+            <h2>🎉 Exercise 3 Complete!</h2>
+            <p id="ex3-final-text"></p>
+        </div>
+        <button class="btn-back" onclick="showScreen('screen-menu')">← Back to Menu</button>
+    </div>
+
+</div>
+
+<script>
+    // ==========================================
+    // NAVEGACIÓN
+    // ==========================================
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    // ==========================================
+    // EJERCICIO 1: COMPLETAR (15 oraciones)
+    // ==========================================
+    const EX1_DATA = [
+        { q: "She ______ (read) a book at 10 PM.", a: "was reading" },
+        { q: "They ______ (play) soccer when it rained.", a: "were playing" },
+        { q: "I ______ (cook) dinner when the phone rang.", a: "was cooking" },
+        { q: "He ______ (watch) TV all afternoon.", a: "was watching" },
+        { q: "We ______ (study) for the exam last night.", a: "were studying" },
+        { q: "The dog ______ (bark) loudly.", a: "was barking" },
+        { q: "You ______ (dance) at the party.", a: "were dancing" },
+        { q: "It ______ (rain) this morning.", a: "was raining" },
+        { q: "They ______ (swim) in the pool.", a: "were swimming" },
+        { q: "I ______ (write) a letter to my friend.", a: "was writing" },
+        { q: "She ______ (sing) a beautiful song.", a: "was singing" },
+        { q: "We ______ (wait) for the bus.", a: "were waiting" },
+        { q: "He ______ (drive) to work.", a: "was driving" },
+        { q: "The kids ______ (laugh) at the clown.", a: "were laughing" },
+        { q: "You ______ (sleep) when I called.", a: "were sleeping" }
+    ];
+
+    let ex1Index = 0, ex1Score = 0;
+
+    function startEx1() {
+        ex1Index = 0; ex1Score = 0;
+        document.getElementById('ex1-score').style.display = 'none';
+        document.getElementById('ex1-feedback').innerHTML = '';
+        showScreen('screen-ex1');
+        loadEx1();
+    }
+
+    function loadEx1() {
+        if (ex1Index >= EX1_DATA.length) {
+            document.getElementById('ex1-score').style.display = 'block';
+            document.getElementById('ex1-final-text').innerHTML = `You got <strong>${ex1Score} out of 15</strong> correct!`;
+            document.getElementById('ex1-question').innerHTML = "🏁 Finished!";
+            document.getElementById('ex1-input').style.display = 'none';
+            document.querySelector('#screen-ex1 .btn-check').style.display = 'none';
+            return;
+        }
+        document.getElementById('ex1-input').style.display = 'inline-block';
+        document.querySelector('#screen-ex1 .btn-check').style.display = 'inline-block';
+        document.getElementById('ex1-input').value = '';
+        document.getElementById('ex1-input').disabled = false;
+        document.getElementById('ex1-input').focus();
+        
+        document.getElementById('ex1-progress').innerHTML = `Question ${ex1Index + 1} / 15`;
+        document.getElementById('ex1-question').innerHTML = EX1_DATA[ex1Index].q;
+    }
+
+    function checkEx1() {
+        const userAns = document.getElementById('ex1-input').value.trim().toLowerCase();
+        if (!userAns) return;
+
+        const correctAns = EX1_DATA[ex1Index].a.toLowerCase();
+        const fb = document.getElementById('ex1-feedback');
+        
+        document.getElementById('ex1-input').disabled = true;
+
+        if (userAns === correctAns) {
+            ex1Score++;
+            fb.innerHTML = "✅ Correct!";
+            fb.style.color = "#28a745";
+        } else {
+            fb.innerHTML = `❌ Incorrect. The correct answer is: <strong>${correctAns}</strong>`;
+            fb.style.color = "#dc3545";
+        }
+
+        ex1Index++;
+        setTimeout(() => {
+            fb.innerHTML = '';
+            loadEx1();
+        }, 1500);
+    }
+
+    // ==========================================
+    // EJERCICIO 2: ORDENAR (15 oraciones)
+    // ==========================================
+    const EX2_DATA = [
+        { correct: "She was reading a book", words: ["a book", "She", "reading", "was"] },
+        { correct: "They were playing soccer", words: ["soccer", "They", "were", "playing"] },
+        { correct: "I was cooking dinner", words: ["cooking", "dinner", "was", "I"] },
+        { correct: "He was watching TV", words: ["watching", "He", "TV", "was"] },
+        { correct: "We were studying English", words: ["English", "We", "studying", "were"] },
+        { correct: "The dog was barking", words: ["barking", "dog", "was", "The"] },
+        { correct: "You were dancing salsa", words: ["salsa", "You", "were", "dancing"] },
+        { correct: "It was raining hard", words: ["hard", "raining", "was", "It"] },
+        { correct: "They were swimming fast", words: ["fast", "They", "were", "swimming"] },
+        { correct: "I was writing a letter", words: ["a letter", "I", "writing", "was"] },
+        { correct: "She was singing a song", words: ["a song", "She", "singing", "was"] },
+        { correct: "We were waiting for the bus", words: ["for the bus", "We", "waiting", "were"] },
+        { correct: "He was driving to work", words: ["to work", "He", "driving", "was"] },
+        { correct: "The kids were laughing", words: ["laughing", "kids", "were", "The"] },
+        { correct: "You were sleeping", words: ["sleeping", "You", "were"] }
+    ];
+
+    let ex2Index = 0, ex2Score = 0, ex2CurrentAnswer = [];
+
+    function startEx2() {
+        ex2Index = 0; ex2Score = 0;
+        document.getElementById('ex2-score').style.display = 'none';
+        document.getElementById('ex2-feedback').innerHTML = '';
+        showScreen('screen-ex2');
+        loadEx2();
+    }
+
+    function loadEx2() {
+        if (ex2Index >= EX2_DATA.length) {
+            document.getElementById('ex2-score').style.display = 'block';
+            document.getElementById('ex2-final-text').innerHTML = `You got <strong>${ex2Score} out of 15</strong> correct!`;
+            document.getElementById('ex2-question').innerHTML = "🏁 Finished!";
+            document.getElementById('ex2-options').innerHTML = '';
+            document.getElementById('ex2-answer').innerHTML = '';
+            return;
+        }
+
+        document.getElementById('ex2-progress').innerHTML = `Question ${ex2Index + 1} / 15`;
+        document.getElementById('ex2-question').innerHTML = "Click the words in the correct order:";
+        
+        const data = EX2_DATA[ex2Index];
+        // Mezclar palabras
+        const shuffled = [...data.words].sort(() => Math.random() - 0.5);
+        ex2CurrentAnswer = [];
+
+        // Renderizar opciones
+        const optionsContainer = document.getElementById('ex2-options');
+        optionsContainer.innerHTML = '';
+        shuffled.forEach((word, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'word-btn';
+            btn.textContent = word;
+            btn.onclick = () => selectWord(btn, word);
+            optionsContainer.appendChild(btn);
+        });
+
+        // Limpiar área de respuesta
+        document.getElementById('ex2-answer').innerHTML = '';
+        document.getElementById('ex2-feedback').innerHTML = '';
+    }
+
+    function selectWord(btn, word) {
+        btn.disabled = true; // Desactivar botón original
+        ex2CurrentAnswer.push(word);
+
+        const answerContainer = document.getElementById('ex2-answer');
+        const newWord = document.createElement('button');
+        newWord.className = 'word-btn';
+        newWord.textContent = word;
+        newWord.style.background = '#28a745'; // Verde para la respuesta
+        newWord.style.boxShadow = '0 3px 0 #1e7e34';
+        newWord.onclick = () => removeWord(newWord, btn, word); // Permitir quitar la palabra
+        answerContainer.appendChild(newWord);
+
+        checkEx2Auto();
+    }
+
+    function removeWord(newWord, originalBtn, word) {
+        newWord.remove();
+        originalBtn.disabled = false;
+        ex2CurrentAnswer = ex2CurrentAnswer.filter(w => w !== word);
+    }
+
+    function checkEx2Auto() {
+        const data = EX2_DATA[ex2Index];
+        // Verificar si ya puso todas las palabras
+        if (ex2CurrentAnswer.length === data.words.length) {
+            const userSentence = ex2CurrentAnswer.join(' ');
+            const fb = document.getElementById('ex2-feedback');
+
+            if (userSentence === data.correct) {
+                ex2Score++;
+                fb.innerHTML = "✅ Correct!";
+                fb.style.color = "#28a745";
+            } else {
+                fb.innerHTML = `❌ Incorrect. The correct sentence is: <br><strong>${data.correct}</strong>`;
+                fb.style.color = "#dc3545";
+            }
+
+            // Deshabilitar todos los botones temporalmente
+            document.querySelectorAll('#screen-ex2 .word-btn').forEach(b => b.disabled = true);
+
+            ex2Index++;
+            setTimeout(() => loadEx2(), 2500); // Dar tiempo para leer la corrección
+        }
+    }
+
+    // ==========================================
+    // EJERCICIO 3: TRADUCIR (15 oraciones)
+    // ==========================================
+    const EX3_DATA = [
+        { q: "Ella estaba leyendo un libro.", a: "she was reading a book" },
+        { q: "Ellos estaban jugando fútbol.", a: "they were playing soccer" },
+        { q: "Yo estaba cocinando la cena.", a: "i was cooking dinner" },
+        { q: "Él estaba mirando televisión.", a: "he was watching tv" },
+        { q: "Nosotros estábamos estudiando inglés.", a: "we were studying english" },
+        { q: "El perro estaba ladrando.", a: "the dog was barking" },
+        { q: "Tú estabas bailando salsa.", a: "you were dancing salsa" },
+        { q: "Estaba lloviendo fuerte.", a: "it was raining hard" },
+        { q: "Ellos estaban nadando rápido.", a: "they were swimming fast" },
+        { q: "Yo estaba escribiendo una carta.", a: "i was writing a letter" },
+        { q: "Ella estaba cantando una canción.", a: "she was singing a song" },
+        { q: "Nosotros estábamos esperando el autobús.", a: "we were waiting for the bus" },
+        { q: "Él estaba conduciendo al trabajo.", a: "he was driving to work" },
+        { q: "Los niños estaban riendo.", a: "the kids were laughing" },
+        { q: "Tú estabas durmiendo.", a: "you were sleeping" }
+    ];
+
+    let ex3Index = 0, ex3Score = 0;
+
+    function startEx3() {
+        ex3Index = 0; ex3Score = 0;
+        document.getElementById('ex3-score').style.display = 'none';
+        document.getElementById('ex3-feedback').innerHTML = '';
+        showScreen('screen-ex3');
+        loadEx3();
+    }
+
+    function loadEx3() {
+        if (ex3Index >= EX3_DATA.length) {
+            document.getElementById('ex3-score').style.display = 'block';
+            document.getElementById('ex3-final-text').innerHTML = `You got <strong>${ex3Score} out of 15</strong> correct!`;
+            document.getElementById('ex3-question').innerHTML = "🏁 Finished!";
+            document.getElementById('ex3-input').style.display = 'none';
+            document.querySelector('#screen-ex3 .btn-check').style.display = 'none';
+            return;
+        }
+        document.getElementById('ex3-input').style.display = 'inline-block';
+        document.querySelector('#screen-ex3 .btn-check').style.display = 'inline-block';
+        document.getElementById('ex3-input').value = '';
+        document.getElementById('ex3-input').disabled = false;
+        document.getElementById('ex3-input').focus();
+
+        document.getElementById('ex3-progress').innerHTML = `Question ${ex3Index + 1} / 15`;
+        document.getElementById('ex3-question').innerHTML = EX3_DATA[ex3Index].q;
+    }
+
+    function checkEx3() {
+        const userAns = document.getElementById('ex3-input').value.trim().toLowerCase().replace(/[.,!?]/g, '');
+        if (!userAns) return;
+
+        const correctAns = EX3_DATA[ex3Index].a;
+        const fb = document.getElementById('ex3-feedback');
+        
+        document.getElementById('ex3-input').disabled = true;
+
+        // Validar ignorando mayúsculas y puntuación
+        if (userAns === correctAns) {
+            ex3Score++;
+            fb.innerHTML = "✅ Correct!";
+            fb.style.color = "#28a745";
+        } else {
+            fb.innerHTML = `❌ Incorrect. The correct translation is: <strong>${correctAns}</strong>`;
+            fb.style.color = "#dc3545";
+        }
+
+        ex3Index++;
+        setTimeout(() => {
+            fb.innerHTML = '';
+            loadEx3();
+        }, 2000);
+    }
+
+    // ==========================================
+    // ENTER PARA VALIDAR
+    // ==========================================
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            if (document.getElementById('screen-ex1').classList.contains('active')) {
+                checkEx1();
+            } else if (document.getElementById('screen-ex3').classList.contains('active')) {
+                checkEx3();
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
