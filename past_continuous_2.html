@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Continuous 2 - Vocabulary & Practice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            margin: 0; padding: 20px; min-height: 100vh; display: flex; justify-content: center; align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+        
+        .game-container { 
+            background: rgba(255,255,255,0.95); padding: 40px; border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); max-width: 800px; width: 100%; text-align: center; 
+        }
+        
+        .title { font-size: 2.5rem; font-weight: 900; color: #1a1a2e; margin: 0; letter-spacing: -1px; }
+        .title span { color: #8e44ad; }
+        .sub { color: #6c757d; margin-bottom: 25px; font-size: 1rem; }
+        
+        /* PANTALLA DE INICIO (Vocabulario) */
+        #start-screen { display: block; padding: 10px 0; }
+        
+        .vocab-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;
+            margin: 20px 0; max-height: 300px; overflow-y: auto; padding: 10px;
+            background: #f8f9fa; border-radius: 15px; border: 1px solid #e9ecef;
+        }
+        .vocab-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 10px 15px; border-radius: 10px; border: 1px solid #e9ecef;
+            font-size: 1rem;
+        }
+        .vocab-text { text-align: left; }
+        .vocab-text strong { color: #1a1a2e; font-size: 1.1rem; }
+        .vocab-text span { color: #6c757d; font-size: 0.85rem; display: block; }
+        .speak-btn {
+            background: #3498db; color: white; border: none; border-radius: 50%;
+            width: 35px; height: 35px; cursor: pointer; font-size: 1rem; transition: 0.2s;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 3px 0 #2980b9;
+        }
+        .speak-btn:hover { background: #2980b9; transform: scale(1.1); }
+
+        #start-screen input { 
+            padding: 14px 20px; font-size: 1.1rem; border: 2px solid #ced4da; border-radius: 12px; 
+            width: 280px; text-align: center; margin: 15px 0 8px 0; outline: none; transition: 0.3s; font-family: inherit;
+        }
+        #start-screen input:focus { border-color: #8e44ad; box-shadow: 0 0 0 3px rgba(142,68,173,0.2); }
+        #start-screen .btn-start { 
+            background: #8e44ad; color: white; border: none; padding: 14px 50px; border-radius: 30px; 
+            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; margin-top: 15px; 
+            box-shadow: 0 4px 0 #6c3483; font-family: inherit; width: 100%; max-width: 300px;
+        }
+        #start-screen .btn-start:hover { transform: translateY(-2px); }
+        
+        /* PANTALLA DEL JUEGO */
+        #game-screen { display: none; }
+        
+        .status-bar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: #f8f9fa; padding: 10px 20px; border-radius: 15px; 
+            margin-bottom: 20px; border: 1px solid #e9ecef; flex-wrap: wrap; gap: 10px; 
+        }
+        #player-name { font-weight: bold; color: #1a1a2e; font-size: 1rem; }
+        #progress-text { font-size: 0.9rem; color: #6c757d; font-weight: bold; }
+        
+        /* PREGUNTA Y OPCIONES */
+        .question-box {
+            background: #f8f9fa; border-radius: 20px; padding: 30px 25px; margin-bottom: 20px; border: 2px solid #e9ecef;
+        }
+        #question-text { font-size: 1.4rem; font-weight: 600; color: #1a1a2e; margin-bottom: 20px; line-height: 1.4; }
+        
+        .game-options { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .game-options button {
+            background: #0f3460; color: white; border: none; padding: 14px 25px; border-radius: 12px; 
+            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; width: 100%; 
+            max-width: 400px; box-shadow: 0 4px 0 #0a1f3a; font-family: inherit;
+        }
+        .game-options button:hover { transform: translateY(-2px); }
+        .game-options button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .game-options button.correct { background: #28a745; box-shadow: 0 4px 0 #1e7e34; }
+        .game-options button.wrong { background: #dc3545; box-shadow: 0 4px 0 #a71d2a; }
+        
+        #game-result { font-size: 1.2rem; font-weight: bold; margin-top: 20px; min-height: 40px; }
+        
+        .back-btn {
+            display: inline-block; text-decoration: none; color: #495057; background: #e9ecef; 
+            padding: 12px 35px; border-radius: 30px; font-weight: bold; margin-top: 25px; 
+            border: 1px solid #ced4da; transition: 0.3s; font-family: inherit; cursor: pointer;
+        }
+        .back-btn:hover { background: #ced4da; }
+
+        .final-score-box {
+            background: #f8f9fa; padding: 20px; border-radius: 15px; border: 3px solid #8e44ad; 
+            margin-top: 20px; display: none;
+        }
+        .final-score-box h2 { color: #1a1a2e; margin: 0; }
+        .big-score { font-size: 3rem; font-weight: 900; color: #8e44ad; margin: 10px 0;}
+        
+        @media (max-width: 600px) {
+            .game-container { padding: 20px; }
+            #question-text { font-size: 1.2rem; }
+            .game-options button { font-size: 1rem; padding: 12px 15px; }
+            .vocab-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1 class="title">⏳ Past <span>Continuous 2</span></h1>
+    <p class="sub">Learn the vocabulary, then test your skills!</p>
+
+    <!-- PANTALLA DE INICIO CON VOCABULARIO -->
+    <div id="start-screen">
+        <h3 style="color: #8e44ad; margin-bottom: 10px;">📖 Let's learn 15 new verbs first</h3>
+        <p style="color:#6c757d; font-size: 0.9rem; margin-bottom: 10px;">Click the 🔊 icon to listen to the pronunciation.</p>
+        
+        <div class="vocab-grid" id="vocab-list">
+            <!-- Generado por JS -->
+        </div>
+
+        <input type="text" id="input-name" placeholder="Enter your name">
+        <button class="btn-start" onclick="startGame()">▶ I'm ready! Start Practice</button>
+    </div>
+
+    <!-- PANTALLA DEL JUEGO -->
+    <div id="game-screen">
+        <div class="status-bar">
+            <span id="player-name">👋 Welcome!</span>
+            <span id="progress-text">Question 1 / 30</span>
+        </div>
+
+        <div class="question-box">
+            <p id="question-text">Loading...</p>
+            <div class="game-options" id="gameOptions"></div>
+        </div>
+
+        <p id="game-result"></p>
+        <p id="game-score" style="font-weight:bold; font-size:1.2rem; color:#2980b9;">Points: 0 / 30</p>
+
+        <!-- RESULTADOS FINALES -->
+        <div class="final-score-box" id="finalScore">
+            <h2>🏁 Game Complete!</h2>
+            <p class="big-score" id="finalScoreNumber">0 / 30</p>
+            <p id="finalMessage" style="font-size:1.2rem; font-weight:bold;"></p>
+            <button class="back-btn" onclick="location.reload()" style="margin-top:15px; background:#8e44ad; color:white; border:none;">🔄 Play Again</button>
+        </div>
+
+        <a href="menu.html" class="back-btn" id="menu-btn">← Back to Menu</a>
+    </div>
+</div>
+
+<script>
+    let playerName = "Student";
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+
+    // ============================================================
+    // 1. VOCABULARIO (15 verbos, significado y pronunciación)
+    // ============================================================
+    const VOCABULARIO = [
+        { en: 'Ride', es: 'Montar (bici/caballo)', pron: 'Raid' },
+        { en: 'Build', es: 'Construir', pron: 'Bild' },
+        { en: 'Paint', es: 'Pintar', pron: 'Peint' },
+        { en: 'Write', es: 'Escribir', pron: 'Rait' },
+        { en: 'Listen', es: 'Escuchar', pron: 'Lisen' },
+        { en: 'Run', es: 'Correr', pron: 'Ron' },
+        { en: 'Talk', es: 'Hablar', pron: 'Tok' },
+        { en: 'Wash', es: 'Lavar', pron: 'Uash' },
+        { en: 'Fly', es: 'Volar', pron: 'Flai' },
+        { en: 'Catch', es: 'Atrapar', pron: 'Cach' },
+        { en: 'Fix', es: 'Arreglar', pron: 'Fiks' },
+        { en: 'Climb', es: 'Escalar', pron: 'Klaim' },
+        { en: 'Smile', es: 'Sonreír', pron: 'Smail' },
+        { en: 'Draw', es: 'Dibujar', pron: 'Dro' },
+        { en: 'Sweep', es: 'Barrer', pron: 'Suip' }
+    ];
+
+    // Cargar el vocabulario en la pantalla de inicio
+    const vocabList = document.getElementById('vocab-list');
+    VOCABULARIO.forEach(v => {
+        const div = document.createElement('div');
+        div.className = 'vocab-item';
+        div.innerHTML = `
+            <div class="vocab-text">
+                <strong>${v.en}</strong>
+                <span>${v.es}</span>
+                <span style="color:#8e44ad; font-weight:bold;">/${v.pron}/</span>
+            </div>
+            <button class="speak-btn" onclick="speak('${v.en}')">🔊</button>
+        `;
+        vocabList.appendChild(div);
+    });
+
+    // Función para pronunciar
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Tu navegador no soporta audio.");
+        }
+    }
+
+    // ============================================================
+    // 2. BANCO DE 50 PREGUNTAS
+    // ============================================================
+    const QUESTIONS = [
+        // AFIRMATIVAS
+        { sentence: 'I ______ a horse yesterday.', options: ['was riding', 'were riding', 'was ride', 'were ride'], correct: 0 },
+        { sentence: 'They ______ a treehouse.', options: ['was building', 'were building', 'was build', 'were build'], correct: 1 },
+        { sentence: 'She ______ a picture.', options: ['was painting', 'were painting', 'was paint', 'were paint'], correct: 0 },
+        { sentence: 'He ______ a letter.', options: ['was writing', 'were writing', 'was write', 'were write'], correct: 0 },
+        { sentence: 'We ______ to music.', options: ['was listening', 'were listening', 'was listen', 'were listen'], correct: 1 },
+        { sentence: 'I ______ in the park.', options: ['was running', 'were running', 'was run', 'were run'], correct: 0 },
+        { sentence: 'You ______ on the phone.', options: ['was talking', 'were talking', 'was talk', 'were talk'], correct: 1 },
+        { sentence: 'She ______ the dishes.', options: ['was washing', 'were washing', 'was wash', 'were wash'], correct: 0 },
+        { sentence: 'The birds ______ south.', options: ['was flying', 'were flying', 'was fly', 'were fly'], correct: 1 },
+        { sentence: 'He ______ the ball.', options: ['was catching', 'were catching', 'was catch', 'were catch'], correct: 0 },
+        { sentence: 'My dad ______ the car.', options: ['was fixing', 'were fixing', 'was fix', 'were fix'], correct: 0 },
+        { sentence: 'They ______ the mountain.', options: ['was climbing', 'were climbing', 'was climb', 'were climb'], correct: 1 },
+        { sentence: 'The baby ______ at me.', options: ['was smiling', 'were smiling', 'was smile', 'were smile'], correct: 0 },
+        { sentence: 'I ______ a cartoon.', options: ['was drawing', 'were drawing', 'was draw', 'were draw'], correct: 0 },
+        { sentence: 'She ______ the floor.', options: ['was sweeping', 'were sweeping', 'was sweep', 'were sweep'], correct: 0 },
+
+        // NEGATIVAS
+        { sentence: 'I ______ the bike.', options: ['wasn\'t riding', 'weren\'t riding', 'didn\'t ride', 'don\'t ride'], correct: 0 },
+        { sentence: 'They ______ the house.', options: ['wasn\'t building', 'weren\'t building', 'didn\'t build', 'don\'t build'], correct: 1 },
+        { sentence: 'She ______ the wall.', options: ['wasn\'t painting', 'weren\'t painting', 'didn\'t paint', 'don\'t paint'], correct: 0 },
+        { sentence: 'He ______ the email.', options: ['wasn\'t writing', 'weren\'t writing', 'didn\'t write', 'don\'t write'], correct: 0 },
+        { sentence: 'We ______ to the radio.', options: ['wasn\'t listening', 'weren\'t listening', 'didn\'t listen', 'don\'t listen'], correct: 1 },
+        { sentence: 'I ______ in the rain.', options: ['wasn\'t running', 'weren\'t running', 'didn\'t run', 'don\'t run'], correct: 0 },
+        { sentence: 'You ______ to me.', options: ['wasn\'t talking', 'weren\'t talking', 'didn\'t talk', 'don\'t talk'], correct: 1 },
+        { sentence: 'She ______ the clothes.', options: ['wasn\'t washing', 'weren\'t washing', 'didn\'t wash', 'don\'t wash'], correct: 0 },
+        { sentence: 'The planes ______ over the city.', options: ['wasn\'t flying', 'weren\'t flying', 'didn\'t fly', 'don\'t fly'], correct: 1 },
+        { sentence: 'He ______ the frisbee.', options: ['wasn\'t catching', 'weren\'t catching', 'didn\'t catch', 'don\'t catch'], correct: 0 },
+
+        // INTERROGATIVAS
+        { sentence: '______ you riding a bike?', options: ['Was', 'Were', 'Did', 'Do'], correct: 1 },
+        { sentence: '______ they building a sandcastle?', options: ['Was', 'Were', 'Did', 'Do'], correct: 1 },
+        { sentence: '______ she painting a portrait?', options: ['Was', 'Were', 'Did', 'Do'], correct: 0 },
+        { sentence: '______ he writing a book?', options: ['Was', 'Were', 'Did', 'Do'], correct: 0 },
+        { sentence: '______ we listening to the teacher?', options: ['Was', 'Were', 'Did', 'Do'], correct: 1 },
+        { sentence: '______ the dog running fast?', options: ['Was', 'Were', 'Did', 'Do'], correct: 0 },
+        { sentence: '______ you talking to your mom?', options: ['Was', 'Were', 'Did', 'Do'], correct: 1 },
+        { sentence: '______ she washing her hands?', options: ['Was', 'Were', 'Did', 'Do'], correct: 0 },
+        { sentence: '______ the birds flying high?', options: ['Was', 'Were', 'Did', 'Do'], correct: 1 },
+        { sentence: '______ he catching the ball?', options: ['Was', 'Were', 'Did', 'Do'], correct: 0 },
+
+        // MEZCLADAS / CONTEXTO (WHILE / WHEN)
+        { sentence: 'I was riding my bike when it ______ to rain.', options: ['was starting', 'were starting', 'started', 'start'], correct: 2 },
+        { sentence: 'While they ______ the house, they found a coin.', options: ['was building', 'were building', 'built', 'build'], correct: 1 },
+        { sentence: 'She was painting when the phone ______.', options: ['was ringing', 'were ringing', 'rang', 'ring'], correct: 2 },
+        { sentence: 'While I ______ a letter, the lights went out.', options: ['was writing', 'were writing', 'wrote', 'write'], correct: 0 },
+        { sentence: 'They were listening when the teacher ______.', options: ['was arriving', 'were arriving', 'arrived', 'arrive'], correct: 2 },
+        { sentence: 'He was running when he ______ his leg.', options: ['was breaking', 'were breaking', 'broke', 'break'], correct: 2 },
+        { sentence: 'We were talking while the movie ______.', options: ['was playing', 'were playing', 'played', 'play'], correct: 0 },
+        { sentence: 'She was washing the car when she ______ her friend.', options: ['was seeing', 'were seeing', 'saw', 'see'], correct: 2 },
+        { sentence: 'While the birds ______, we took a photo.', options: ['was flying', 'were flying', 'flew', 'fly'], correct: 1 },
+        { sentence: 'I was climbing the tree when I ______ down.', options: ['was falling', 'were falling', 'fell', 'fall'], correct: 2 },
+
+        // VARIADAS
+        { sentence: 'My sister ______ a beautiful picture.', options: ['was drawing', 'were drawing', 'was draw', 'were draw'], correct: 0 },
+        { sentence: 'We ______ the floor when my dad arrived.', options: ['was sweeping', 'were sweeping', 'was sweep', 'were sweep'], correct: 1 },
+        { sentence: 'They ______ at the camera.', options: ['was smiling', 'were smiling', 'was smile', 'were smile'], correct: 1 },
+        { sentence: 'I ______ the TV when it broke.', options: ['was fixing', 'were fixing', 'was fix', 'were fix'], correct: 0 },
+        { sentence: 'You ______ the ball very well.', options: ['was catching', 'were catching', 'was catch', 'were catch'], correct: 1 }
+    ];
+
+    // ============================================================
+    // 3. INICIO DEL JUEGO
+    // ============================================================
+    function startGame() {
+        const nameInput = document.getElementById('input-name').value.trim();
+        if (nameInput === "") { alert("Please enter your name."); return; }
+        
+        playerName = nameInput;
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('game-screen').style.display = 'block';
+        document.getElementById('player-name').innerHTML = `👋 ${playerName}`;
+
+        // Mezclar y seleccionar 30 preguntas del banco de 50
+        const shuffled = [...QUESTIONS].sort(() => Math.random() - 0.5);
+        currentQuestions = shuffled.slice(0, 30);
+        
+        currentIndex = 0;
+        score = 0;
+        document.getElementById('finalScore').style.display = 'none';
+        document.getElementById('game-score').style.display = 'block';
+        
+        showQuestion();
+    }
+
+    // ============================================================
+    // 4. MOSTRAR PREGUNTA
+    // ============================================================
+    function showQuestion() {
+        if (currentIndex >= currentQuestions.length) {
+            finishGame();
+            return;
+        }
+
+        const q = currentQuestions[currentIndex];
+        document.getElementById('question-text').innerHTML = q.sentence;
+        document.getElementById('progress-text').innerHTML = `Question ${currentIndex + 1} / 30`;
+        
+        const optionsContainer = document.getElementById('gameOptions');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(idx);
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('game-result').innerHTML = '';
+    }
+
+    // ============================================================
+    // 5. VERIFICAR RESPUESTA
+    // ============================================================
+    function checkAnswer(selected) {
+        const q = currentQuestions[currentIndex];
+        const buttons = document.querySelectorAll('#gameOptions button');
+        
+        buttons.forEach(btn => btn.disabled = true);
+        
+        buttons.forEach((btn, idx) => {
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === selected && idx !== q.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+        
+        const result = document.getElementById('game-result');
+        if (selected === q.correct) {
+            score++;
+            result.innerHTML = '✅ Correct! Well done!';
+            result.style.color = '#28a745';
+        } else {
+            result.innerHTML = `❌ Incorrect. The correct answer is: <strong>${q.options[q.correct]}</strong>`;
+            result.style.color = '#dc3545';
+        }
+        
+        document.getElementById('game-score').innerHTML = `Points: ${score} / 30`;
+        
+        currentIndex++;
+        setTimeout(showQuestion, 1200);
+    }
+
+    // ============================================================
+    // 6. FINALIZAR JUEGO
+    // ============================================================
+    function finishGame() {
+        document.getElementById('finalScore').style.display = 'block';
+        document.getElementById('finalScoreNumber').innerHTML = `${score} / 30`;
+        
+        const percentage = Math.round((score / 30) * 100);
+        let emoji = '💪';
+        let message = 'Good effort!';
+        if (percentage >= 90) { emoji = '🌟'; message = 'Excellent! You are a Past Continuous master!'; }
+        else if (percentage >= 70) { emoji = '👏'; message = 'Great job! Keep practicing!'; }
+        else if (percentage >= 50) { emoji = '📖'; message = 'Good start! Review the Was/Were rules.'; }
+        else { emoji = '🔄'; message = 'Keep practicing! Check the vocabulary and rules.'; }
+        
+        document.getElementById('finalMessage').innerHTML = `${emoji} ${message}`;
+        
+        document.getElementById('game-score').style.display = 'none';
+        document.getElementById('question-text').innerHTML = '🏁 Game Complete!';
+        document.getElementById('gameOptions').innerHTML = '';
+        document.getElementById('game-result').innerHTML = '';
+        document.getElementById('menu-btn').style.display = 'inline-block';
+    }
+
+    // ============================================================
+    // 7. PRESIONAR ENTER EN EL NOMBRE
+    // ============================================================
+    document.getElementById('input-name').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            startGame();
+        }
+    });
+</script>
+</body>
+</html>
